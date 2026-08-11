@@ -1,0 +1,432 @@
+[
+  {
+    "variable": "Total_TL",
+    "description": "Total trade lines/accounts in Bureau",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "Tot_Closed_TL",
+    "description": "Total closed trade lines/accounts",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "Tot_Active_TL",
+    "description": "Total active accounts",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "Total_TL_opened_L6M",
+    "description": "Total accounts opened in last 6 Months",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "Tot_TL_closed_L6M",
+    "description": "Total accounts closed in last 6 months",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "pct_tl_open_L6M",
+    "description": "Percent accounts opened in last 6 months",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "pct_tl_closed_L6M",
+    "description": "Percent accounts closed in last 6 months",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "pct_active_tl",
+    "description": "Percent active accounts",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "pct_closed_tl",
+    "description": "Percent closed accounts",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "Total_TL_opened_L12M",
+    "description": "Total accounts opened in last 12 Months",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "Tot_TL_closed_L12M",
+    "description": "Total accounts closed in last 12 months",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "pct_tl_open_L12M",
+    "description": "Percent accounts opened in last 12 months",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "pct_tl_closed_L12M",
+    "description": "Percent accounts closed in last 12 months",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "Tot_Missed_Pmnt",
+    "description": "Total missed Payments",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "Auto_TL",
+    "description": "Count of Automobile accounts",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "CC_TL",
+    "description": "Count of Credit card accounts",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "Consumer_TL",
+    "description": "Count of Consumer goods accounts",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "Gold_TL",
+    "description": "Count of Gold loan accounts",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "Home_TL",
+    "description": "Count of Housing loan accounts",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "PL_TL",
+    "description": "Count of Personal loan accounts",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "Secured_TL",
+    "description": "Count of secured accounts",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "Unsecured_TL",
+    "description": "Count of unsecured accounts",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "Other_TL",
+    "description": "Count of other accounts",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "Age_Oldest_TL",
+    "description": "Age of oldest opened account",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "Age_Newest_TL",
+    "description": "Age of newest opened account",
+    "source_sheet": "Sheet1 - Internal Bank"
+  },
+  {
+    "variable": "time_since_recent_payment",
+    "description": "Time Since recent Payment made",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "time_since_first_deliquency",
+    "description": "Time since first Delinquency (missed payment)",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "time_since_recent_deliquency",
+    "description": "Time Since recent Delinquency",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "num_times_delinquent",
+    "description": "Number of times delinquent",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "max_delinquency_level",
+    "description": "Maximum delinquency level",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "max_recent_level_of_deliq",
+    "description": "Maximum recent level of delinquency",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "num_deliq_6mts",
+    "description": "Number of times delinquent in last 6 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "num_deliq_12mts",
+    "description": "Number of times delinquent in last 12 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "num_deliq_6_12mts",
+    "description": "Number of times delinquent between last 6 months and last 12 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "max_deliq_6mts",
+    "description": "Maximum delinquency level in last 6 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "max_deliq_12mts",
+    "description": "Maximum delinquency level in last 12 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "num_times_30p_dpd",
+    "description": "Number of times 30+ dpd",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "num_times_60p_dpd",
+    "description": "Number of times 60+ dpd",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "num_std",
+    "description": "Number of standard Payments",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "num_std_6mts",
+    "description": "Number of standard Payments in last 6 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "num_std_12mts",
+    "description": "Number of standard Payments in last 12 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "num_sub",
+    "description": "Number of substandard payments - not making full payments",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "num_sub_6mts",
+    "description": "Number of substandard payments in last 6 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "num_sub_12mts",
+    "description": "Number of substandard payments in last 12 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "num_dbt",
+    "description": "Number of doubtful payments",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "num_dbt_6mts",
+    "description": "Number of doubtful payments in last 6 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "num_dbt_12mts",
+    "description": "Number of doubtful payments in last 12 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "num_lss",
+    "description": "Number of loss accounts",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "num_lss_6mts",
+    "description": "Number of loss accounts in last 6 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "num_lss_12mts",
+    "description": "Number of loss accounts in last 12 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "recent_level_of_deliq",
+    "description": "Recent level of delinquency",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "tot_enq",
+    "description": "Total enquiries",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "CC_enq",
+    "description": "Credit card enquiries",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "CC_enq_L6m",
+    "description": "Credit card enquiries in last 6 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "CC_enq_L12m",
+    "description": "Credit card enquiries in last 12 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "PL_enq",
+    "description": "Personal Loan enquiries",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "PL_enq_L6m",
+    "description": "Personal Loan enquiries in last 6 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "PL_enq_L12m",
+    "description": "Personal Loan enquiries in last 12 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "time_since_recent_enq",
+    "description": "Time since recent enquiry",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "enq_L12m",
+    "description": "Enquiries in last 12 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "enq_L6m",
+    "description": "Enquiries in last 6 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "enq_L3m",
+    "description": "Enquiries in last 3 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "MARITALSTATUS",
+    "description": "Marital Status",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "EDUCATION",
+    "description": "Education level",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "AGE",
+    "description": "Age",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "GENDER",
+    "description": "Gender",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "NETMONTHLYINCOME",
+    "description": "Net Monthly Income",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "Time_With_Curr_Empr",
+    "description": "Time with current Employer",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "pct_of_active_TLs_ever",
+    "description": "Percent active accounts ever",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "pct_opened_TLs_L6m_of_L12m",
+    "description": "Percent accounts opened in last 6 months to last 12 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "pct_currentBal_all_TL",
+    "description": "Percent current balance of all accounts",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "CC_utilization",
+    "description": "Credit card utilization",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "CC_Flag",
+    "description": "Credit card Flag",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "PL_utilization",
+    "description": "Personal Loan utilization",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "PL_Flag",
+    "description": "Personal Loan Flag",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "pct_PL_enq_L6m_of_L12m",
+    "description": "Percent enquiries PL in last 6 months to last 12 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "pct_CC_enq_L6m_of_L12m",
+    "description": "Percent enquiries CC in last 6 months to last 12 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "pct_PL_enq_L6m_of_ever",
+    "description": "Percent enquiries PL in last 6 months to last 6 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "pct_CC_enq_L6m_of_ever",
+    "description": "Percent enquiries CC in last 6 months to last 6 months",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "max_unsec_exposure_inPct",
+    "description": "Maximum unsecured exposure in percent",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "HL_Flag",
+    "description": "Housing Loan Flag",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "GL_Flag",
+    "description": "Gold Loan Flag",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "last_prod_enq2",
+    "description": "Latest product enquired for",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "first_prod_enq2",
+    "description": "First product enquired for",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "Credit_Score",
+    "description": "Applicant's credit score",
+    "source_sheet": "Sheet2 - External CIBIL"
+  },
+  {
+    "variable": "Approved_Flag",
+    "description": "Priority levels",
+    "source_sheet": "Sheet2 - External CIBIL"
+  }
+]
