@@ -1,0 +1,9 @@
+Applicant_ID,AGE,NETMONTHLYINCOME,Time_With_Curr_Empr,Total_TL,Tot_Active_TL,Tot_Closed_TL,PL_TL,CC_TL,Secured_TL,Unsecured_TL,Tot_Missed_Pmnt,num_times_delinquent,num_deliq_6mts,num_deliq_12mts,num_times_30p_dpd,num_times_60p_dpd,num_std,num_sub,num_dbt,num_lss,tot_enq,enq_L6m,PL_enq_L6m,pct_currentBal_all_TL,Age_Oldest_TL,Age_Newest_TL,Expected_Tier
+APP_1001,45,125000,84,14,3,11,0,1,2,1,0,0,0,0,0,0,48,0,0,0,2,0,0,0.15,120,24,P1
+APP_1002,38,95000,60,10,4,6,1,2,2,2,0,0,0,0,0,0,36,0,0,0,3,1,0,0.22,96,18,P1
+APP_1003,32,48000,36,6,3,3,1,1,1,2,1,1,0,1,1,0,22,0,0,0,4,1,1,0.42,48,8,P2
+APP_1004,30,52000,40,7,4,3,2,1,1,3,1,1,0,0,0,0,26,0,0,0,5,2,1,0.48,54,6,P2
+APP_1005,29,35000,24,8,5,3,2,2,1,4,2,2,1,2,2,0,18,1,0,0,7,4,2,0.68,42,5,P3
+APP_1006,28,32000,18,9,6,3,3,2,1,5,3,3,2,3,3,0,14,0,0,0,9,5,3,0.74,36,4,P3
+APP_1007,23,19000,6,7,6,1,3,2,0,6,7,6,4,6,4,3,5,3,1,0,14,8,4,0.95,24,2,P4
+APP_1008,22,17500,4,5,5,0,2,2,0,5,8,7,5,7,5,4,2,4,2,1,16,10,6,0.98,18,1,P4
