@@ -2,3 +2,5 @@ fastapi
 uvicorn
 xgboost
 pydantic
+numpy
+pandas
