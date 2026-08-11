@@ -6,6 +6,10 @@ import pandas as pd
 from fastapi import FastAPI, HTTPException, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import os
+from dotenv import load_dotenv
+from google import genai
+from google.genai import types
 
 # 1. Initialize the App
 app = FastAPI(title="NeoBank Risk Engine API")
@@ -19,6 +23,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Load environment variables (your API key)
+load_dotenv()
+
 # 3. Load ML Assets on Startup
 print("Loading Model Assets...")
 try:
@@ -27,10 +34,21 @@ try:
     
     with open('../models/feature_columns.json', 'r') as f:
         feature_columns = json.load(f)
+        
+    # --- UPDATED: Load the flattened Data Dictionary ---
+    with open('../data/datasets/Data_Dictionary.json', 'r') as f:
+        raw_list = json.load(f)
+        
+    # Create the lookup table directly from the list of objects
+    feature_descriptions = {}
+    for item in raw_list:
+        feature_descriptions[item['variable']] = item['description']
+            
     print("Assets loaded successfully! Ready for predictions.")
 except Exception as e:
     print(f"Error loading assets: {e}")
 
+ai_client = genai.Client()
 
 # Helper Function: Process a DataFrame through the Scaler and Model
 def process_dataframe_predictions(df_input: pd.DataFrame):
@@ -139,4 +157,56 @@ async def evaluate_batch_csv(file: UploadFile = File(...)):
         
     except Exception as e:
         print(f"[ERROR in /predict-csv]: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+class SummaryRequest(BaseModel):
+    risk_tier: str
+    probability: float
+    applicant_data: dict
+
+@app.post("/generate-summary")
+async def generate_ai_summary(request: SummaryRequest):
+    try:
+        # 1. Translate the raw data into English using your dictionary
+        translated_data_lines = []
+        for key, value in request.applicant_data.items():
+            # Look up the English description, fallback to the raw key if not found
+            description = feature_descriptions.get(key, key)
+            translated_data_lines.append(f"- {description} ({key}): {value}")
+            
+        # Join it all into a readable string
+        formatted_applicant_data = "\n".join(translated_data_lines)
+        
+        # 2. Inject the translated data into the prompt
+        prompt = f"""
+        You are an expert FinTech Underwriting AI. A machine learning model (XGBoost) has just 
+        evaluated a loan applicant and classified them as {request.risk_tier} with a {request.probability}% probability.
+        
+        Tier Definitions:
+        - P1/P2 = Safe to Moderate (Good)
+        - P3/P4 = Subprime to High Risk (Bad)
+        
+        Here is the applicant's financial data (with exact feature definitions):
+        {formatted_applicant_data}
+        
+        Task:
+        Write a concise, professional 3-sentence underwriter summary explaining exactly WHICH financial variables 
+        likely drove this {request.risk_tier} classification. Do not use generic advice; point 
+        directly to the numbers (e.g., missed payments, inquiries, income vs. utilization).
+        """
+        
+        # Call the Gemini model
+        interaction = ai_client.interactions.create(
+            model='gemini-3.6-flash',
+            input=prompt,
+        )
+        
+        return {
+            "status": "success",
+            "ai_summary": interaction.output_text
+        }
+        
+    except Exception as e:
+        print(f"[ERROR in /generate-summary]: {e}")
         raise HTTPException(status_code=500, detail=str(e))
