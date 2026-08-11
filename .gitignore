@@ -1,0 +1,22 @@
+# 1. Virtual Environments (Your node_modules equivalent)
+banking_analytics/
+venv/
+env/
+
+# 2. Python Cache Files (Auto-generated compiled code)
+__pycache__/
+*.pyc
+*.pyo
+
+# 3. Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+# 4. Environment Variables
+.env
+
+# 5. Data & Models (Crucial for ML projects)
+# Git is not designed to handle large datasets or binary model files.
+# Committing these will quickly bloat your repository.
+# *.csv
+# *.xlsx
+# *.pkl
