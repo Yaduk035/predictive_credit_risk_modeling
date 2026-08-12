@@ -99,7 +99,7 @@ export default function InteractiveDemoPreview() {
     <section style={{ padding: '80px 0', position: 'relative' }}>
       <div className="container-xl">
         <div className="glass-panel" style={{ padding: '40px', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', gap: '40px' }}>
             
             {/* Input Controls */}
             <div>
@@ -109,10 +109,10 @@ export default function InteractiveDemoPreview() {
                   Interactive Simulator
                 </span>
               </div>
-              <h2 style={{ fontSize: '2rem', fontWeight: 800, color: '#ffffff', marginBottom: '16px' }}>
+              <h2 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '16px' }}>
                 Test the Model in Real-Time
               </h2>
-              <p style={{ fontSize: '0.95rem', color: '#94a3b8', marginBottom: '28px', lineHeight: 1.5 }}>
+              <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', marginBottom: '28px', lineHeight: 1.5 }}>
                 Adjust applicant parameters below to observe instant AI risk re-classification and underwriting commentary.
               </p>
 

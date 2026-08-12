@@ -84,28 +84,63 @@ export default function AboutView() {
               <span>Capstone Project Specification</span>
             </div>
             
-            <h1 style={{ fontSize: '2.8rem', fontWeight: 800, color: '#ffffff', marginBottom: '16px' }}>
+            <h1 style={{ fontSize: '2.8rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '16px' }}>
               About Credit Risk Assessment Engine
             </h1>
 
-            <p style={{ color: '#94a3b8', fontSize: '1.1rem', lineHeight: 1.6, maxWidth: '720px', margin: '0 auto' }}>
+            <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', lineHeight: 1.6, maxWidth: '720px', margin: '0 auto 20px' }}>
               Developed as a capstone project for the <strong>Executive Program in Advanced AI/ML</strong> at <strong>ICT Academy of Kerala</strong>.
             </p>
+
+            <a 
+              href="https://github.com/Yaduk035/predictive_credit_risk_modeling"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary"
+              style={{
+                fontSize: '0.9rem',
+                padding: '8px 20px',
+                borderColor: 'rgba(56, 189, 248, 0.3)',
+                color: '#38bdf8',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                textDecoration: 'none'
+              }}
+            >
+              <span>GitHub Repository</span>
+              <ExternalLink size={15} />
+            </a>
           </div>
 
           {/* Project Overview Card */}
           <div className="glass-panel" style={{ padding: '36px', marginBottom: '40px' }}>
-            <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#ffffff', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
               <Layers size={22} color="#06b6d4" />
               System Purpose & Architecture
             </h2>
-            <p style={{ color: '#cbd5e1', lineHeight: 1.7, fontSize: '0.98rem', marginBottom: '20px' }}>
+            <p style={{ color: 'var(--text-muted)', lineHeight: 1.7, fontSize: '0.98rem', marginBottom: '20px' }}>
               The Credit Risk Assessment Engine & Compliance Hub is a machine-learning-powered credit scoring and automated underwriting platform. It evaluates loan applicant profiles across 90+ credit metrics (Internal Bank + External CIBIL bureau data), classifies applicants into discrete risk tiers (<strong>P1 to P4</strong>), supports bulk CSV evaluation, and leverages Generative AI (Google Gemini) for automated underwriter briefs and explainability.
             </p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', paddingTop: '16px', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px', paddingTop: '16px', borderTop: '1px solid var(--border-glass)' }}>
               <div>
-                <div style={{ fontSize: '0.82rem', color: '#64748b', fontWeight: 600, textTransform: 'uppercase', marginBottom: '6px' }}>
+                <div style={{ fontSize: '0.82rem', color: 'var(--text-dim)', fontWeight: 600, textTransform: 'uppercase', marginBottom: '6px' }}>
+                  Project Repository
+                </div>
+                <a 
+                  href="https://github.com/Yaduk035/predictive_credit_risk_modeling" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  style={{ color: '#38bdf8', textDecoration: 'none', fontWeight: 600, fontSize: '0.92rem', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                >
+                  GitHub Project Repository
+                  <ExternalLink size={14} />
+                </a>
+              </div>
+
+              <div>
+                <div style={{ fontSize: '0.82rem', color: 'var(--text-dim)', fontWeight: 600, textTransform: 'uppercase', marginBottom: '6px' }}>
                   Dataset Source
                 </div>
                 <a 
@@ -120,10 +155,10 @@ export default function AboutView() {
               </div>
 
               <div>
-                <div style={{ fontSize: '0.82rem', color: '#64748b', fontWeight: 600, textTransform: 'uppercase', marginBottom: '6px' }}>
+                <div style={{ fontSize: '0.82rem', color: 'var(--text-dim)', fontWeight: 600, textTransform: 'uppercase', marginBottom: '6px' }}>
                   Institution Program
                 </div>
-                <span style={{ color: '#e2e8f0', fontSize: '0.92rem', fontWeight: 600 }}>
+                <span style={{ color: 'var(--text-main)', fontSize: '0.92rem', fontWeight: 600 }}>
                   Executive Program in Advanced AI/ML (ICTAK)
                 </span>
               </div>
@@ -132,12 +167,12 @@ export default function AboutView() {
 
           {/* Model & AI Technology Stack */}
           <div style={{ marginBottom: '48px' }}>
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#ffffff', marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '10px' }}>
               <Code2 size={24} color="#6366f1" />
               Detailed Model & Technology Stack
             </h2>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', gap: '24px' }}>
               {techStack.map((sec, idx) => {
                 const Icon = sec.icon;
                 return (
@@ -155,7 +190,7 @@ export default function AboutView() {
                       }}>
                         <Icon size={20} color={sec.color} />
                       </div>
-                      <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#ffffff', margin: 0 }}>
+                      <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
                         {sec.category}
                       </h3>
                     </div>
@@ -166,7 +201,7 @@ export default function AboutView() {
                           <div style={{ fontSize: '0.92rem', fontWeight: 700, color: sec.color, marginBottom: '4px' }}>
                             {item.name}
                           </div>
-                          <div style={{ fontSize: '0.85rem', color: '#94a3b8', lineHeight: 1.5 }}>
+                          <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
                             {item.desc}
                           </div>
                         </div>
@@ -180,21 +215,21 @@ export default function AboutView() {
 
           {/* Team Members Section */}
           <div className="glass-panel" style={{ padding: '36px' }}>
-            <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#ffffff', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>
               <Users size={22} color="#fbbf24" />
               Project Team Members
             </h2>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
               {teamMembers.map((member, idx) => (
                 <div key={idx} style={{
-                  background: 'rgba(15, 23, 42, 0.6)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-glass)',
                   borderRadius: '12px',
                   padding: '20px',
                   textAlign: 'center'
                 }}>
-                  <div style={{ fontSize: '1.05rem', fontWeight: 700, color: '#ffffff', marginBottom: '8px' }}>
+                  <div style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '8px' }}>
                     {member.name}
                   </div>
                   <a 

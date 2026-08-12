@@ -216,7 +216,7 @@ export default function BulkView() {
   };
 
   return (
-    <div style={{ padding: '60px 0 100px' }}>
+    <div style={{ padding: '40px 0 80px' }}>
       <div className="container-xl">
         
         {/* Page Header */}
@@ -225,10 +225,10 @@ export default function BulkView() {
             <div style={{ fontSize: '0.85rem', color: '#6366f1', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '6px' }}>
               High-Throughput Batch Processing
             </div>
-            <h1 style={{ fontSize: '2.4rem', fontWeight: 800, color: '#ffffff' }}>
+            <h1 style={{ fontSize: '2.4rem', fontWeight: 800, color: 'var(--text-main)' }}>
               Bulk CSV Credit Risk Analytics
             </h1>
-            <p style={{ color: '#94a3b8', fontSize: '0.95rem', marginTop: '6px' }}>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginTop: '6px' }}>
               Upload CSV datasets for batch ML risk predictions and instant download of risk scores.
             </p>
           </div>
@@ -252,12 +252,12 @@ export default function BulkView() {
             onDrop={handleDrop}
             onClick={() => fileInputRef.current?.click()}
             style={{
-              border: `2px dashed ${dragActive ? '#06b6d4' : selectedFile ? '#10b981' : 'rgba(255, 255, 255, 0.15)'}`,
+              border: `2px dashed ${dragActive ? '#06b6d4' : selectedFile ? '#10b981' : 'var(--border-glass-hover)'}`,
               borderRadius: '16px',
               padding: '48px 24px',
               textAlign: 'center',
               cursor: 'pointer',
-              background: dragActive ? 'rgba(6, 182, 212, 0.08)' : selectedFile ? 'rgba(16, 185, 129, 0.05)' : 'rgba(15, 23, 42, 0.4)',
+              background: dragActive ? 'rgba(6, 182, 212, 0.08)' : selectedFile ? 'rgba(16, 185, 129, 0.05)' : 'var(--input-bg)',
               transition: 'all 0.25s ease'
             }}
           >

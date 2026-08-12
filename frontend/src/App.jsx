@@ -24,6 +24,18 @@ function LandingPage() {
 
 export default function App() {
   const [apiConnected, setApiConnected] = useState(false);
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
+
+  // Sync theme with HTML root class & localStorage
+  useEffect(() => {
+    document.documentElement.classList.remove('dark', 'light');
+    document.documentElement.classList.add(theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+  };
 
   // Ping FastAPI server on load to check status
   useEffect(() => {
@@ -41,9 +53,9 @@ export default function App() {
   }, []);
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--bg-dark)' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--bg-dark)', transition: 'background-color 0.3s ease' }}>
       {/* Navigation Header */}
-      <Navbar apiConnected={apiConnected} />
+      <Navbar apiConnected={apiConnected} theme={theme} toggleTheme={toggleTheme} />
 
       {/* Main Content Body */}
       <main style={{ flex: 1 }}>

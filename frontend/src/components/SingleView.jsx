@@ -282,7 +282,7 @@ export default function SingleView() {
   ];
 
   return (
-    <div style={{ padding: '60px 0 100px' }}>
+    <div style={{ padding: '40px 0 80px' }}>
       <div className="container-xl">
         
         {/* Page Header */}
@@ -291,10 +291,10 @@ export default function SingleView() {
             <div style={{ fontSize: '0.85rem', color: '#06b6d4', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '6px' }}>
               Underwriting Assessment Mode
             </div>
-            <h1 style={{ fontSize: '2.4rem', fontWeight: 800, color: '#ffffff' }}>
+            <h1 style={{ fontSize: '2.4rem', fontWeight: 800, color: 'var(--text-main)' }}>
               Single Applicant Credit Risk Assessment
             </h1>
-            <p style={{ color: '#94a3b8', fontSize: '0.95rem', marginTop: '6px' }}>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginTop: '6px' }}>
               Key 26 predictive features derived from bureau credit dictionary.
             </p>
           </div>
@@ -333,14 +333,14 @@ export default function SingleView() {
                     right: 0,
                     zIndex: 40,
                     minWidth: '270px',
-                    background: '#0c1322',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    background: 'var(--bg-card-solid)',
+                    border: '1px solid var(--border-glass-hover)',
                     borderRadius: '14px',
                     padding: '8px',
-                    boxShadow: '0 12px 32px rgba(0, 0, 0, 0.6), 0 0 16px rgba(6, 182, 212, 0.15)'
+                    boxShadow: '0 12px 32px rgba(0, 0, 0, 0.4)'
                   }}
                 >
-                  <div style={{ padding: '6px 12px 6px', fontSize: '0.72rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                  <div style={{ padding: '6px 12px 6px', fontSize: '0.72rem', color: 'var(--text-dim)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                     Profile Generator
                   </div>
 
@@ -351,14 +351,14 @@ export default function SingleView() {
                   >
                     <Dices size={16} color="#38bdf8" />
                     <div>
-                      <div style={{ fontWeight: 600, color: '#ffffff' }}>⚡ Randomize Parameters</div>
-                      <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Generate randomized valid profile</div>
+                      <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>⚡ Randomize Parameters</div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Generate randomized valid profile</div>
                     </div>
                   </button>
 
-                  <div style={{ height: '1px', background: 'rgba(255, 255, 255, 0.08)', margin: '4px 0' }}></div>
+                  <div style={{ height: '1px', background: 'var(--border-glass)', margin: '4px 0' }}></div>
 
-                  <div style={{ padding: '6px 12px 4px', fontSize: '0.72rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                  <div style={{ padding: '6px 12px 4px', fontSize: '0.72rem', color: 'var(--text-dim)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                     Preset Risk Tiers
                   </div>
 
@@ -369,8 +369,8 @@ export default function SingleView() {
                   >
                     <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#10b981', flexShrink: 0 }}></span>
                     <div>
-                      <div style={{ fontWeight: 600, color: '#ffffff' }}>Prime Safe (Tier P1)</div>
-                      <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Low risk, clean credit record</div>
+                      <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>Prime Safe (Tier P1)</div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Low risk, clean credit record</div>
                     </div>
                   </button>
 
@@ -381,8 +381,8 @@ export default function SingleView() {
                   >
                     <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#3b82f6', flexShrink: 0 }}></span>
                     <div>
-                      <div style={{ fontWeight: 600, color: '#ffffff' }}>Standard Moderate (Tier P2)</div>
-                      <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Standard credit history</div>
+                      <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>Standard Moderate (Tier P2)</div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Standard credit history</div>
                     </div>
                   </button>
 
@@ -393,8 +393,8 @@ export default function SingleView() {
                   >
                     <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#f59e0b', flexShrink: 0 }}></span>
                     <div>
-                      <div style={{ fontWeight: 600, color: '#ffffff' }}>Subprime Risk (Tier P3)</div>
-                      <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Elevated inquiries & balance</div>
+                      <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>Subprime Risk (Tier P3)</div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Elevated inquiries & balance</div>
                     </div>
                   </button>
 
@@ -405,21 +405,21 @@ export default function SingleView() {
                   >
                     <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ef4444', flexShrink: 0 }}></span>
                     <div>
-                      <div style={{ fontWeight: 600, color: '#ffffff' }}>High Risk (Tier P4)</div>
-                      <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Severe delinquencies</div>
+                      <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>High Risk (Tier P4)</div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Severe delinquencies</div>
                     </div>
                   </button>
 
-                  <div style={{ height: '1px', background: 'rgba(255, 255, 255, 0.08)', margin: '4px 0' }}></div>
+                  <div style={{ height: '1px', background: 'var(--border-glass)', margin: '4px 0' }}></div>
 
                   <button
                     type="button"
                     onClick={() => { handleClear(); setPresetMenuOpen(false); }}
                     style={dropdownItemStyle}
                   >
-                    <RotateCcw size={15} color="#94a3b8" />
+                    <RotateCcw size={15} color="var(--text-muted)" />
                     <div>
-                      <div style={{ fontWeight: 600, color: '#94a3b8' }}>Reset Form Defaults</div>
+                      <div style={{ fontWeight: 600, color: 'var(--text-muted)' }}>Reset Form Defaults</div>
                     </div>
                   </button>
                 </div>
@@ -435,7 +435,7 @@ export default function SingleView() {
               const CategoryIcon = cat.icon;
               return (
                 <div key={catIdx} className="glass-panel" style={{ padding: '28px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', paddingBottom: '16px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px', borderBottom: '1px solid var(--border-glass)', paddingBottom: '16px' }}>
                     <div style={{
                       width: '36px',
                       height: '36px',
@@ -448,7 +448,7 @@ export default function SingleView() {
                     }}>
                       <CategoryIcon size={18} color="#06b6d4" />
                     </div>
-                    <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#ffffff' }}>
+                    <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-main)' }}>
                       {cat.title}
                     </h3>
                   </div>
@@ -456,9 +456,9 @@ export default function SingleView() {
                   <div className="grid-3">
                     {cat.items.map((field) => (
                       <div key={field.key} style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                        <label style={{ fontSize: '0.82rem', color: '#cbd5e1', fontWeight: 500, display: 'flex', justifyContent: 'space-between' }}>
+                        <label style={{ fontSize: '0.82rem', color: 'var(--text-muted)', fontWeight: 500, display: 'flex', justifyContent: 'space-between' }}>
                           <span>{field.label}</span>
-                          <span style={{ fontSize: '0.75rem', color: '#64748b', fontFamily: 'var(--font-mono)' }}>{field.key}</span>
+                          <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)', fontFamily: 'var(--font-mono)' }}>{field.key}</span>
                         </label>
                         <input
                           type={field.type}
@@ -468,9 +468,9 @@ export default function SingleView() {
                           style={{
                             padding: '12px 14px',
                             borderRadius: '10px',
-                            background: 'rgba(15, 23, 42, 0.8)',
-                            border: '1px solid rgba(255, 255, 255, 0.1)',
-                            color: '#ffffff',
+                            background: 'var(--input-bg)',
+                            border: '1px solid var(--input-border)',
+                            color: 'var(--text-main)',
                             fontSize: '0.95rem',
                             outline: 'none',
                             transition: 'border-color 0.2s ease'
@@ -490,8 +490,10 @@ export default function SingleView() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            background: 'rgba(17, 24, 39, 0.8)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            flexWrap: 'wrap',
+            gap: '16px',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-glass)',
             borderRadius: '16px',
             padding: '20px 28px'
           }}>
@@ -502,7 +504,7 @@ export default function SingleView() {
                 color: '#f87171',
                 padding: '12px 18px',
                 borderRadius: '10px',
-                marginBottom: '16px',
+                width: '100%',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '10px',
@@ -513,7 +515,7 @@ export default function SingleView() {
               </div>
             )}
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#94a3b8', fontSize: '0.9rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
               <Zap size={18} color="#06b6d4" />
               <span>Features will be normalized via Z-score scaling before risk classification.</span>
             </div>

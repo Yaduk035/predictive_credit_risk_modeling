@@ -48,7 +48,7 @@ export default function FeatureHighlights() {
   ];
 
   return (
-    <section style={{ padding: '60px 0', background: 'rgba(15, 23, 42, 0.4)' }}>
+    <section style={{ padding: '60px 0', background: 'var(--bg-card-solid)' }}>
       <div className="container-xl">
         <div style={{ textAlign: 'center', maxWidth: '640px', margin: '0 auto 48px' }}>
           <div style={{
@@ -61,10 +61,10 @@ export default function FeatureHighlights() {
           }}>
             Platform Core Architecture
           </div>
-          <h2 style={{ fontSize: '2.4rem', fontWeight: 800, color: '#ffffff', marginBottom: '16px' }}>
+          <h2 style={{ fontSize: '2.4rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '16px' }}>
             Built for High-Scale FinTech Underwriting
           </h2>
-          <p style={{ fontSize: '1rem', color: '#94a3b8', lineHeight: 1.6 }}>
+          <p style={{ fontSize: '1rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
             Combining state-of-the-art predictive Machine Learning classifiers with Generative AI for automated, interpretable credit decisions.
           </p>
         </div>
@@ -104,11 +104,11 @@ export default function FeatureHighlights() {
                   </span>
                 </div>
 
-                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#ffffff', marginBottom: '10px' }}>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '10px' }}>
                   {feat.title}
                 </h3>
 
-                <p style={{ fontSize: '0.9rem', color: '#94a3b8', lineHeight: 1.6 }}>
+                <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
                   {feat.description}
                 </p>
               </div>

@@ -19,7 +19,7 @@ export default function HeroSection() {
       <div className="glow-bg-indigo" style={{ top: '50px', right: '5%' }}></div>
 
       <div className="container-xl" style={{ position: 'relative', zIndex: 10 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'center' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(440px, 1fr))', gap: '48px', alignItems: 'center' }}>
           
           {/* Left Column: Text & CTAs */}
           <div>
@@ -46,7 +46,7 @@ export default function HeroSection() {
               fontWeight: 800,
               lineHeight: 1.15,
               marginBottom: '24px',
-              color: '#ffffff'
+              color: 'var(--text-main)'
             }}>
               Predictive Credit Risk Engine with{' '}
               <span className="gradient-text-primary">ML & Generative AI</span>
@@ -54,7 +54,7 @@ export default function HeroSection() {
 
             <p style={{
               fontSize: '1.15rem',
-              color: '#94a3b8',
+              color: 'var(--text-muted)',
               lineHeight: 1.6,
               marginBottom: '36px',
               maxWidth: '560px'
@@ -77,7 +77,7 @@ export default function HeroSection() {
             {/* Feature Check List */}
             <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
               {['Automated Feature Scaling', 'Real-time FastAPI Backend', 'Subprime Risk Alerts'].map((feature, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#cbd5e1', fontSize: '0.9rem' }}>
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
                   <CheckCircle2 size={16} color="#34d399" />
                   <span>{feature}</span>
                 </div>
@@ -97,7 +97,7 @@ export default function HeroSection() {
                     background: '#10b981',
                     boxShadow: '0 0 10px #10b981'
                   }}></div>
-                  <span style={{ fontSize: '0.9rem', fontWeight: 600, color: '#f1f5f9' }}>Real-time Risk Evaluation</span>
+                  <span style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-main)' }}>Real-time Risk Evaluation</span>
                 </div>
                 <span className="badge-p1" style={{ padding: '4px 12px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 700 }}>
                   TIER P1 - SAFE
@@ -106,28 +106,28 @@ export default function HeroSection() {
 
               {/* Sample applicant preview box */}
               <div style={{
-                background: 'rgba(15, 23, 42, 0.6)',
+                background: 'var(--input-bg)',
                 borderRadius: '12px',
                 padding: '20px',
-                border: '1px solid rgba(255, 255, 255, 0.05)',
+                border: '1px solid var(--border-glass)',
                 marginBottom: '20px'
               }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px', fontSize: '0.85rem', color: '#94a3b8' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                   <span>Applicant ID: #NK-89241</span>
                   <span>Confidence: <strong style={{ color: '#34d399' }}>97.8%</strong></span>
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px' }}>
-                  <div style={{ background: 'rgba(255,255,255,0.03)', padding: '10px', borderRadius: '8px' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#64748b' }}>Monthly Income</div>
-                    <div style={{ fontSize: '1rem', fontWeight: 700, color: '#ffffff' }}>$8,500</div>
+                  <div style={{ background: 'var(--bg-card)', padding: '10px', borderRadius: '8px', border: '1px solid var(--border-glass)' }}>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>Monthly Income</div>
+                    <div style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-main)' }}>$8,500</div>
                   </div>
-                  <div style={{ background: 'rgba(255,255,255,0.03)', padding: '10px', borderRadius: '8px' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#64748b' }}>Delinquency</div>
+                  <div style={{ background: 'var(--bg-card)', padding: '10px', borderRadius: '8px', border: '1px solid var(--border-glass)' }}>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>Delinquency</div>
                     <div style={{ fontSize: '1rem', fontWeight: 700, color: '#34d399' }}>0 Missed</div>
                   </div>
-                  <div style={{ background: 'rgba(255,255,255,0.03)', padding: '10px', borderRadius: '8px' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#64748b' }}>Active TLs</div>
-                    <div style={{ fontSize: '1rem', fontWeight: 700, color: '#ffffff' }}>6 Accounts</div>
+                  <div style={{ background: 'var(--bg-card)', padding: '10px', borderRadius: '8px', border: '1px solid var(--border-glass)' }}>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>Active TLs</div>
+                    <div style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-main)' }}>6 Accounts</div>
                   </div>
                 </div>
               </div>
@@ -143,7 +143,7 @@ export default function HeroSection() {
                   <Sparkles size={16} color="#c084fc" />
                   <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#c084fc' }}>AI Executive Underwriter Output</span>
                 </div>
-                <p style={{ fontSize: '0.85rem', color: '#cbd5e1', lineHeight: 1.5, margin: 0 }}>
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-main)', lineHeight: 1.5, margin: 0 }}>
                   "Applicant displays strong financial stability with $8.5k monthly income and zero recent delinquencies across active accounts. Recommended for immediate prime interest rate approval."
                 </p>
               </div>
@@ -154,11 +154,11 @@ export default function HeroSection() {
         {/* Metric Stats Banner */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
           gap: '20px',
           marginTop: '64px',
-          background: 'rgba(17, 24, 39, 0.6)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-glass)',
           borderRadius: '16px',
           padding: '24px'
         }}>
@@ -170,8 +170,8 @@ export default function HeroSection() {
                   width: '48px',
                   height: '48px',
                   borderRadius: '12px',
-                  background: 'rgba(255, 255, 255, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-glass)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center'
@@ -179,10 +179,10 @@ export default function HeroSection() {
                   <Icon size={24} color={stat.color} />
                 </div>
                 <div>
-                  <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#ffffff', lineHeight: 1 }}>
+                  <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-main)', lineHeight: 1 }}>
                     {stat.value}
                   </div>
-                  <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '4px', fontWeight: 500 }}>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '4px', fontWeight: 500 }}>
                     {stat.label}
                   </div>
                 </div>

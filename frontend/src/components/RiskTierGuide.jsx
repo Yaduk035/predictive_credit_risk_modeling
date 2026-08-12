@@ -55,10 +55,10 @@ export default function RiskTierGuide() {
           }}>
             ML Classification Matrix
           </div>
-          <h2 style={{ fontSize: '2.4rem', fontWeight: 800, color: '#ffffff', marginBottom: '16px' }}>
+          <h2 style={{ fontSize: '2.4rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '16px' }}>
             4-Tier Credit Risk Categorization
           </h2>
-          <p style={{ fontSize: '1rem', color: '#94a3b8', lineHeight: 1.6 }}>
+          <p style={{ fontSize: '1rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
             Our predictive machine learning classifier evaluates applicant features against historical bureau trade lines to map creditworthiness into 4 risk tiers.
           </p>
         </div>
@@ -83,7 +83,7 @@ export default function RiskTierGuide() {
                     width: '40px',
                     height: '40px',
                     borderRadius: '10px',
-                    background: 'rgba(0, 0, 0, 0.3)',
+                    background: 'var(--bg-card)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -96,11 +96,11 @@ export default function RiskTierGuide() {
                   </span>
                 </div>
 
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#ffffff', marginBottom: '8px' }}>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '8px' }}>
                   {tier.title}
                 </h3>
 
-                <p style={{ fontSize: '0.88rem', color: '#94a3b8', lineHeight: 1.5, margin: 0 }}>
+                <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.5, margin: 0 }}>
                   {tier.description}
                 </p>
               </div>
