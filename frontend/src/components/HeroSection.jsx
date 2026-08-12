@@ -1,12 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowRight, ShieldAlert, Sparkles, Zap, CheckCircle2, TrendingUp, Layers } from 'lucide-react';
 
-export default function HeroSection({ onStartSingle, onStartBulk }) {
+export default function HeroSection() {
+  const navigate = useNavigate();
+
   const stats = [
     { label: 'Model ROC-AUC Score', value: '98.4%', icon: TrendingUp, color: '#34d399' },
     { label: 'Inference Latency', value: '< 45ms', icon: Zap, color: '#38bdf8' },
     { label: 'Risk Tiers Evaluated', value: 'P1 - P4', icon: Layers, color: '#fbbf24' },
-    { label: 'AI Underwriter Insight', value: 'Gemini 3.6', icon: Sparkles, color: '#c084fc' },
+    { label: 'AI Underwriter Insight', value: 'Generative AI', icon: Sparkles, color: '#c084fc' },
   ];
 
   return (
@@ -46,7 +49,7 @@ export default function HeroSection({ onStartSingle, onStartBulk }) {
               color: '#ffffff'
             }}>
               Predictive Credit Risk Engine with{' '}
-              <span className="gradient-text-primary">XGBoost & Gemini AI</span>
+              <span className="gradient-text-primary">ML & Generative AI</span>
             </h1>
 
             <p style={{
@@ -56,17 +59,17 @@ export default function HeroSection({ onStartSingle, onStartBulk }) {
               marginBottom: '36px',
               maxWidth: '560px'
             }}>
-              Instantly evaluate applicant creditworthiness across 80+ banking variables. Get precise risk tier categorization (P1–P4) paired with automated underwriter AI commentary powered by Gemini.
+              Instantly evaluate applicant creditworthiness across key credit bureau metrics. Get precise risk tier categorization (P1–P4) paired with automated executive AI underwriting commentary.
             </p>
 
             {/* CTA Action Buttons */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap', marginBottom: '48px' }}>
-              <button onClick={onStartSingle} className="btn-primary" style={{ padding: '14px 28px', fontSize: '1rem' }}>
+              <button onClick={() => navigate('/single')} className="btn-primary" style={{ padding: '14px 28px', fontSize: '1rem' }}>
                 Single Applicant Risk Check
                 <ArrowRight size={18} />
               </button>
 
-              <button onClick={onStartBulk} className="btn-secondary" style={{ padding: '14px 28px', fontSize: '1rem' }}>
+              <button onClick={() => navigate('/bulk')} className="btn-secondary" style={{ padding: '14px 28px', fontSize: '1rem' }}>
                 Batch CSV Prediction
               </button>
             </div>
@@ -138,7 +141,7 @@ export default function HeroSection({ onStartSingle, onStartBulk }) {
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
                   <Sparkles size={16} color="#c084fc" />
-                  <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#c084fc' }}>Gemini Underwriter AI Output</span>
+                  <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#c084fc' }}>AI Executive Underwriter Output</span>
                 </div>
                 <p style={{ fontSize: '0.85rem', color: '#cbd5e1', lineHeight: 1.5, margin: 0 }}>
                   "Applicant displays strong financial stability with $8.5k monthly income and zero recent delinquencies across active accounts. Recommended for immediate prime interest rate approval."

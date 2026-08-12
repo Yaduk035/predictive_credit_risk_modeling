@@ -4,14 +4,14 @@ import { Cpu, Bot, Sliders, FileSpreadsheet, Server, Lock } from 'lucide-react';
 export default function FeatureHighlights() {
   const features = [
     {
-      title: 'XGBoost ML Architecture',
+      title: 'Predictive ML Architecture',
       description: 'Trained on comprehensive bureau banking features with robust multi-class probability scoring for precision tier classification.',
       icon: Cpu,
       color: '#06b6d4',
       badge: 'ML Engine'
     },
     {
-      title: 'Gemini 3.6 Flash AI Summaries',
+      title: 'Generative AI Executive Briefs',
       description: 'Generates concise, 3-sentence professional underwriter rationales that pinpoint exact debt, inquiry, and payment triggers.',
       icon: Bot,
       color: '#c084fc',
@@ -65,7 +65,7 @@ export default function FeatureHighlights() {
             Built for High-Scale FinTech Underwriting
           </h2>
           <p style={{ fontSize: '1rem', color: '#94a3b8', lineHeight: 1.6 }}>
-            Combining state-of-the-art Gradient Boosted Decision Trees with Google Gemini Large Language Models for automated, interpretable credit decisions.
+            Combining state-of-the-art predictive Machine Learning classifiers with Generative AI for automated, interpretable credit decisions.
           </p>
         </div>
 

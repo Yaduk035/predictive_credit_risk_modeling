@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Play, Sparkles, RefreshCw, ArrowRight, CheckCircle2, ShieldCheck, AlertCircle } from 'lucide-react';
 import { API_BASE_URL } from '../config';
 
-export default function InteractiveDemoPreview({ onNavigateSingle }) {
+export default function InteractiveDemoPreview() {
+  const navigate = useNavigate();
   // Demo interactive state inputs
   const [netIncome, setNetIncome] = useState(6500);
   const [missedPayments, setMissedPayments] = useState(0);
@@ -111,7 +113,7 @@ export default function InteractiveDemoPreview({ onNavigateSingle }) {
                 Test the Model in Real-Time
               </h2>
               <p style={{ fontSize: '0.95rem', color: '#94a3b8', marginBottom: '28px', lineHeight: 1.5 }}>
-                Adjust applicant parameters below to observe instant XGBoost risk re-classification and Gemini AI commentary.
+                Adjust applicant parameters below to observe instant AI risk re-classification and underwriting commentary.
               </p>
 
               {/* Slider / Numeric inputs */}
@@ -277,7 +279,7 @@ export default function InteractiveDemoPreview({ onNavigateSingle }) {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
                       <Sparkles size={16} color="#c084fc" />
                       <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#c084fc' }}>
-                        Gemini 3.6 Flash Underwriter Summary
+                        Executive AI Underwriter Summary
                       </span>
                     </div>
                     <p style={{ fontSize: '0.88rem', color: '#e2e8f0', lineHeight: 1.6, margin: 0 }}>
@@ -289,7 +291,7 @@ export default function InteractiveDemoPreview({ onNavigateSingle }) {
 
               <div style={{ marginTop: '24px', paddingTop: '20px', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
                 <button 
-                  onClick={onNavigateSingle}
+                  onClick={() => navigate('/single')}
                   style={{
                     background: 'transparent',
                     border: 'none',
@@ -302,7 +304,7 @@ export default function InteractiveDemoPreview({ onNavigateSingle }) {
                     gap: '8px'
                   }}
                 >
-                  Open Full 80+ Variable Underwriting Form
+                  Open Full Underwriting Assessment Form
                   <ArrowRight size={16} />
                 </button>
               </div>

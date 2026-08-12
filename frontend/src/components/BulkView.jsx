@@ -229,7 +229,7 @@ export default function BulkView() {
               Bulk CSV Credit Risk Analytics
             </h1>
             <p style={{ color: '#94a3b8', fontSize: '0.95rem', marginTop: '6px' }}>
-              Upload CSV datasets for batch XGBoost predictions and instant download of risk scores.
+              Upload CSV datasets for batch ML risk predictions and instant download of risk scores.
             </p>
           </div>
 

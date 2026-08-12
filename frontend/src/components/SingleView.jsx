@@ -12,7 +12,9 @@ import {
   Search,
   Zap,
   CheckCircle2,
-  ShieldAlert
+  ShieldAlert,
+  ChevronDown,
+  Sliders
 } from 'lucide-react';
 import PredictionModal from './PredictionModal';
 
@@ -68,6 +70,7 @@ export default function SingleView() {
   const [modalOpen, setModalOpen] = useState(false);
   const [predictionResult, setPredictionResult] = useState(null);
   const [error, setError] = useState(null);
+  const [presetMenuOpen, setPresetMenuOpen] = useState(false);
 
   const handleInputChange = (key, value) => {
     setFormData(prev => ({
@@ -296,52 +299,132 @@ export default function SingleView() {
             </p>
           </div>
 
-          {/* Preset Buttons Bar */}
-          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          {/* Presets & Actions Dropdown Menu */}
+          <div style={{ position: 'relative' }}>
             <button 
-              onClick={handleRandomize} 
+              type="button"
+              onClick={() => setPresetMenuOpen(!presetMenuOpen)} 
               className="btn-secondary"
-              style={{ padding: '10px 18px', fontSize: '0.85rem', borderColor: 'rgba(6, 182, 212, 0.4)', color: '#38bdf8' }}
+              style={{ 
+                padding: '10px 18px', 
+                fontSize: '0.88rem', 
+                borderColor: 'rgba(6, 182, 212, 0.4)', 
+                color: '#38bdf8',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
             >
-              <Dices size={16} />
-              ⚡ Randomize Profile
-            </button>
-            
-            <button 
-              onClick={() => loadPresetProfile('P1')} 
-              style={{ ...presetStyle, background: 'rgba(16, 185, 129, 0.15)', color: '#34d399', borderColor: 'rgba(16, 185, 129, 0.3)' }}
-            >
-              Prime (P1)
-            </button>
-            
-            <button 
-              onClick={() => loadPresetProfile('P2')} 
-              style={{ ...presetStyle, background: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', borderColor: 'rgba(59, 130, 246, 0.3)' }}
-            >
-              Moderate (P2)
-            </button>
-            
-            <button 
-              onClick={() => loadPresetProfile('P3')} 
-              style={{ ...presetStyle, background: 'rgba(245, 158, 11, 0.15)', color: '#fbbf24', borderColor: 'rgba(245, 158, 11, 0.3)' }}
-            >
-              Subprime (P3)
-            </button>
-            
-            <button 
-              onClick={() => loadPresetProfile('P4')} 
-              style={{ ...presetStyle, background: 'rgba(239, 68, 68, 0.15)', color: '#f87171', borderColor: 'rgba(239, 68, 68, 0.3)' }}
-            >
-              High Risk (P4)
+              <Sliders size={16} />
+              <span>Auto-Fill Tools & Presets</span>
+              <ChevronDown size={16} style={{ transform: presetMenuOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s ease' }} />
             </button>
 
-            <button 
-              onClick={handleClear} 
-              style={{ ...presetStyle, background: 'rgba(255, 255, 255, 0.05)', color: '#94a3b8', borderColor: 'rgba(255, 255, 255, 0.1)' }}
-            >
-              <RotateCcw size={14} />
-              Reset
-            </button>
+            {presetMenuOpen && (
+              <>
+                <div 
+                  onClick={() => setPresetMenuOpen(false)}
+                  style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 30 }}
+                />
+                <div 
+                  style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 8px)',
+                    right: 0,
+                    zIndex: 40,
+                    minWidth: '270px',
+                    background: '#0c1322',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    borderRadius: '14px',
+                    padding: '8px',
+                    boxShadow: '0 12px 32px rgba(0, 0, 0, 0.6), 0 0 16px rgba(6, 182, 212, 0.15)'
+                  }}
+                >
+                  <div style={{ padding: '6px 12px 6px', fontSize: '0.72rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                    Profile Generator
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => { handleRandomize(); setPresetMenuOpen(false); }}
+                    style={dropdownItemStyle}
+                  >
+                    <Dices size={16} color="#38bdf8" />
+                    <div>
+                      <div style={{ fontWeight: 600, color: '#ffffff' }}>⚡ Randomize Parameters</div>
+                      <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Generate randomized valid profile</div>
+                    </div>
+                  </button>
+
+                  <div style={{ height: '1px', background: 'rgba(255, 255, 255, 0.08)', margin: '4px 0' }}></div>
+
+                  <div style={{ padding: '6px 12px 4px', fontSize: '0.72rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                    Preset Risk Tiers
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => { loadPresetProfile('P1'); setPresetMenuOpen(false); }}
+                    style={dropdownItemStyle}
+                  >
+                    <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#10b981', flexShrink: 0 }}></span>
+                    <div>
+                      <div style={{ fontWeight: 600, color: '#ffffff' }}>Prime Safe (Tier P1)</div>
+                      <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Low risk, clean credit record</div>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => { loadPresetProfile('P2'); setPresetMenuOpen(false); }}
+                    style={dropdownItemStyle}
+                  >
+                    <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#3b82f6', flexShrink: 0 }}></span>
+                    <div>
+                      <div style={{ fontWeight: 600, color: '#ffffff' }}>Standard Moderate (Tier P2)</div>
+                      <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Standard credit history</div>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => { loadPresetProfile('P3'); setPresetMenuOpen(false); }}
+                    style={dropdownItemStyle}
+                  >
+                    <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#f59e0b', flexShrink: 0 }}></span>
+                    <div>
+                      <div style={{ fontWeight: 600, color: '#ffffff' }}>Subprime Risk (Tier P3)</div>
+                      <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Elevated inquiries & balance</div>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => { loadPresetProfile('P4'); setPresetMenuOpen(false); }}
+                    style={dropdownItemStyle}
+                  >
+                    <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ef4444', flexShrink: 0 }}></span>
+                    <div>
+                      <div style={{ fontWeight: 600, color: '#ffffff' }}>High Risk (Tier P4)</div>
+                      <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Severe delinquencies</div>
+                    </div>
+                  </button>
+
+                  <div style={{ height: '1px', background: 'rgba(255, 255, 255, 0.08)', margin: '4px 0' }}></div>
+
+                  <button
+                    type="button"
+                    onClick={() => { handleClear(); setPresetMenuOpen(false); }}
+                    style={dropdownItemStyle}
+                  >
+                    <RotateCcw size={15} color="#94a3b8" />
+                    <div>
+                      <div style={{ fontWeight: 600, color: '#94a3b8' }}>Reset Form Defaults</div>
+                    </div>
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
@@ -432,7 +515,7 @@ export default function SingleView() {
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#94a3b8', fontSize: '0.9rem' }}>
               <Zap size={18} color="#06b6d4" />
-              <span>Features will be normalized via scaler Z-score before XGBoost classification.</span>
+              <span>Features will be normalized via Z-score scaling before risk classification.</span>
             </div>
 
             <button 
@@ -442,7 +525,7 @@ export default function SingleView() {
               style={{ padding: '14px 32px', fontSize: '1rem' }}
             >
               {loading ? (
-                <>Evaluating XGBoost & Gemini...</>
+                <>Evaluating Risk Prediction...</>
               ) : (
                 <>
                   <Send size={18} />
@@ -466,15 +549,16 @@ export default function SingleView() {
   );
 }
 
-const presetStyle = {
-  padding: '8px 14px',
+const dropdownItemStyle = {
+  width: '100%',
+  padding: '8px 12px',
   borderRadius: '8px',
-  border: '1px solid',
-  fontSize: '0.82rem',
-  fontWeight: 600,
+  border: 'none',
+  background: 'transparent',
   cursor: 'pointer',
-  display: 'inline-flex',
+  display: 'flex',
   alignItems: 'center',
-  gap: '4px',
-  transition: 'all 0.2s ease'
+  gap: '10px',
+  textAlign: 'left',
+  transition: 'background 0.15s ease'
 };

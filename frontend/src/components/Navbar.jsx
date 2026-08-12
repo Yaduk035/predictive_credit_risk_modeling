@@ -1,12 +1,15 @@
 import React from 'react';
-import { ShieldCheck, Cpu, UploadCloud, FileText, Activity } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { ShieldCheck, Cpu, UploadCloud, FileText, Info } from 'lucide-react';
 
-export default function Navbar({ activeTab, setActiveTab, apiConnected }) {
+export default function Navbar({ apiConnected }) {
+  const location = useLocation();
+
   const navItems = [
-    { id: 'landing', label: 'Overview', icon: Cpu },
-    { id: 'single', label: 'Single Applicant', icon: ShieldCheck },
-    { id: 'bulk', label: 'Bulk CSV Batch', icon: UploadCloud },
-    { id: 'docs', label: 'Model Docs', icon: FileText }
+    { path: '/', label: 'Overview', icon: Cpu },
+    { path: '/single', label: 'Single Applicant', icon: ShieldCheck },
+    { path: '/bulk', label: 'Bulk CSV Batch', icon: UploadCloud },
+    { path: '/about', label: 'About', icon: Info }
   ];
 
   return (
@@ -21,9 +24,9 @@ export default function Navbar({ activeTab, setActiveTab, apiConnected }) {
     }}>
       <div className="container-xl" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         {/* Brand Logo */}
-        <div 
-          onClick={() => setActiveTab('landing')}
-          style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}
+        <Link 
+          to="/"
+          style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', textDecoration: 'none' }}
         >
           <div style={{
             width: '42px',
@@ -45,7 +48,7 @@ export default function Navbar({ activeTab, setActiveTab, apiConnected }) {
               CREDIT RISK ENGINE
             </div>
           </div>
-        </div>
+        </Link>
 
         {/* Navigation Tabs */}
         <div style={{
@@ -59,20 +62,19 @@ export default function Navbar({ activeTab, setActiveTab, apiConnected }) {
         }}>
           {navItems.map(item => {
             const Icon = item.icon;
-            const isActive = activeTab === item.id;
+            const isActive = location.pathname === item.path;
             return (
-              <button
-                key={item.id}
-                onClick={() => setActiveTab(item.id)}
+              <Link
+                key={item.path}
+                to={item.path}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
                   padding: '8px 16px',
                   borderRadius: '8px',
-                  border: 'none',
+                  textDecoration: 'none',
                   background: isActive ? 'linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(99, 102, 241, 0.2) 100%)' : 'transparent',
-                  borderImage: isActive ? 'linear-gradient(to right, #06b6d4, #6366f1)' : 'none',
                   outline: isActive ? '1px solid rgba(6, 182, 212, 0.4)' : 'none',
                   color: isActive ? '#38bdf8' : '#94a3b8',
                   fontWeight: isActive ? 600 : 500,
@@ -83,7 +85,7 @@ export default function Navbar({ activeTab, setActiveTab, apiConnected }) {
               >
                 <Icon size={16} color={isActive ? '#38bdf8' : '#94a3b8'} />
                 {item.label}
-              </button>
+              </Link>
             );
           })}
         </div>

@@ -221,7 +221,7 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
               </span>
             </div>
             <div style={{ fontSize: '0.9rem', color: '#94a3b8', marginTop: '4px' }}>
-              XGBoost Evaluation Score: <strong style={{ color: tierMeta.color }}>{probability}% Confidence</strong> • {tierMeta.riskLevel}
+              Model Evaluation Score: <strong style={{ color: tierMeta.color }}>{probability}% Confidence</strong> • {tierMeta.riskLevel}
             </div>
           </div>
         </div>
@@ -239,7 +239,7 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <Sparkles size={20} color="#c084fc" />
               <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#c084fc' }}>
-                Gemini 3.6 Flash Underwriter Summary
+                AI Executive Underwriter Summary
               </h3>
             </div>
 
@@ -268,7 +268,7 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
           {!aiSummary && !loadingSummary && (
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', paddingTop: '8px' }}>
               <p style={{ fontSize: '0.9rem', color: '#cbd5e1', margin: 0, maxWidth: '580px' }}>
-                Click below to send applicant metrics to Gemini 3.6 Flash for an automated 3-sentence underwriter synthesis pointing directly to key risk drivers.
+                Click below to generate an automated executive underwriter synthesis pointing directly to key risk drivers.
               </p>
               <button
                 onClick={handleFetchAiSummary}
@@ -291,7 +291,7 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 0', color: '#c084fc' }}>
               <RefreshCw size={20} className="animate-spin" />
               <span style={{ fontSize: '0.95rem', fontWeight: 600 }}>
-                Querying Gemini 3.6 Flash model with 26 applicant variables...
+                Analyzing 26 applicant variables for AI summary synthesis...
               </span>
             </div>
           )}
