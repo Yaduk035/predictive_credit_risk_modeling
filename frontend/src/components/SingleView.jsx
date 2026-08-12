@@ -22,7 +22,7 @@ import PredictionModal from './PredictionModal';
 export const FEATURE_CONFIGS = [
   // Section 1: Demographics & Employment
   { key: 'AGE', label: 'Applicant Age (Years)', category: 'Demographics & Income', type: 'number', defaultVal: 28, min: 18, max: 80, step: 1 },
-  { key: 'NETMONTHLYINCOME', label: 'Net Monthly Income ($)', category: 'Demographics & Income', type: 'number', defaultVal: 32000, min: 1000, max: 250000, step: 500 },
+  { key: 'NETMONTHLYINCOME', label: 'Net Monthly Income (₹)', category: 'Demographics & Income', type: 'number', defaultVal: 65000, min: 10000, max: 500000, step: 1000 },
   { key: 'Time_With_Curr_Empr', label: 'Time With Current Employer (Months)', category: 'Demographics & Income', type: 'number', defaultVal: 18, min: 0, max: 360, step: 1 },
 
   // Section 2: Trade Lines Portfolio

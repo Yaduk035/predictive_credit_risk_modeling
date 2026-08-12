@@ -119,7 +119,7 @@ export default function HeroSection() {
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px' }}>
                   <div style={{ background: 'var(--bg-card)', padding: '10px', borderRadius: '8px', border: '1px solid var(--border-glass)' }}>
                     <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>Monthly Income</div>
-                    <div style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-main)' }}>$8,500</div>
+                    <div style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-main)' }}>₹85,000</div>
                   </div>
                   <div style={{ background: 'var(--bg-card)', padding: '10px', borderRadius: '8px', border: '1px solid var(--border-glass)' }}>
                     <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>Delinquency</div>
@@ -144,7 +144,7 @@ export default function HeroSection() {
                   <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#c084fc' }}>AI Executive Underwriter Output</span>
                 </div>
                 <p style={{ fontSize: '0.85rem', color: 'var(--text-main)', lineHeight: 1.5, margin: 0 }}>
-                  "Applicant displays strong financial stability with $8.5k monthly income and zero recent delinquencies across active accounts. Recommended for immediate prime interest rate approval."
+                  "Applicant displays strong financial stability with ₹85k monthly income and zero recent delinquencies across active accounts. Recommended for immediate prime interest rate approval."
                 </p>
               </div>
             </div>

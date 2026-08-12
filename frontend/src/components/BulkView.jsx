@@ -501,7 +501,7 @@ export default function BulkView() {
                             {row['Confidence_Probability']}
                           </td>
                           <td style={{ padding: '14px 20px', color: 'var(--text-main)' }}>
-                            ${Number(row['NETMONTHLYINCOME'] || 0).toLocaleString()}
+                            ₹{Number(row['NETMONTHLYINCOME'] || 0).toLocaleString()}
                           </td>
                           <td style={{ padding: '14px 20px', color: Number(row['Tot_Missed_Pmnt']) > 0 ? '#ef4444' : '#34d399', fontWeight: 600 }}>
                             {row['Tot_Missed_Pmnt'] || 0}

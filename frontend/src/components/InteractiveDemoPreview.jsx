@@ -6,7 +6,7 @@ import { API_BASE_URL } from '../config';
 export default function InteractiveDemoPreview() {
   const navigate = useNavigate();
   // Demo interactive state inputs
-  const [netIncome, setNetIncome] = useState(6500);
+  const [netIncome, setNetIncome] = useState(65000);
   const [missedPayments, setMissedPayments] = useState(0);
   const [activeTradeLines, setActiveTradeLines] = useState(5);
   const [recentInquiries, setRecentInquiries] = useState(1);
@@ -17,7 +17,7 @@ export default function InteractiveDemoPreview() {
   const [predictionResult, setPredictionResult] = useState({
     risk_tier: 'P1',
     probability: 96.4,
-    ai_summary: 'Applicant has a solid financial profile with $6,500 monthly income and 0 missed payments. Low credit inquiry frequency further validates strong creditworthiness.'
+    ai_summary: 'Applicant has a solid financial profile with ₹65,000 monthly income and 0 missed payments. Low credit inquiry frequency further validates strong creditworthiness.'
   });
 
   const handleSimulateRisk = async () => {
@@ -119,15 +119,15 @@ export default function InteractiveDemoPreview() {
               {/* Slider / Numeric inputs */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem', color: '#cbd5e1' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
                     <span>Net Monthly Income</span>
-                    <strong style={{ color: '#06b6d4' }}>${netIncome.toLocaleString()}</strong>
+                    <strong style={{ color: '#06b6d4' }}>₹{netIncome.toLocaleString()}</strong>
                   </div>
                   <input 
                     type="range" 
-                    min="1000" 
-                    max="20000" 
-                    step="500" 
+                    min="10000" 
+                    max="250000" 
+                    step="5000" 
                     value={netIncome}
                     onChange={(e) => setNetIncome(Number(e.target.value))}
                     style={{ width: '100%', accentColor: '#06b6d4', cursor: 'pointer' }}

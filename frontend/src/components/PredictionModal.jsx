@@ -388,7 +388,7 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
           </h4>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px' }}>
-            <MetricItem label="Monthly Income" value={`$${Number(applicantData.NETMONTHLYINCOME || 0).toLocaleString()}`} />
+            <MetricItem label="Monthly Income" value={`₹${Number(applicantData.NETMONTHLYINCOME || 0).toLocaleString()}`} />
             <MetricItem label="Applicant Age" value={`${applicantData.AGE || 0} Yrs`} />
             <MetricItem label="Employer Tenure" value={`${applicantData.Time_With_Curr_Empr || 0} Mts`} />
             <MetricItem label="Total Accounts" value={`${applicantData.Total_TL || 0} TLs`} />
