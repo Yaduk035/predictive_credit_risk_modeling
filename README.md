@@ -34,12 +34,12 @@ Developed as a capstone project for the **Executive Program in Advanced AI/ML** 
 
 ## 🎯 Risk Classification Matrix
 
-| Tier | Category | Operational Action | Key Profile Indicators |
-| :--- | :--- | :--- | :--- |
-| **P1** | **Prime / Low Risk** | Auto-Approve | High income, zero missed payments, low utilization (<25%), long credit history. |
-| **P2** | **Standard Risk** | Standard Processing | Moderate income, 0–1 legacy payment delays, controlled balance exposure. |
-| **P3** | **Subprime / Moderate-High** | Manual Override / Review | Elevated utilization (>65%), 2–3 recent missed payments, high inquiry density. |
-| **P4** | **Severe High Risk** | Auto-Reject | Severe delinquencies (60+ DPD), substandard/doubtful accounts, maxed utilization. |
+| Tier | Category |
+| :--- | :--- |
+| **P1** | **Prime / Low Risk** |
+| **P2** | **Standard Risk** |
+| **P3** | **Subprime / Moderate-High** |
+| **P4** | **Severe High Risk** |
 
 ---
 
@@ -62,3 +62,83 @@ Developed as a capstone project for the **Executive Program in Advanced AI/ML** 
 ### Cloud Infrastructure & Hosting
 * **Backend API:** AWS EC2
 * **Frontend Web App:** Vercel
+
+---
+
+## 💻 Getting Started & Execution Guide
+
+### Prerequisites
+* **Python 3.10+** (with `pip` and `venv`)
+* **Node.js 18+** (with `npm`)
+* **Git**
+
+---
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Yaduk035/predictive_credit_risk_modeling.git
+cd bank_analytics
+```
+
+---
+
+### 2. Backend API Setup (FastAPI)
+
+1. **Navigate to the app directory:**
+   ```bash
+   cd app
+   ```
+
+2. **Create & activate a Python virtual environment:**
+   ```bash
+   # Linux/macOS:
+   python3 -m venv venv
+   source venv/bin/activate
+
+   # Windows (Command Prompt):
+   python -m venv venv
+   venv\Scripts\activate
+   ```
+
+3. **Install Python dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **(Optional) Configure Gemini AI Key:**
+   Create a `.env` file inside `app/`:
+   ```env
+   GEMINI_API_KEY=your_google_gemini_api_key
+   ```
+
+5. **Start the FastAPI server:**
+   ```bash
+   uvicorn main:app --reload --port 8000
+   ```
+   The backend API will run live at `http://localhost:8000`.
+
+---
+
+### 3. Frontend Web App Setup (React + Vite)
+
+1. **Open a new terminal and navigate to the frontend directory:**
+   ```bash
+   cd frontend
+   ```
+
+2. **Install Node.js dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Configure Frontend Environment:**
+   Create a `.env` file inside `frontend/`:
+   ```env
+   VITE_API_URL=http://localhost:8000
+   ```
+
+4. **Start the Vite development server:**
+   ```bash
+   npm run dev
+   ```
+   The application will run live at `http://localhost:5173` (or `http://localhost:3001`).
