@@ -289,19 +289,19 @@ export default function BulkView() {
 
             {selectedFile ? (
               <div>
-                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>
                   File Selected: <span style={{ color: '#34d399' }}>{selectedFile.name}</span>
                 </h3>
-                <p style={{ fontSize: '0.88rem', color: '#94a3b8' }}>
+                <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)' }}>
                   Size: {(selectedFile.size / 1024).toFixed(1)} KB • Ready for batch evaluation
                 </p>
               </div>
             ) : (
               <div>
-                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>
                   Drag & Drop your applicant CSV file here
                 </h3>
-                <p style={{ fontSize: '0.88rem', color: '#94a3b8' }}>
+                <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)' }}>
                   or <strong style={{ color: '#38bdf8' }}>browse files</strong> on your computer (.csv format)
                 </p>
               </div>
@@ -358,7 +358,7 @@ export default function BulkView() {
           <div>
             {/* Top Summary Banner */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '16px', marginBottom: '32px' }}>
-              <SummaryCard label="Total Processed" value={batchResults.total_records} color="#ffffff" icon={Layers} />
+              <SummaryCard label="Total Processed" value={batchResults.total_records} color="var(--text-main)" icon={Layers} />
               <SummaryCard label="P1 - Safe Tiers" value={tierStats[0].count} color="#10b981" />
               <SummaryCard label="P2 - Moderate" value={tierStats[1].count} color="#3b82f6" />
               <SummaryCard label="P3 - Subprime" value={tierStats[2].count} color="#f59e0b" />
@@ -370,7 +370,7 @@ export default function BulkView() {
               
               {/* Distribution Chart */}
               <div className="glass-panel" style={{ padding: '24px' }}>
-                <h4 style={{ fontSize: '1rem', fontWeight: 700, color: '#ffffff', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <h4 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <PieIcon size={18} color="#06b6d4" />
                   Batch Risk Distribution
                 </h4>
@@ -392,7 +392,7 @@ export default function BulkView() {
                         ))}
                       </Pie>
                       <Tooltip 
-                        contentStyle={{ backgroundColor: '#0f172a', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff' }}
+                        contentStyle={{ backgroundColor: 'var(--bg-card-solid)', borderColor: 'var(--border-glass)', borderRadius: '8px', color: 'var(--text-main)' }}
                       />
                       <Legend verticalAlign="bottom" height={36} iconSize={10} />
                     </PieChart>
@@ -404,7 +404,7 @@ export default function BulkView() {
               <div className="glass-panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-                    <h4 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#ffffff' }}>
+                    <h4 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-main)' }}>
                       Batch Predictions Table ({filteredResults.length} records)
                     </h4>
 
@@ -421,7 +421,7 @@ export default function BulkView() {
                   {/* Search and Tier Filter */}
                   <div style={{ display: 'flex', gap: '16px', marginBottom: '20px' }}>
                     <div style={{ flex: 1, position: 'relative' }}>
-                      <Search size={16} color="#64748b" style={{ position: 'absolute', left: '12px', top: '12px' }} />
+                      <Search size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '12px', top: '12px' }} />
                       <input 
                         type="text" 
                         placeholder="Search records by keyword..."
@@ -431,40 +431,40 @@ export default function BulkView() {
                           width: '100%',
                           padding: '10px 14px 10px 36px',
                           borderRadius: '8px',
-                          background: 'rgba(15, 23, 42, 0.8)',
-                          border: '1px solid rgba(255, 255, 255, 0.1)',
-                          color: '#ffffff',
+                          background: 'var(--input-bg)',
+                          border: '1px solid var(--input-border)',
+                          color: 'var(--text-main)',
                           fontSize: '0.88rem'
                         }}
                       />
                     </div>
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <Filter size={16} color="#94a3b8" />
+                      <Filter size={16} color="var(--text-muted)" />
                       <select
                         value={filterTier}
                         onChange={(e) => { setFilterTier(e.target.value); setCurrentPage(1); }}
                         style={{
                           padding: '10px 14px',
                           borderRadius: '8px',
-                          background: '#0f172a',
-                          border: '1px solid rgba(255, 255, 255, 0.1)',
-                          color: '#ffffff',
+                          background: 'var(--input-bg)',
+                          border: '1px solid var(--input-border)',
+                          color: 'var(--text-main)',
                           fontSize: '0.88rem',
                           cursor: 'pointer'
                         }}
                       >
-                        <option value="ALL">All Risk Tiers</option>
-                        <option value="P1">Tier P1 (Safe)</option>
-                        <option value="P2">Tier P2 (Moderate)</option>
-                        <option value="P3">Tier P3 (Subprime)</option>
-                        <option value="P4">Tier P4 (High Risk)</option>
+                        <option value="ALL" style={{ background: 'var(--bg-card-solid)', color: 'var(--text-main)' }}>All Risk Tiers</option>
+                        <option value="P1" style={{ background: 'var(--bg-card-solid)', color: 'var(--text-main)' }}>Tier P1 (Safe)</option>
+                        <option value="P2" style={{ background: 'var(--bg-card-solid)', color: 'var(--text-main)' }}>Tier P2 (Moderate)</option>
+                        <option value="P3" style={{ background: 'var(--bg-card-solid)', color: 'var(--text-main)' }}>Tier P3 (Subprime)</option>
+                        <option value="P4" style={{ background: 'var(--bg-card-solid)', color: 'var(--text-main)' }}>Tier P4 (High Risk)</option>
                       </select>
                     </div>
                   </div>
                 </div>
 
-                <div style={{ fontSize: '0.85rem', color: '#94a3b8' }}>
+                <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                   Showing page {currentPage} of {totalPages}
                 </div>
               </div>
@@ -476,7 +476,7 @@ export default function BulkView() {
               <div style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
                   <thead>
-                    <tr style={{ background: 'rgba(255, 255, 255, 0.04)', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', color: '#94a3b8' }}>
+                    <tr style={{ background: 'var(--bg-card)', borderBottom: '1px solid var(--border-glass)', color: 'var(--text-main)', fontWeight: 700 }}>
                       <th style={{ padding: '14px 20px' }}>Row #</th>
                       <th style={{ padding: '14px 20px' }}>Predicted Risk Tier</th>
                       <th style={{ padding: '14px 20px' }}>Confidence Score</th>
@@ -490,26 +490,26 @@ export default function BulkView() {
                     {paginatedResults.map((row, idx) => {
                       const actualIdx = (currentPage - 1) * pageSize + idx + 1;
                       return (
-                        <tr key={idx} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)' }}>
-                          <td style={{ padding: '14px 20px', color: '#64748b', fontFamily: 'var(--font-mono)' }}>
+                        <tr key={idx} style={{ borderBottom: '1px solid var(--border-glass)' }}>
+                          <td style={{ padding: '14px 20px', color: 'var(--text-dim)', fontFamily: 'var(--font-mono)' }}>
                             #{actualIdx}
                           </td>
                           <td style={{ padding: '14px 20px' }}>
                             {getTierBadge(row['Predicted_Risk_Tier'])}
                           </td>
-                          <td style={{ padding: '14px 20px', fontWeight: 700, color: '#ffffff' }}>
+                          <td style={{ padding: '14px 20px', fontWeight: 700, color: 'var(--text-main)' }}>
                             {row['Confidence_Probability']}
                           </td>
-                          <td style={{ padding: '14px 20px', color: '#cbd5e1' }}>
+                          <td style={{ padding: '14px 20px', color: 'var(--text-main)' }}>
                             ${Number(row['NETMONTHLYINCOME'] || 0).toLocaleString()}
                           </td>
-                          <td style={{ padding: '14px 20px', color: Number(row['Tot_Missed_Pmnt']) > 0 ? '#ef4444' : '#34d399' }}>
+                          <td style={{ padding: '14px 20px', color: Number(row['Tot_Missed_Pmnt']) > 0 ? '#ef4444' : '#34d399', fontWeight: 600 }}>
                             {row['Tot_Missed_Pmnt'] || 0}
                           </td>
-                          <td style={{ padding: '14px 20px', color: '#cbd5e1' }}>
+                          <td style={{ padding: '14px 20px', color: 'var(--text-main)' }}>
                             {row['Tot_Active_TL'] || 0}
                           </td>
-                          <td style={{ padding: '14px 20px', color: '#cbd5e1' }}>
+                          <td style={{ padding: '14px 20px', color: 'var(--text-main)' }}>
                             {row['tot_enq'] || 0}
                           </td>
                         </tr>
@@ -520,7 +520,7 @@ export default function BulkView() {
               </div>
 
               {/* Table Pagination */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', background: 'rgba(0, 0, 0, 0.2)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', background: 'var(--bg-card)', borderTop: '1px solid var(--border-glass)' }}>
                 <button
                   onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                   disabled={currentPage === 1}
@@ -530,7 +530,7 @@ export default function BulkView() {
                   Previous
                 </button>
 
-                <span style={{ fontSize: '0.85rem', color: '#94a3b8' }}>
+                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                   Page {currentPage} of {totalPages}
                 </span>
 
@@ -554,18 +554,18 @@ export default function BulkView() {
   );
 }
 
-function SummaryCard({ label, value, color = '#ffffff', icon: Icon }) {
+function SummaryCard({ label, value, color, icon: Icon }) {
   return (
     <div style={{
-      background: 'rgba(17, 24, 39, 0.6)',
-      border: '1px solid rgba(255, 255, 255, 0.08)',
+      background: 'var(--bg-card)',
+      border: '1px solid var(--border-glass)',
       borderRadius: '12px',
       padding: '16px'
     }}>
-      <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 600, textTransform: 'uppercase' }}>
+      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>
         {label}
       </div>
-      <div style={{ fontSize: '1.6rem', fontWeight: 800, color, marginTop: '4px' }}>
+      <div style={{ fontSize: '1.6rem', fontWeight: 800, color: color || 'var(--text-main)', marginTop: '4px' }}>
         {value}
       </div>
     </div>

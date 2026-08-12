@@ -145,7 +145,7 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
       left: 0,
       right: 0,
       bottom: 0,
-      backgroundColor: 'rgba(5, 8, 15, 0.85)',
+      backgroundColor: 'rgba(5, 8, 15, 0.75)',
       backdropFilter: 'blur(12px)',
       zIndex: 100,
       display: 'flex',
@@ -166,7 +166,8 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
           boxShadow: `0 20px 60px ${tierMeta.glow}`,
           padding: '36px',
           position: 'relative',
-          background: '#0e1526'
+          background: 'var(--bg-card-solid)',
+          color: 'var(--text-main)'
         }}
       >
         {/* Close Icon Button */}
@@ -176,15 +177,15 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
             position: 'absolute',
             top: '24px',
             right: '24px',
-            background: 'rgba(255, 255, 255, 0.05)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            background: 'var(--input-bg)',
+            border: '1px solid var(--border-glass)',
             borderRadius: '50%',
             width: '36px',
             height: '36px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#94a3b8',
+            color: 'var(--text-muted)',
             cursor: 'pointer',
             transition: 'all 0.2s ease'
           }}
@@ -213,14 +214,14 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
 
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <h2 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#ffffff' }}>
+              <h2 style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--text-main)' }}>
                 Credit Risk Decision Report
               </h2>
               <span className={tierMeta.badgeClass} style={{ padding: '4px 14px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 800 }}>
                 {tierMeta.title}
               </span>
             </div>
-            <div style={{ fontSize: '0.9rem', color: '#94a3b8', marginTop: '4px' }}>
+            <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '4px' }}>
               Model Evaluation Score: <strong style={{ color: tierMeta.color }}>{probability}% Confidence</strong> • {tierMeta.riskLevel}
             </div>
           </div>
@@ -250,7 +251,7 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
                 style={{
                   background: 'transparent',
                   border: 'none',
-                  color: '#94a3b8',
+                  color: 'var(--text-muted)',
                   fontSize: '0.8rem',
                   cursor: 'pointer',
                   display: 'flex',
@@ -267,7 +268,7 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
           {/* Render Condition 1: Not yet fetched -> Show Button */}
           {!aiSummary && !loadingSummary && (
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', paddingTop: '8px' }}>
-              <p style={{ fontSize: '0.9rem', color: '#cbd5e1', margin: 0, maxWidth: '580px' }}>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', margin: 0, maxWidth: '580px' }}>
                 Click below to generate an automated executive underwriter synthesis pointing directly to key risk drivers.
               </p>
               <button
@@ -298,7 +299,7 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
 
           {/* Render Condition 3: Summary fetched */}
           {aiSummary && !loadingSummary && (
-            <p style={{ fontSize: '0.98rem', color: '#f1f5f9', lineHeight: 1.65, margin: 0, fontStyle: 'italic' }}>
+            <p style={{ fontSize: '0.98rem', color: 'var(--text-main)', lineHeight: 1.65, margin: 0, fontStyle: 'italic' }}>
               "{aiSummary}"
             </p>
           )}
@@ -309,14 +310,14 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
           
           {/* Chart 1: Trade Lines Breakdown */}
           <div style={{
-            background: 'rgba(17, 24, 39, 0.6)',
+            background: 'var(--bg-card)',
             borderRadius: '16px',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            border: '1px solid var(--border-glass)',
             padding: '20px'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
               <BarChart3 size={18} color="#38bdf8" />
-              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#ffffff' }}>
+              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-main)' }}>
                 Bureau Trade Line Portfolio Breakdown
               </h4>
             </div>
@@ -324,10 +325,10 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
             <div style={{ width: '100%', height: '220px' }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={tradeLineData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                  <XAxis dataKey="name" stroke="#64748b" fontSize={11} tickLine={false} />
-                  <YAxis stroke="#64748b" fontSize={11} tickLine={false} />
+                  <XAxis dataKey="name" stroke="var(--text-dim)" fontSize={11} tickLine={false} />
+                  <YAxis stroke="var(--text-dim)" fontSize={11} tickLine={false} />
                   <Tooltip 
-                    contentStyle={{ backgroundColor: '#0f172a', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff' }} 
+                    contentStyle={{ backgroundColor: 'var(--bg-card-solid)', borderColor: 'var(--border-glass)', borderRadius: '8px', color: 'var(--text-main)' }} 
                   />
                   <Bar dataKey="count" radius={[4, 4, 0, 0]}>
                     {tradeLineData.map((entry, index) => (
@@ -341,14 +342,14 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
 
           {/* Chart 2: Delinquencies & Inquiries Breakdown */}
           <div style={{
-            background: 'rgba(17, 24, 39, 0.6)',
+            background: 'var(--bg-card)',
             borderRadius: '16px',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            border: '1px solid var(--border-glass)',
             padding: '20px'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
               <PieIcon size={18} color="#f59e0b" />
-              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#ffffff' }}>
+              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-main)' }}>
                 Delinquency & Risk Indicators
               </h4>
             </div>
@@ -356,10 +357,10 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
             <div style={{ width: '100%', height: '220px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={deliqData} layout="vertical" margin={{ top: 5, right: 20, left: 20, bottom: 5 }}>
-                  <XAxis type="number" stroke="#64748b" fontSize={11} />
-                  <YAxis type="category" dataKey="name" stroke="#94a3b8" fontSize={11} width={110} />
+                  <XAxis type="number" stroke="var(--text-dim)" fontSize={11} />
+                  <YAxis type="category" dataKey="name" stroke="var(--text-muted)" fontSize={11} width={110} />
                   <Tooltip 
-                    contentStyle={{ backgroundColor: '#0f172a', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff' }}
+                    contentStyle={{ backgroundColor: 'var(--bg-card-solid)', borderColor: 'var(--border-glass)', borderRadius: '8px', color: 'var(--text-main)' }}
                   />
                   <Bar dataKey="value" radius={[0, 4, 4, 0]}>
                     {deliqData.map((entry, index) => (
@@ -375,13 +376,13 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
 
         {/* Applicant Feature Snapshot Grid */}
         <div style={{
-          background: 'rgba(15, 23, 42, 0.6)',
+          background: 'var(--bg-card)',
           borderRadius: '16px',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          border: '1px solid var(--border-glass)',
           padding: '20px',
           marginBottom: '28px'
         }}>
-          <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#ffffff', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <FileText size={18} color="#34d399" />
             Key Evaluated Financial Metrics
           </h4>
@@ -414,7 +415,7 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
             <div style={{ fontSize: '0.8rem', color: tierMeta.color, fontWeight: 700, textTransform: 'uppercase' }}>
               Policy Underwriting Guidance
             </div>
-            <div style={{ fontSize: '1rem', fontWeight: 700, color: '#ffffff', marginTop: '2px' }}>
+            <div style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-main)', marginTop: '2px' }}>
               {tierMeta.recommendation}
             </div>
           </div>
@@ -443,11 +444,11 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
   );
 }
 
-function MetricItem({ label, value, color = '#ffffff' }) {
+function MetricItem({ label, value, color }) {
   return (
-    <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '10px 14px', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-      <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 500 }}>{label}</div>
-      <div style={{ fontSize: '1rem', fontWeight: 700, color, marginTop: '2px' }}>{value}</div>
+    <div style={{ background: 'var(--input-bg)', padding: '10px 14px', borderRadius: '10px', border: '1px solid var(--border-glass)' }}>
+      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 500 }}>{label}</div>
+      <div style={{ fontSize: '1rem', fontWeight: 700, color: color || 'var(--text-main)', marginTop: '2px' }}>{value}</div>
     </div>
   );
 }

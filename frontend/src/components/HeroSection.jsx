@@ -13,7 +13,7 @@ export default function HeroSection() {
   ];
 
   return (
-    <section style={{ position: 'relative', padding: '80px 0 60px', overflow: 'hidden' }}>
+    <section style={{ position: 'relative', minHeight: 'calc(100vh - 75px)', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '40px 0', overflow: 'hidden' }}>
       {/* Radial Glow Background Effects */}
       <div className="glow-bg-primary" style={{ top: '-100px', left: '10%' }}></div>
       <div className="glow-bg-indigo" style={{ top: '50px', right: '5%' }}></div>

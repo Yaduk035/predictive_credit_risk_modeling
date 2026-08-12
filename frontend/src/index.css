@@ -55,6 +55,10 @@ html.light {
   --nav-bg: rgba(255, 255, 255, 0.9);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -222,7 +226,8 @@ html.light ::-webkit-scrollbar-thumb {
 
 /* Container & Grid Utilities */
 .container-xl {
-  max-width: 1280px;
+  max-width: 1440px;
+  width: 100%;
   margin: 0 auto;
   padding: 0 24px;
 }

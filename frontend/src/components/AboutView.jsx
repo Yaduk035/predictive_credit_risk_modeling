@@ -63,9 +63,8 @@ export default function AboutView() {
   return (
     <div style={{ padding: '60px 0 100px' }}>
       <div className="container-xl">
-        <div style={{ maxWidth: '960px', margin: '0 auto' }}>
-          
-          {/* Header Banner */}
+        
+        {/* Header Banner */}
           <div style={{ textAlign: 'center', marginBottom: '56px' }}>
             <div style={{
               display: 'inline-flex',
@@ -253,7 +252,6 @@ export default function AboutView() {
             </div>
           </div>
 
-        </div>
       </div>
     </div>
   );

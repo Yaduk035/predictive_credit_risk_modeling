@@ -96,7 +96,7 @@ export default function InteractiveDemoPreview() {
   const badgeInfo = predictionResult ? getBadgeStyle(predictionResult.risk_tier) : null;
 
   return (
-    <section style={{ padding: '80px 0', position: 'relative' }}>
+    <section style={{ position: 'relative', minHeight: 'calc(100vh - 40px)', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '60px 0' }}>
       <div className="container-xl">
         <div className="glass-panel" style={{ padding: '40px', position: 'relative', overflow: 'hidden' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', gap: '40px' }}>

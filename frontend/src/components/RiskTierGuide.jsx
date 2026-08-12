@@ -42,9 +42,9 @@ export default function RiskTierGuide() {
   ];
 
   return (
-    <section style={{ padding: '60px 0', position: 'relative' }}>
+    <section style={{ position: 'relative', minHeight: 'calc(100vh - 40px)', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '60px 0' }}>
       <div className="container-xl">
-        <div style={{ textAlign: 'center', maxWidth: '640px', margin: '0 auto 48px' }}>
+        <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 48px' }}>
           <div style={{
             fontSize: '0.85rem',
             color: '#06b6d4',
