@@ -55,3 +55,10 @@ Developed as a capstone project for the **Executive Program in Advanced AI/ML** 
 * **Server:** Uvicorn
 * **Data Validation:** Pydantic
 * **AI Integration:** Google GenAI SDK (`google-genai`), Gemini 3.6 / Interactions API
+
+### Frontend Application
+* **Framework & Build Tool:** React 18, Vite
+
+### Cloud Infrastructure & Hosting
+* **Backend API:** AWS EC2
+* **Frontend Web App:** Vercel
