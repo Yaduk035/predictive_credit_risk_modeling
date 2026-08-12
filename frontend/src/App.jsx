@@ -9,6 +9,7 @@ import DocsView from './components/DocsView';
 import BulkView from './components/BulkView';
 import SingleView from './components/SingleView';
 import { ShieldCheck, ArrowRight, Sparkles, UploadCloud } from 'lucide-react';
+import { API_BASE_URL } from './config';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('landing');
@@ -18,7 +19,7 @@ export default function App() {
   useEffect(() => {
     const checkApiStatus = async () => {
       try {
-        const res = await fetch('http://localhost:8000/', { method: 'GET' });
+        const res = await fetch(`${API_BASE_URL}/`, { method: 'GET' });
         setApiConnected(res.ok || res.status === 404); // If server answers, backend is running
       } catch (err) {
         setApiConnected(false);

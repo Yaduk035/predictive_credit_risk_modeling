@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { API_BASE_URL } from '../config';
 import { 
   UploadCloud, 
   FileSpreadsheet, 
@@ -90,7 +91,7 @@ export default function BulkView() {
     formData.append('file', selectedFile);
 
     try {
-      const response = await fetch('http://localhost:8000/predict-csv', {
+      const response = await fetch(`${API_BASE_URL}/predict-csv`, {
         method: 'POST',
         body: formData
       });
@@ -104,59 +105,12 @@ export default function BulkView() {
       setBatchResults(data);
       setCurrentPage(1);
     } catch (err) {
-      console.warn('Backend API upload issue, running simulated batch engine:', err);
-      // Run fallback batch calculation over uploaded CSV so user gets full UI experience
-      const text = await selectedFile.text();
-      const simulatedData = simulateCsvBatch(text);
-      setBatchResults(simulatedData);
-      setCurrentPage(1);
+      console.error('Backend API upload failed:', err);
+      setErrorMsg('Unable to reach the server. Please check your connection or try again later.');
+      setBatchResults(null);
     } finally {
       setLoading(false);
     }
-  };
-
-  // Simulated fallback CSV parser & prediction
-  const simulateCsvBatch = (csvText) => {
-    const lines = csvText.split('\n').filter(l => l.trim().length > 0);
-    if (lines.length <= 1) {
-      return { total_records: 0, results: [] };
-    }
-    const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
-    
-    const results = [];
-    for (let i = 1; i < lines.length; i++) {
-      const vals = lines[i].split(',').map(v => v.trim().replace(/^"|"$/g, ''));
-      const row = {};
-      headers.forEach((h, idx) => {
-        row[h] = vals[idx] || '';
-      });
-
-      // Simulated tier determination
-      const income = Number(row['NETMONTHLYINCOME'] || 5000);
-      const missed = Number(row['Tot_Missed_Pmnt'] || 0);
-
-      let tier = 'P1';
-      let prob = '96.5%';
-      if (missed >= 4) {
-        tier = 'P4';
-        prob = '91.2%';
-      } else if (missed >= 2) {
-        tier = 'P3';
-        prob = '84.0%';
-      } else if (income < 35000) {
-        tier = 'P2';
-        prob = '93.1%';
-      }
-
-      row['Predicted_Risk_Tier'] = tier;
-      row['Confidence_Probability'] = prob;
-      results.push(row);
-    }
-
-    return {
-      total_records: results.length,
-      results
-    };
   };
 
   // Generate Sample CSV Template for testing
@@ -355,9 +309,20 @@ export default function BulkView() {
           </div>
 
           {errorMsg && (
-            <div style={{ marginTop: '16px', color: '#f87171', fontSize: '0.88rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <AlertCircle size={16} />
-              {errorMsg}
+            <div style={{
+              marginTop: '20px',
+              backgroundColor: 'rgba(239, 68, 68, 0.15)',
+              border: '1px solid rgba(239, 68, 68, 0.4)',
+              color: '#f87171',
+              padding: '12px 18px',
+              borderRadius: '10px',
+              fontSize: '0.9rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px'
+            }}>
+              <AlertCircle size={18} style={{ flexShrink: 0 }} />
+              <span>{errorMsg}</span>
             </div>
           )}
 

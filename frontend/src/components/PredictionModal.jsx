@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 import { 
   X, 
   Sparkles, 
@@ -50,7 +51,7 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
     setSummaryError(null);
 
     try {
-      const response = await fetch('http://localhost:8000/generate-summary', {
+      const response = await fetch(`${API_BASE_URL}/generate-summary`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -64,31 +65,14 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
         const data = await response.json();
         setAiSummary(data.ai_summary);
       } else {
-        throw new Error('API server returned error');
+        const errJson = await response.json().catch(() => ({}));
+        throw new Error(errJson.detail || `Server returned status ${response.status}`);
       }
     } catch (err) {
-      console.warn('AI summary call issue, using rule-based synthesis:', err);
-      // Clean rule-based fallback if offline
-      setAiSummary(getFallbackSummary(risk_tier, applicantData));
+      console.error('AI summary call failed:', err);
+      setSummaryError('Unable to reach the server to generate summary. Please try again later.');
     } finally {
       setLoadingSummary(false);
-    }
-  };
-
-  const getFallbackSummary = (tier, data) => {
-    const income = Number(data.NETMONTHLYINCOME || 0);
-    const missed = Number(data.Tot_Missed_Pmnt || 0);
-    const inquiries = Number(data.tot_enq || 0);
-    const dpd30 = Number(data.num_times_30p_dpd || 0);
-
-    if (tier === 'P1') {
-      return `Applicant demonstrates exceptional financial stability with $${income.toLocaleString()} monthly income, 0 missed payments, and minimal credit inquiry velocity. Prime interest rate auto-approval is strongly recommended.`;
-    } else if (tier === 'P2') {
-      return `Applicant displays moderate financial health with $${income.toLocaleString()} monthly income and clean recent trade line management. Standard underwriting loan approval recommended.`;
-    } else if (tier === 'P3') {
-      return `Classification driven by ${missed} recorded missed payments and ${inquiries} total credit bureau inquiries. Manual underwriter review and income verification advised.`;
-    } else {
-      return `High default risk classification driven by ${missed} delinquencies, ${dpd30} 30+ DPD records, and high balance utilization. Rejection or high security collateral required.`;
     }
   };
 

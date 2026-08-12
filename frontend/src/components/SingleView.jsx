@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { API_BASE_URL } from '../config';
 import { 
   Sparkles, 
   Dices, 
@@ -66,6 +67,7 @@ export default function SingleView() {
   const [loading, setLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [predictionResult, setPredictionResult] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleInputChange = (key, value) => {
     setFormData(prev => ({
@@ -237,17 +239,18 @@ export default function SingleView() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
 
     try {
-      // 1. Call FastAPI /predict ONLY (Summary is now triggered manually inside the modal)
-      const predRes = await fetch('http://localhost:8000/predict', {
+      const predRes = await fetch(`${API_BASE_URL}/predict`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ features: formData })
       });
 
       if (!predRes.ok) {
-        throw new Error(`API error: ${predRes.statusText}`);
+        const errData = await predRes.json().catch(() => ({}));
+        throw new Error(errData.detail || `API error: ${predRes.statusText}`);
       }
 
       const predData = await predRes.json();
@@ -260,45 +263,10 @@ export default function SingleView() {
       setModalOpen(true);
     } catch (err) {
       console.error('Prediction request failed:', err);
-      // Fallback local calculation so user always gets a working demonstration
-      const simulatedResult = simulateLocalPrediction(formData);
-      setPredictionResult(simulatedResult);
-      setModalOpen(true);
+      setError('Unable to reach the server. Please try again later.');
+      setPredictionResult(null);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const simulateLocalPrediction = (data) => {
-    const missed = Number(data.Tot_Missed_Pmnt || 0);
-    const dpd30 = Number(data.num_times_30p_dpd || 0);
-    const inquiries = Number(data.tot_enq || 0);
-    const income = Number(data.NETMONTHLYINCOME || 0);
-
-    if (missed >= 5 || dpd30 >= 3 || inquiries >= 14) {
-      return {
-        risk_tier: 'P4',
-        probability: 91.8,
-        ai_summary: `High credit risk classification driven by ${missed} total missed payments, ${dpd30} 30+ DPD records, and high inquiry frequency (${inquiries} total bureau inquiries). Recommend loan rejection.`
-      };
-    } else if (missed >= 2 || dpd30 >= 1 || inquiries >= 8) {
-      return {
-        risk_tier: 'P3',
-        probability: 84.5,
-        ai_summary: `Subprime risk tier triggered due to ${missed} past delinquencies and ${inquiries} bureau inquiries. Manual underwriter review and additional income verification required.`
-      };
-    } else if (income < 35000 || data.pct_currentBal_all_TL > 0.7) {
-      return {
-        risk_tier: 'P2',
-        probability: 92.4,
-        ai_summary: `Moderate risk classification. Income of $${income.toLocaleString()} and balance ratio of ${(data.pct_currentBal_all_TL * 100).toFixed(0)}% reflect standard loan eligibility.`
-      };
-    } else {
-      return {
-        risk_tier: 'P1',
-        probability: 98.1,
-        ai_summary: `Prime risk tier categorization. Excellent credit record with 0 missed payments, low credit utilization, and strong income stability.`
-      };
     }
   };
 
@@ -444,6 +412,24 @@ export default function SingleView() {
             borderRadius: '16px',
             padding: '20px 28px'
           }}>
+            {error && (
+              <div style={{
+                backgroundColor: 'rgba(239, 68, 68, 0.15)',
+                border: '1px solid rgba(239, 68, 68, 0.4)',
+                color: '#f87171',
+                padding: '12px 18px',
+                borderRadius: '10px',
+                marginBottom: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                fontSize: '0.9rem'
+              }}>
+                <ShieldAlert size={18} color="#f87171" style={{ flexShrink: 0 }} />
+                <span>{error}</span>
+              </div>
+            )}
+
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#94a3b8', fontSize: '0.9rem' }}>
               <Zap size={18} color="#06b6d4" />
               <span>Features will be normalized via scaler Z-score before XGBoost classification.</span>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Server, Code, FileText, CheckCircle2, ShieldCheck, Database } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 export default function DocsView() {
   return (
@@ -38,7 +39,7 @@ export default function DocsView() {
               overflowX: 'auto',
               fontFamily: 'var(--font-mono)'
             }}>
-{`POST http://localhost:8000/predict
+{`POST ${API_BASE_URL}/predict
 Content-Type: application/json
 
 {
@@ -78,7 +79,7 @@ Response:
               overflowX: 'auto',
               fontFamily: 'var(--font-mono)'
             }}>
-{`POST http://localhost:8000/predict-csv
+{`POST ${API_BASE_URL}/predict-csv
 Form-Data: file=@applicants_batch.csv
 
 Response:

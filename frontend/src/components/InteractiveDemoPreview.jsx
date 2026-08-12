@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Play, Sparkles, RefreshCw, ArrowRight, CheckCircle2, ShieldCheck, AlertCircle } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 export default function InteractiveDemoPreview({ onNavigateSingle }) {
   // Demo interactive state inputs
@@ -10,6 +11,7 @@ export default function InteractiveDemoPreview({ onNavigateSingle }) {
   const [age, setAge] = useState(34);
 
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [predictionResult, setPredictionResult] = useState({
     risk_tier: 'P1',
     probability: 96.4,
@@ -18,6 +20,7 @@ export default function InteractiveDemoPreview({ onNavigateSingle }) {
 
   const handleSimulateRisk = async () => {
     setLoading(true);
+    setError(null);
     
     // Prepare test payload matching features expected by backend
     const sampleFeatures = {
@@ -33,7 +36,7 @@ export default function InteractiveDemoPreview({ onNavigateSingle }) {
     };
 
     try {
-      const response = await fetch('http://localhost:8000/predict', {
+      const response = await fetch(`${API_BASE_URL}/predict`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ features: sampleFeatures })
@@ -42,10 +45,9 @@ export default function InteractiveDemoPreview({ onNavigateSingle }) {
       if (response.ok) {
         const data = await response.json();
         
-        // Also call AI summary endpoint
         let summaryText = '';
         try {
-          const summaryRes = await fetch('http://localhost:8000/generate-summary', {
+          const summaryRes = await fetch(`${API_BASE_URL}/generate-summary`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -59,61 +61,25 @@ export default function InteractiveDemoPreview({ onNavigateSingle }) {
             summaryText = summaryData.ai_summary;
           }
         } catch (e) {
-          console.warn('AI summary call failed, fallback to rule summary');
+          console.warn('AI summary call issue:', e);
         }
 
         setPredictionResult({
           risk_tier: data.risk_tier,
           probability: data.probability,
-          ai_summary: summaryText || getFallbackSummary(data.risk_tier, netIncome, missedPayments)
+          ai_summary: summaryText || 'API prediction complete.'
         });
       } else {
-        // Fallback calculation logic if FastAPI server is currently offline
-        const simulatedTier = calculateSimulatedTier(netIncome, missedPayments, recentInquiries);
-        setPredictionResult(simulatedTier);
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.detail || `Server returned status ${response.status}`);
       }
     } catch (err) {
-      // Local estimation fallback
-      const simulatedTier = calculateSimulatedTier(netIncome, missedPayments, recentInquiries);
-      setPredictionResult(simulatedTier);
+      console.error('Prediction API call failed:', err);
+      setError('Unable to reach the server. Please try again later.');
+      setPredictionResult(null);
     } finally {
       setLoading(false);
     }
-  };
-
-  const calculateSimulatedTier = (income, missed, inquiries) => {
-    if (missed >= 3 || inquiries >= 6) {
-      return {
-        risk_tier: 'P4',
-        probability: 88.5,
-        ai_summary: `High default risk due to ${missed} recorded delinquencies and multiple recent inquiries. Underwriter intervention required.`
-      };
-    } else if (missed >= 1 || inquiries >= 3) {
-      return {
-        risk_tier: 'P3',
-        probability: 78.2,
-        ai_summary: `Subprime risk tier trigger. Recent missed payment or elevated inquiries require collateral review.`
-      };
-    } else if (income < 3000) {
-      return {
-        risk_tier: 'P2',
-        probability: 91.0,
-        ai_summary: `Moderate risk profile with lower income tier ($${income}), though repayment history remains clean.`
-      };
-    } else {
-      return {
-        risk_tier: 'P1',
-        probability: 97.2,
-        ai_summary: `Prime risk profile with $${income} monthly income and zero recent delinquencies. Prime interest rate auto-approval recommended.`
-      };
-    }
-  };
-
-  const getFallbackSummary = (tier, income, missed) => {
-    if (tier === 'P1' || tier === 'P2') {
-      return `Solid financial standing with $${income} monthly income and ${missed} delinquencies. Standard/Prime approval recommended.`;
-    }
-    return `Elevated default risk detected with ${missed} missed payments. Manual underwriter review advised.`;
   };
 
   const getBadgeStyle = (tier) => {
@@ -125,7 +91,7 @@ export default function InteractiveDemoPreview({ onNavigateSingle }) {
     }
   };
 
-  const badgeInfo = getBadgeStyle(predictionResult.risk_tier);
+  const badgeInfo = predictionResult ? getBadgeStyle(predictionResult.risk_tier) : null;
 
   return (
     <section style={{ padding: '80px 0', position: 'relative' }}>
@@ -233,6 +199,24 @@ export default function InteractiveDemoPreview({ onNavigateSingle }) {
                   {loading ? <RefreshCw className="animate-spin" size={18} /> : <Play size={18} />}
                   {loading ? 'Evaluating Model...' : 'Execute Risk Prediction'}
                 </button>
+
+                {error && (
+                  <div style={{
+                    marginTop: '14px',
+                    backgroundColor: 'rgba(239, 68, 68, 0.15)',
+                    border: '1px solid rgba(239, 68, 68, 0.4)',
+                    color: '#f87171',
+                    padding: '12px 16px',
+                    borderRadius: '10px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                    fontSize: '0.88rem'
+                  }}>
+                    <AlertCircle size={18} color="#f87171" style={{ flexShrink: 0 }} />
+                    <span>{error}</span>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -246,45 +230,62 @@ export default function InteractiveDemoPreview({ onNavigateSingle }) {
               flexDirection: 'column',
               justifyContent: 'space-between'
             }}>
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-                  <span style={{ fontSize: '0.9rem', color: '#94a3b8', fontWeight: 600 }}>Model Output Result</span>
-                  <span className={badgeInfo.badgeClass} style={{ padding: '6px 14px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 800 }}>
-                    {badgeInfo.text}
-                  </span>
-                </div>
-
-                {/* Meter gauge representation */}
-                <div style={{ background: 'rgba(0, 0, 0, 0.3)', padding: '20px', borderRadius: '12px', marginBottom: '24px', textAlign: 'center' }}>
-                  <div style={{ fontSize: '0.8rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>
-                    Classification Certainty
-                  </div>
-                  <div style={{ fontSize: '2.8rem', fontWeight: 800, color: badgeInfo.color }}>
-                    {predictionResult.probability}%
-                  </div>
-                  <div style={{ fontSize: '0.85rem', color: '#cbd5e1', marginTop: '4px' }}>
-                    Predicted Risk Tier: <strong style={{ color: badgeInfo.color }}>Tier {predictionResult.risk_tier}</strong>
-                  </div>
-                </div>
-
-                {/* AI Summary Box */}
+              {error ? (
                 <div style={{
-                  background: 'rgba(99, 102, 241, 0.1)',
-                  border: '1px solid rgba(99, 102, 241, 0.25)',
+                  backgroundColor: 'rgba(239, 68, 68, 0.15)',
+                  border: '1px solid rgba(239, 68, 68, 0.4)',
+                  color: '#f87171',
+                  padding: '20px',
                   borderRadius: '12px',
-                  padding: '18px'
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  fontSize: '0.95rem'
                 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                    <Sparkles size={16} color="#c084fc" />
-                    <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#c084fc' }}>
-                      Gemini 3.6 Flash Underwriter Summary
+                  <AlertCircle size={24} color="#f87171" style={{ flexShrink: 0 }} />
+                  <span>{error}</span>
+                </div>
+              ) : predictionResult ? (
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+                    <span style={{ fontSize: '0.9rem', color: '#94a3b8', fontWeight: 600 }}>Model Output Result</span>
+                    <span className={badgeInfo.badgeClass} style={{ padding: '6px 14px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 800 }}>
+                      {badgeInfo.text}
                     </span>
                   </div>
-                  <p style={{ fontSize: '0.88rem', color: '#e2e8f0', lineHeight: 1.6, margin: 0 }}>
-                    "{predictionResult.ai_summary}"
-                  </p>
+
+                  {/* Meter gauge representation */}
+                  <div style={{ background: 'rgba(0, 0, 0, 0.3)', padding: '20px', borderRadius: '12px', marginBottom: '24px', textAlign: 'center' }}>
+                    <div style={{ fontSize: '0.8rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>
+                      Classification Certainty
+                    </div>
+                    <div style={{ fontSize: '2.8rem', fontWeight: 800, color: badgeInfo.color }}>
+                      {predictionResult.probability}%
+                    </div>
+                    <div style={{ fontSize: '0.85rem', color: '#cbd5e1', marginTop: '4px' }}>
+                      Predicted Risk Tier: <strong style={{ color: badgeInfo.color }}>Tier {predictionResult.risk_tier}</strong>
+                    </div>
+                  </div>
+
+                  {/* AI Summary Box */}
+                  <div style={{
+                    background: 'rgba(99, 102, 241, 0.1)',
+                    border: '1px solid rgba(99, 102, 241, 0.25)',
+                    borderRadius: '12px',
+                    padding: '18px'
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
+                      <Sparkles size={16} color="#c084fc" />
+                      <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#c084fc' }}>
+                        Gemini 3.6 Flash Underwriter Summary
+                      </span>
+                    </div>
+                    <p style={{ fontSize: '0.88rem', color: '#e2e8f0', lineHeight: 1.6, margin: 0 }}>
+                      "{predictionResult.ai_summary}"
+                    </p>
+                  </div>
                 </div>
-              </div>
+              ) : null}
 
               <div style={{ marginTop: '24px', paddingTop: '20px', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
                 <button 
