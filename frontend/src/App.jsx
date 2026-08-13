@@ -41,7 +41,7 @@ export default function App() {
   useEffect(() => {
     const checkApiStatus = async () => {
       try {
-        const res = await fetch(`${API_BASE_URL}/`, { method: 'GET' });
+        const res = await fetch(`${API_BASE_URL}/api/`, { method: 'GET' });
         setApiConnected(res.ok || res.status === 404);
       } catch (err) {
         setApiConnected(false);

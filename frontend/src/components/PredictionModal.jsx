@@ -51,7 +51,7 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
     setSummaryError(null);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/generate-summary`, {
+      const response = await fetch(`${API_BASE_URL}/api/generate-summary`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -110,7 +110,7 @@ class ApplicantData(BaseModel):
 
 
 # 5. Single Prediction Endpoint
-@app.post("/predict")
+@app.post("/api/predict")
 async def evaluate_applicant(data: ApplicantData):
     try:
         df = pd.DataFrame([data.features])
@@ -127,7 +127,7 @@ async def evaluate_applicant(data: ApplicantData):
 
 
 # 6. Bulk CSV Upload Prediction Endpoint
-@app.post("/predict-csv")
+@app.post("/api/predict-csv")
 async def evaluate_batch_csv(file: UploadFile = File(...)):
     if not file.filename.endswith('.csv'):
         raise HTTPException(status_code=400, detail="Only CSV files are allowed.")
@@ -165,7 +165,7 @@ class SummaryRequest(BaseModel):
     probability: float
     applicant_data: dict
 
-@app.post("/generate-summary")
+@app.post("/api/generate-summary")
 async def generate_ai_summary(request: SummaryRequest):
     try:
         # 1. Translate the raw data into English using your dictionary

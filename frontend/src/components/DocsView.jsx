@@ -24,7 +24,7 @@ export default function DocsView() {
           <div className="glass-panel" style={{ padding: '32px', marginBottom: '24px' }}>
             <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#38bdf8', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Server size={20} />
-              1. Single Evaluation Endpoint (/predict)
+              1. Single Evaluation Endpoint (/api/predict)
             </h3>
             <p style={{ fontSize: '0.9rem', color: '#cbd5e1', lineHeight: 1.6, marginBottom: '16px' }}>
               Accepts a JSON dictionary of applicant features. Features are scaled using the trained <code>scaler.pkl</code> and passed to the XGBoost multi-class classifier.
@@ -39,7 +39,7 @@ export default function DocsView() {
               overflowX: 'auto',
               fontFamily: 'var(--font-mono)'
             }}>
-{`POST ${API_BASE_URL}/predict
+{`POST ${API_BASE_URL}/api/predict
 Content-Type: application/json
 
 {
@@ -64,7 +64,7 @@ Response:
           <div className="glass-panel" style={{ padding: '32px', marginBottom: '24px' }}>
             <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#fbbf24', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Database size={20} />
-              2. Bulk CSV Prediction Endpoint (/predict-csv)
+              2. Bulk CSV Prediction Endpoint (/api/predict-csv)
             </h3>
             <p style={{ fontSize: '0.9rem', color: '#cbd5e1', lineHeight: 1.6, marginBottom: '16px' }}>
               Accepts a multipart form file upload containing a <code>.csv</code> file. Returns batch evaluation results with appended columns <code>Predicted_Risk_Tier</code> and <code>Confidence_Probability</code>.
@@ -79,7 +79,7 @@ Response:
               overflowX: 'auto',
               fontFamily: 'var(--font-mono)'
             }}>
-{`POST ${API_BASE_URL}/predict-csv
+{`POST ${API_BASE_URL}/api/predict-csv
 Form-Data: file=@applicants_batch.csv
 
 Response:
@@ -94,7 +94,7 @@ Response:
           <div className="glass-panel" style={{ padding: '32px' }}>
             <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#c084fc', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <FileText size={20} />
-              3. Gemini AI Underwriter Summary (/generate-summary)
+              3. Gemini AI Underwriter Summary (/api/generate-summary)
             </h3>
             <p style={{ fontSize: '0.9rem', color: '#cbd5e1', lineHeight: 1.6, marginBottom: '16px' }}>
               Translates applicant feature keys into plain English via <code>Data_Dictionary.json</code> and prompts Gemini 3.6 Flash for a 3-sentence underwriter synthesis.

@@ -80,7 +80,7 @@ export default function BulkView() {
     setSelectedFile(file);
   };
 
-  // Submit batch CSV to FastAPI backend /predict-csv
+  // Submit batch CSV to FastAPI backend /api/predict-csv
   const handleProcessBatch = async () => {
     if (!selectedFile) return;
 
@@ -91,7 +91,7 @@ export default function BulkView() {
     formData.append('file', selectedFile);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/predict-csv`, {
+      const response = await fetch(`${API_BASE_URL}/api/predict-csv`, {
         method: 'POST',
         body: formData
       });

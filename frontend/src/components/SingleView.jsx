@@ -245,7 +245,7 @@ export default function SingleView() {
     setError(null);
 
     try {
-      const predRes = await fetch(`${API_BASE_URL}/predict`, {
+      const predRes = await fetch(`${API_BASE_URL}/api/predict`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ features: formData })

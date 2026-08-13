@@ -38,7 +38,7 @@ export default function InteractiveDemoPreview() {
     };
 
     try {
-      const response = await fetch(`${API_BASE_URL}/predict`, {
+      const response = await fetch(`${API_BASE_URL}/api/predict`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ features: sampleFeatures })
@@ -49,7 +49,7 @@ export default function InteractiveDemoPreview() {
         
         let summaryText = '';
         try {
-          const summaryRes = await fetch(`${API_BASE_URL}/generate-summary`, {
+          const summaryRes = await fetch(`${API_BASE_URL}/api/generate-summary`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
