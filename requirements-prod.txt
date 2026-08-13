@@ -1,0 +1,9 @@
+fastapi
+python-multipart
+uvicorn
+gunicorn
+pandas
+numpy
+joblib
+python-dotenv
+google-genai
