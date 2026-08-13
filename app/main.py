@@ -29,10 +29,10 @@ load_dotenv()
 # 3. Load ML Assets on Startup
 print("Loading Model Assets...")
 try:
-    model = joblib.load('../models/xgboost_model.pkl')
-    scaler = joblib.load('../models/scaler.pkl')
+    model = joblib.load('../models/best_gradient_boosting_model.pkl')
+    scaler = joblib.load('../models/scaler_v2.pkl')
     
-    with open('../models/feature_columns.json', 'r') as f:
+    with open('../models/feature_columns_v2.json', 'r') as f:
         feature_columns = json.load(f)
         
     # --- UPDATED: Load the flattened Data Dictionary ---
