@@ -17,7 +17,7 @@ app = FastAPI(title="NeoBank Risk Engine API")
 # 2. CORS Middleware configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, restrict this to your React frontend URL
+    allow_origins=["https://predictive-credit-risk-modeling.vercel.app/","http://localhost:3000","http://localhost:3001"],  # In production, restrict this to your React frontend URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
