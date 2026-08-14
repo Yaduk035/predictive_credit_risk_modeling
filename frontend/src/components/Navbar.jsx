@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ShieldCheck, Cpu, UploadCloud, FileText, Info, Sun, Moon, Server } from 'lucide-react';
+import { ShieldCheck, Cpu, UploadCloud, FileText, Info, Sun, Moon, Server, Menu, X } from 'lucide-react';
 
 export default function Navbar({ apiConnected, theme, toggleTheme }) {
   const location = useLocation();
   const [statusHovered, setStatusHovered] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
     { path: '/', label: 'Overview', icon: Cpu },
@@ -21,40 +22,41 @@ export default function Navbar({ apiConnected, theme, toggleTheme }) {
       background: 'var(--nav-bg)',
       backdropFilter: 'blur(16px)',
       borderBottom: '1px solid var(--border-glass)',
-      padding: '16px 0',
+      padding: '12px 0',
       transition: 'background-color 0.3s ease, border-color 0.3s ease'
     }}>
-      <div className="container-xl" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
+      <div className="container-xl" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
         {/* Brand Logo */}
         <Link 
           to="/"
+          onClick={() => setMobileMenuOpen(false)}
           style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', textDecoration: 'none' }}
         >
           <div style={{
-            width: '42px',
-            height: '42px',
+            width: '40px',
+            height: '40px',
             borderRadius: '12px',
             background: 'linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 0 16px rgba(6, 182, 212, 0.4)'
+            boxShadow: '0 0 16px rgba(6, 182, 212, 0.4)',
+            flexShrink: 0
           }}>
-            <ShieldCheck size={26} color="#ffffff" />
+            <ShieldCheck size={24} color="#ffffff" />
           </div>
           <div>
-            <div style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--text-main)' }}>
+            <div style={{ fontSize: '1.2rem', fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--text-main)', lineHeight: 1.2 }}>
               NeoBank<span style={{ color: '#06b6d4' }}>.AI</span>
             </div>
-            <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 500, letterSpacing: '0.05em' }}>
+            <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', fontWeight: 500, letterSpacing: '0.05em' }}>
               CREDIT RISK ENGINE
             </div>
           </div>
         </Link>
 
-        {/* Navigation Tabs */}
-        <div style={{
-          display: 'flex',
+        {/* Desktop Navigation Tabs */}
+        <div className="hidden md:flex" style={{
           alignItems: 'center',
           gap: '4px',
           background: 'var(--bg-card)',
@@ -92,8 +94,8 @@ export default function Navbar({ apiConnected, theme, toggleTheme }) {
           })}
         </div>
 
-        {/* Right Actions: Theme Toggle & Server Status Icon */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        {/* Right Actions: Theme Toggle, Server Status & Mobile Hamburger */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           {/* Dark / Light Theme Toggle Button */}
           <button
             onClick={toggleTheme}
@@ -181,8 +183,69 @@ export default function Navbar({ apiConnected, theme, toggleTheme }) {
               </div>
             )}
           </div>
+
+          {/* Mobile Hamburger Menu Toggle Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle mobile menu"
+            className="flex md:hidden"
+            style={{
+              width: '38px',
+              height: '38px',
+              borderRadius: '10px',
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-glass)',
+              color: 'var(--text-main)',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer'
+            }}
+          >
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Navigation Drawer */}
+      {mobileMenuOpen && (
+        <div className="block md:hidden" style={{
+          background: 'var(--bg-card-solid)',
+          borderBottom: '1px solid var(--border-glass)',
+          padding: '16px',
+          marginTop: '12px'
+        }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {navItems.map(item => {
+              const Icon = item.icon;
+              const isActive = location.pathname === item.path;
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '12px 16px',
+                    borderRadius: '10px',
+                    textDecoration: 'none',
+                    background: isActive ? 'linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(99, 102, 241, 0.2) 100%)' : 'rgba(255, 255, 255, 0.03)',
+                    border: isActive ? '1px solid rgba(6, 182, 212, 0.4)' : '1px solid transparent',
+                    color: isActive ? '#38bdf8' : 'var(--text-main)',
+                    fontWeight: isActive ? 600 : 500,
+                    fontSize: '0.95rem'
+                  }}
+                >
+                  <Icon size={18} color={isActive ? '#38bdf8' : 'currentColor'} />
+                  {item.label}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
+

@@ -48,9 +48,9 @@ export default function FeatureHighlights() {
   ];
 
   return (
-    <section style={{ position: 'relative', minHeight: 'calc(100vh - 40px)', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '60px 0', background: 'var(--bg-card-solid)' }}>
+    <section style={{ position: 'relative', minHeight: 'calc(100vh - 40px)', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '40px 0', background: 'var(--bg-card-solid)' }}>
       <div className="container-xl">
-        <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 48px' }}>
+        <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 36px' }}>
           <div style={{
             fontSize: '0.85rem',
             color: '#6366f1',
@@ -61,27 +61,27 @@ export default function FeatureHighlights() {
           }}>
             Platform Core Architecture
           </div>
-          <h2 style={{ fontSize: '2.4rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '16px' }}>
+          <h2 className="text-2xl sm:text-4xl font-extrabold mb-4" style={{ color: 'var(--text-main)' }}>
             Built for High-Scale FinTech Underwriting
           </h2>
-          <p style={{ fontSize: '1rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
+          <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
             Combining state-of-the-art predictive Machine Learning classifiers with Generative AI for automated, interpretable credit decisions.
           </p>
         </div>
 
-        <div className="grid-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {features.map((feat, idx) => {
             const Icon = feat.icon;
             return (
               <div 
                 key={idx}
-                className="glass-card"
-                style={{ padding: '28px', position: 'relative' }}
+                className="glass-card p-5 sm:p-7"
+                style={{ position: 'relative' }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
                   <div style={{
-                    width: '46px',
-                    height: '46px',
+                    width: '42px',
+                    height: '42px',
                     borderRadius: '12px',
                     background: `${feat.color}15`,
                     border: `1px solid ${feat.color}30`,
@@ -89,10 +89,10 @@ export default function FeatureHighlights() {
                     alignItems: 'center',
                     justifyContent: 'center'
                   }}>
-                    <Icon size={24} color={feat.color} />
+                    <Icon size={22} color={feat.color} />
                   </div>
                   <span style={{
-                    fontSize: '0.75rem',
+                    fontSize: '0.72rem',
                     fontWeight: 700,
                     color: feat.color,
                     background: `${feat.color}10`,
@@ -104,11 +104,11 @@ export default function FeatureHighlights() {
                   </span>
                 </div>
 
-                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '10px' }}>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '8px' }}>
                   {feat.title}
                 </h3>
 
-                <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
+                <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.55 }}>
                   {feat.description}
                 </p>
               </div>
@@ -119,3 +119,4 @@ export default function FeatureHighlights() {
     </section>
   );
 }
+

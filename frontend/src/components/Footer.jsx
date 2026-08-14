@@ -7,42 +7,42 @@ export default function Footer() {
     <footer style={{
       background: 'var(--bg-card-solid)',
       borderTop: '1px solid var(--border-glass)',
-      padding: '48px 0 24px',
+      padding: '36px 0 20px',
       color: 'var(--text-muted)',
       transition: 'background-color 0.3s ease, border-color 0.3s ease'
     }}>
       <div className="container-xl">
-        <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '32px', marginBottom: '32px' }}>
+        <div className="flex flex-col md:flex-row justify-between gap-6 sm:gap-8 mb-8">
           
           {/* Brand */}
           <div style={{ maxWidth: '420px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
               <div style={{
-                width: '36px',
-                height: '36px',
+                width: '34px',
+                height: '34px',
                 borderRadius: '10px',
                 background: 'linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center'
               }}>
-                <ShieldCheck size={22} color="#ffffff" />
+                <ShieldCheck size={20} color="#ffffff" />
               </div>
-              <div style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-main)' }}>
+              <div style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--text-main)' }}>
                 NeoBank<span style={{ color: '#06b6d4' }}>.AI</span>
               </div>
             </div>
-            <p style={{ fontSize: '0.9rem', lineHeight: 1.6, color: 'var(--text-muted)', margin: 0 }}>
+            <p style={{ fontSize: '0.85rem', lineHeight: 1.6, color: 'var(--text-muted)', margin: 0 }}>
               Predictive Credit Risk Engine leveraging machine learning risk classification and AI underwriter synthesis.
             </p>
           </div>
 
           {/* Navigation */}
           <div>
-            <h4 style={{ color: 'var(--text-main)', fontSize: '0.95rem', fontWeight: 700, marginBottom: '16px' }}>
+            <h4 style={{ color: 'var(--text-main)', fontSize: '0.9rem', fontWeight: 700, marginBottom: '12px' }}>
               Platform Navigation
             </h4>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.9rem' }}>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.88rem' }}>
               <li><Link to="/" style={linkStyle}>Overview</Link></li>
               <li><Link to="/single" style={linkStyle}>Single Assessment</Link></li>
               <li><Link to="/bulk" style={linkStyle}>Bulk CSV Batch</Link></li>
@@ -52,14 +52,7 @@ export default function Footer() {
 
         </div>
 
-        <div style={{
-          borderTop: '1px solid var(--border-glass)',
-          paddingTop: '20px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: '12px',
-          fontSize: '0.82rem',
+        <div className="flex flex-col sm:flex-row justify-between gap-2 pt-4 border-t border-glass text-xs" style={{
           color: 'var(--text-dim)'
         }}>
           <div>© {new Date().getFullYear()} NeoBank AI Risk Engine. All rights reserved.</div>
@@ -69,6 +62,7 @@ export default function Footer() {
     </footer>
   );
 }
+
 
 const linkStyle = {
   background: 'none',

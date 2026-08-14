@@ -282,16 +282,16 @@ export default function SingleView() {
   ];
 
   return (
-    <div style={{ padding: '40px 0 80px' }}>
+    <div style={{ padding: '24px 0 60px' }}>
       <div className="container-xl">
         
         {/* Page Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '36px' }}>
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
             <div style={{ fontSize: '0.85rem', color: '#06b6d4', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '6px' }}>
               Underwriting Assessment Mode
             </div>
-            <h1 style={{ fontSize: '2.4rem', fontWeight: 800, color: 'var(--text-main)' }}>
+            <h1 className="text-2xl sm:text-4xl font-extrabold" style={{ color: 'var(--text-main)' }}>
               Single Applicant Credit Risk Assessment
             </h1>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginTop: '6px' }}>
@@ -304,7 +304,7 @@ export default function SingleView() {
             <button 
               type="button"
               onClick={() => setPresetMenuOpen(!presetMenuOpen)} 
-              className="btn-secondary"
+              className="btn-secondary w-full sm:w-auto justify-center"
               style={{ 
                 padding: '10px 18px', 
                 fontSize: '0.88rem', 
@@ -327,12 +327,13 @@ export default function SingleView() {
                   style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 30 }}
                 />
                 <div 
+                  className="max-w-[calc(100vw-32px)]"
                   style={{
                     position: 'absolute',
                     top: 'calc(100% + 8px)',
                     right: 0,
                     zIndex: 40,
-                    minWidth: '270px',
+                    minWidth: '260px',
                     background: 'var(--bg-card-solid)',
                     border: '1px solid var(--border-glass-hover)',
                     borderRadius: '14px',
@@ -430,12 +431,12 @@ export default function SingleView() {
 
         {/* Input Form Grid */}
         <form onSubmit={handleSubmit}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
             {categories.map((cat, catIdx) => {
               const CategoryIcon = cat.icon;
               return (
-                <div key={catIdx} className="glass-panel" style={{ padding: '28px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px', borderBottom: '1px solid var(--border-glass)', paddingBottom: '16px' }}>
+                <div key={catIdx} className="glass-panel p-4 sm:p-7">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px', borderBottom: '1px solid var(--border-glass)', paddingBottom: '14px' }}>
                     <div style={{
                       width: '36px',
                       height: '36px',
@@ -444,11 +445,12 @@ export default function SingleView() {
                       border: '1px solid rgba(6, 182, 212, 0.3)',
                       display: 'flex',
                       alignItems: 'center',
-                      justifyContent: 'center'
+                      justifyContent: 'center',
+                      flexShrink: 0
                     }}>
                       <CategoryIcon size={18} color="#06b6d4" />
                     </div>
-                    <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-main)' }}>
+                    <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-main)' }}>
                       {cat.title}
                     </h3>
                   </div>
@@ -456,9 +458,9 @@ export default function SingleView() {
                   <div className="grid-3">
                     {cat.items.map((field) => (
                       <div key={field.key} style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                        <label style={{ fontSize: '0.82rem', color: 'var(--text-muted)', fontWeight: 500, display: 'flex', justifyContent: 'space-between' }}>
+                        <label style={{ fontSize: '0.82rem', color: 'var(--text-muted)', fontWeight: 500, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '4px' }}>
                           <span>{field.label}</span>
-                          <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)', fontFamily: 'var(--font-mono)' }}>{field.key}</span>
+                          <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)', fontFamily: 'var(--font-mono)' }}>{field.key}</span>
                         </label>
                         <input
                           type={field.type}
@@ -466,12 +468,12 @@ export default function SingleView() {
                           value={formData[field.key]}
                           onChange={(e) => handleInputChange(field.key, e.target.value)}
                           style={{
-                            padding: '12px 14px',
+                            padding: '10px 14px',
                             borderRadius: '10px',
                             background: 'var(--input-bg)',
                             border: '1px solid var(--input-border)',
                             color: 'var(--text-main)',
-                            fontSize: '0.95rem',
+                            fontSize: '0.92rem',
                             outline: 'none',
                             transition: 'border-color 0.2s ease'
                           }}
@@ -485,17 +487,10 @@ export default function SingleView() {
           </div>
 
           {/* Form Actions Footer */}
-          <div style={{
-            marginTop: '36px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '16px',
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-5 sm:p-7 mt-8" style={{
             background: 'var(--bg-card)',
             border: '1px solid var(--border-glass)',
-            borderRadius: '16px',
-            padding: '20px 28px'
+            borderRadius: '16px'
           }}>
             {error && (
               <div style={{
@@ -515,16 +510,16 @@ export default function SingleView() {
               </div>
             )}
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-              <Zap size={18} color="#06b6d4" />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+              <Zap size={18} color="#06b6d4" style={{ flexShrink: 0 }} />
               <span>Features will be normalized via Z-score scaling before risk classification.</span>
             </div>
 
             <button 
               type="submit" 
               disabled={loading}
-              className="btn-primary" 
-              style={{ padding: '14px 32px', fontSize: '1rem' }}
+              className="btn-primary w-full sm:w-auto justify-center" 
+              style={{ padding: '14px 28px', fontSize: '0.95rem' }}
             >
               {loading ? (
                 <>Evaluating Risk Prediction...</>

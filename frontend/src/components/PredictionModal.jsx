@@ -151,20 +151,19 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '24px',
+      padding: '12px',
       overflowY: 'auto'
     }}>
       <div 
-        className="glass-panel" 
+        className="glass-panel p-4 sm:p-8" 
         style={{
           width: '100%',
           maxWidth: '960px',
           maxHeight: '90vh',
           overflowY: 'auto',
-          borderRadius: '24px',
+          borderRadius: '20px',
           border: `1px solid ${tierMeta.color}40`,
           boxShadow: `0 20px 60px ${tierMeta.glow}`,
-          padding: '36px',
           position: 'relative',
           background: 'var(--bg-card-solid)',
           color: 'var(--text-main)'
@@ -175,8 +174,8 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
           onClick={onClose}
           style={{
             position: 'absolute',
-            top: '24px',
-            right: '24px',
+            top: '16px',
+            right: '16px',
             background: 'var(--input-bg)',
             border: '1px solid var(--border-glass)',
             borderRadius: '50%',
@@ -194,34 +193,35 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
         </button>
 
         {/* Top Header */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '28px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '24px', flexWrap: 'wrap' }}>
           <div style={{
-            width: '56px',
-            height: '56px',
-            borderRadius: '16px',
+            width: '48px',
+            height: '48px',
+            borderRadius: '14px',
             background: `${tierMeta.color}20`,
             border: `1px solid ${tierMeta.color}40`,
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            flexShrink: 0
           }}>
             {risk_tier === 'P1' || risk_tier === 'P2' ? (
-              <ShieldCheck size={32} color={tierMeta.color} />
+              <ShieldCheck size={28} color={tierMeta.color} />
             ) : (
-              <ShieldAlert size={32} color={tierMeta.color} />
+              <ShieldAlert size={28} color={tierMeta.color} />
             )}
           </div>
 
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <h2 style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--text-main)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+              <h2 className="text-xl sm:text-2xl font-extrabold" style={{ color: 'var(--text-main)' }}>
                 Credit Risk Decision Report
               </h2>
-              <span className={tierMeta.badgeClass} style={{ padding: '4px 14px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 800 }}>
+              <span className={tierMeta.badgeClass} style={{ padding: '4px 12px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 800 }}>
                 {tierMeta.title}
               </span>
             </div>
-            <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '4px' }}>
+            <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '4px' }}>
               Model Evaluation Score: <strong style={{ color: tierMeta.color }}>{probability}% Confidence</strong> • {tierMeta.riskLevel}
             </div>
           </div>
@@ -231,15 +231,15 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
         <div style={{
           background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(6, 182, 212, 0.12) 100%)',
           border: '1px solid rgba(99, 102, 241, 0.3)',
-          borderRadius: '16px',
-          padding: '24px',
-          marginBottom: '32px',
+          borderRadius: '14px',
+          padding: '18px',
+          marginBottom: '24px',
           position: 'relative'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <Sparkles size={20} color="#c084fc" />
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#c084fc' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px', flexWrap: 'wrap', gap: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Sparkles size={18} color="#c084fc" />
+              <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#c084fc' }}>
                 AI Executive Underwriter Summary
               </h3>
             </div>
@@ -252,7 +252,7 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
                   background: 'transparent',
                   border: 'none',
                   color: 'var(--text-muted)',
-                  fontSize: '0.8rem',
+                  fontSize: '0.78rem',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
@@ -267,21 +267,21 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
 
           {/* Render Condition 1: Not yet fetched -> Show Button */}
           {!aiSummary && !loadingSummary && (
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', paddingTop: '8px' }}>
-              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', margin: 0, maxWidth: '580px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', paddingTop: '4px' }}>
+              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: 0, maxWidth: '580px' }}>
                 Click below to generate an automated executive underwriter synthesis pointing directly to key risk drivers.
               </p>
               <button
                 onClick={handleFetchAiSummary}
-                className="btn-primary"
+                className="btn-primary w-full sm:w-auto justify-center"
                 style={{
                   background: 'linear-gradient(135deg, #c084fc 0%, #6366f1 100%)',
                   boxShadow: '0 4px 16px rgba(192, 132, 252, 0.35)',
-                  padding: '12px 24px',
-                  fontSize: '0.92rem'
+                  padding: '10px 20px',
+                  fontSize: '0.88rem'
                 }}
               >
-                <Sparkles size={18} color="#ffffff" />
+                <Sparkles size={16} color="#ffffff" />
                 Generate AI Summary
               </button>
             </div>
@@ -289,9 +289,9 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
 
           {/* Render Condition 2: Currently loading */}
           {loadingSummary && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 0', color: '#c084fc' }}>
-              <RefreshCw size={20} className="animate-spin" />
-              <span style={{ fontSize: '0.95rem', fontWeight: 600 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 0', color: '#c084fc' }}>
+              <RefreshCw size={18} className="animate-spin" />
+              <span style={{ fontSize: '0.88rem', fontWeight: 600 }}>
                 Analyzing 26 applicant variables for AI summary synthesis...
               </span>
             </div>
@@ -299,34 +299,34 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
 
           {/* Render Condition 3: Summary fetched */}
           {aiSummary && !loadingSummary && (
-            <p style={{ fontSize: '0.98rem', color: 'var(--text-main)', lineHeight: 1.65, margin: 0, fontStyle: 'italic' }}>
+            <p style={{ fontSize: '0.92rem', color: 'var(--text-main)', lineHeight: 1.6, margin: 0, fontStyle: 'italic' }}>
               "{aiSummary}"
             </p>
           )}
         </div>
 
         {/* Grid Charts Section */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '32px' }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
           
           {/* Chart 1: Trade Lines Breakdown */}
           <div style={{
             background: 'var(--bg-card)',
-            borderRadius: '16px',
+            borderRadius: '14px',
             border: '1px solid var(--border-glass)',
-            padding: '20px'
+            padding: '16px'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
-              <BarChart3 size={18} color="#38bdf8" />
-              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-main)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
+              <BarChart3 size={16} color="#38bdf8" />
+              <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-main)' }}>
                 Bureau Trade Line Portfolio Breakdown
               </h4>
             </div>
 
-            <div style={{ width: '100%', height: '220px' }}>
+            <div style={{ width: '100%', height: '200px' }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={tradeLineData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                  <XAxis dataKey="name" stroke="var(--text-dim)" fontSize={11} tickLine={false} />
-                  <YAxis stroke="var(--text-dim)" fontSize={11} tickLine={false} />
+                  <XAxis dataKey="name" stroke="var(--text-dim)" fontSize={10} tickLine={false} />
+                  <YAxis stroke="var(--text-dim)" fontSize={10} tickLine={false} />
                   <Tooltip 
                     contentStyle={{ backgroundColor: 'var(--bg-card-solid)', borderColor: 'var(--border-glass)', borderRadius: '8px', color: 'var(--text-main)' }} 
                   />
@@ -343,22 +343,22 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
           {/* Chart 2: Delinquencies & Inquiries Breakdown */}
           <div style={{
             background: 'var(--bg-card)',
-            borderRadius: '16px',
+            borderRadius: '14px',
             border: '1px solid var(--border-glass)',
-            padding: '20px'
+            padding: '16px'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
-              <PieIcon size={18} color="#f59e0b" />
-              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-main)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
+              <PieIcon size={16} color="#f59e0b" />
+              <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-main)' }}>
                 Delinquency & Risk Indicators
               </h4>
             </div>
 
-            <div style={{ width: '100%', height: '220px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ width: '100%', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={deliqData} layout="vertical" margin={{ top: 5, right: 20, left: 20, bottom: 5 }}>
-                  <XAxis type="number" stroke="var(--text-dim)" fontSize={11} />
-                  <YAxis type="category" dataKey="name" stroke="var(--text-muted)" fontSize={11} width={110} />
+                <BarChart data={deliqData} layout="vertical" margin={{ top: 5, right: 15, left: 10, bottom: 5 }}>
+                  <XAxis type="number" stroke="var(--text-dim)" fontSize={10} />
+                  <YAxis type="category" dataKey="name" stroke="var(--text-muted)" fontSize={10} width={100} />
                   <Tooltip 
                     contentStyle={{ backgroundColor: 'var(--bg-card-solid)', borderColor: 'var(--border-glass)', borderRadius: '8px', color: 'var(--text-main)' }}
                   />
@@ -377,17 +377,17 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
         {/* Applicant Feature Snapshot Grid */}
         <div style={{
           background: 'var(--bg-card)',
-          borderRadius: '16px',
+          borderRadius: '14px',
           border: '1px solid var(--border-glass)',
-          padding: '20px',
-          marginBottom: '28px'
+          padding: '16px',
+          marginBottom: '24px'
         }}>
-          <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <FileText size={18} color="#34d399" />
+          <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <FileText size={16} color="#34d399" />
             Key Evaluated Financial Metrics
           </h4>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px' }}>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
             <MetricItem label="Monthly Income" value={`₹${Number(applicantData.NETMONTHLYINCOME || 0).toLocaleString()}`} />
             <MetricItem label="Applicant Age" value={`${applicantData.AGE || 0} Yrs`} />
             <MetricItem label="Employer Tenure" value={`${applicantData.Time_With_Curr_Empr || 0} Mts`} />
@@ -401,38 +401,33 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
         </div>
 
         {/* Underwriting Recommendation Banner */}
-        <div style={{
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 mb-6" style={{
           background: `${tierMeta.color}15`,
           border: `1px solid ${tierMeta.color}40`,
-          borderRadius: '14px',
-          padding: '18px 24px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          marginBottom: '28px'
+          borderRadius: '12px'
         }}>
           <div>
-            <div style={{ fontSize: '0.8rem', color: tierMeta.color, fontWeight: 700, textTransform: 'uppercase' }}>
+            <div style={{ fontSize: '0.75rem', color: tierMeta.color, fontWeight: 700, textTransform: 'uppercase' }}>
               Policy Underwriting Guidance
             </div>
-            <div style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-main)', marginTop: '2px' }}>
+            <div style={{ fontSize: '0.92rem', fontWeight: 700, color: 'var(--text-main)', marginTop: '2px' }}>
               {tierMeta.recommendation}
             </div>
           </div>
-          <span className={tierMeta.badgeClass} style={{ padding: '8px 16px', borderRadius: '10px', fontSize: '0.9rem', fontWeight: 800 }}>
+          <span className={tierMeta.badgeClass} style={{ padding: '6px 12px', borderRadius: '8px', fontSize: '0.8rem', fontWeight: 800, alignSelf: 'flex-start' }}>
             {risk_tier} APPROVAL PROFILE
           </span>
         </div>
 
         {/* Action Buttons */}
-        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
-          <button onClick={onClose} className="btn-secondary" style={{ padding: '12px 24px' }}>
+        <div className="flex flex-col sm:flex-row justify-end gap-3">
+          <button onClick={onClose} className="btn-secondary w-full sm:w-auto justify-center" style={{ padding: '10px 20px', fontSize: '0.9rem' }}>
             Close Report
           </button>
           <button 
             onClick={() => window.print()} 
-            className="btn-primary" 
-            style={{ padding: '12px 24px' }}
+            className="btn-primary w-full sm:w-auto justify-center" 
+            style={{ padding: '10px 20px', fontSize: '0.9rem' }}
           >
             <Download size={16} />
             Export Underwriting Report
@@ -446,9 +441,10 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
 
 function MetricItem({ label, value, color }) {
   return (
-    <div style={{ background: 'var(--input-bg)', padding: '10px 14px', borderRadius: '10px', border: '1px solid var(--border-glass)' }}>
-      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 500 }}>{label}</div>
-      <div style={{ fontSize: '1rem', fontWeight: 700, color: color || 'var(--text-main)', marginTop: '2px' }}>{value}</div>
+    <div style={{ background: 'var(--input-bg)', padding: '8px 12px', borderRadius: '8px', border: '1px solid var(--border-glass)' }}>
+      <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 500 }}>{label}</div>
+      <div style={{ fontSize: '0.92rem', fontWeight: 700, color: color || 'var(--text-main)', marginTop: '2px' }}>{value}</div>
     </div>
   );
 }
+

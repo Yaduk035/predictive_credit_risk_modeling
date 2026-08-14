@@ -216,16 +216,16 @@ export default function BulkView() {
   };
 
   return (
-    <div style={{ padding: '40px 0 80px' }}>
+    <div style={{ padding: '24px 0 60px' }}>
       <div className="container-xl">
         
         {/* Page Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '36px' }}>
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
             <div style={{ fontSize: '0.85rem', color: '#6366f1', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '6px' }}>
               High-Throughput Batch Processing
             </div>
-            <h1 style={{ fontSize: '2.4rem', fontWeight: 800, color: 'var(--text-main)' }}>
+            <h1 className="text-2xl sm:text-4xl font-extrabold" style={{ color: 'var(--text-main)' }}>
               Bulk CSV Credit Risk Analytics
             </h1>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginTop: '6px' }}>
@@ -235,8 +235,8 @@ export default function BulkView() {
 
           <button 
             onClick={handleDownloadTemplate} 
-            className="btn-secondary"
-            style={{ padding: '10px 20px', fontSize: '0.85rem' }}
+            className="btn-secondary w-full sm:w-auto justify-center"
+            style={{ padding: '10px 18px', fontSize: '0.85rem' }}
           >
             <FileDown size={16} color="#38bdf8" />
             Download Sample CSV Template
@@ -244,7 +244,7 @@ export default function BulkView() {
         </div>
 
         {/* Upload Container Box */}
-        <div className="glass-panel" style={{ padding: '36px', marginBottom: '40px' }}>
+        <div className="glass-panel p-5 sm:p-9 mb-8">
           <div 
             onDragEnter={handleDrag}
             onDragLeave={handleDrag}
@@ -254,7 +254,7 @@ export default function BulkView() {
             style={{
               border: `2px dashed ${dragActive ? '#06b6d4' : selectedFile ? '#10b981' : 'var(--border-glass-hover)'}`,
               borderRadius: '16px',
-              padding: '48px 24px',
+              padding: '36px 16px',
               textAlign: 'center',
               cursor: 'pointer',
               background: dragActive ? 'rgba(6, 182, 212, 0.08)' : selectedFile ? 'rgba(16, 185, 129, 0.05)' : 'var(--input-bg)',
@@ -270,38 +270,38 @@ export default function BulkView() {
             />
 
             <div style={{
-              width: '64px',
-              height: '64px',
-              borderRadius: '20px',
+              width: '56px',
+              height: '56px',
+              borderRadius: '18px',
               background: selectedFile ? 'rgba(16, 185, 129, 0.15)' : 'rgba(99, 102, 241, 0.15)',
               border: `1px solid ${selectedFile ? 'rgba(16, 185, 129, 0.3)' : 'rgba(99, 102, 241, 0.3)'}`,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              margin: '0 auto 16px'
+              margin: '0 auto 14px'
             }}>
               {selectedFile ? (
-                <FileSpreadsheet size={32} color="#10b981" />
+                <FileSpreadsheet size={28} color="#10b981" />
               ) : (
-                <UploadCloud size={32} color="#6366f1" />
+                <UploadCloud size={28} color="#6366f1" />
               )}
             </div>
 
             {selectedFile ? (
               <div>
-                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
                   File Selected: <span style={{ color: '#34d399' }}>{selectedFile.name}</span>
                 </h3>
-                <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)' }}>
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                   Size: {(selectedFile.size / 1024).toFixed(1)} KB • Ready for batch evaluation
                 </p>
               </div>
             ) : (
               <div>
-                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
                   Drag & Drop your applicant CSV file here
                 </h3>
-                <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)' }}>
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                   or <strong style={{ color: '#38bdf8' }}>browse files</strong> on your computer (.csv format)
                 </p>
               </div>
@@ -310,13 +310,13 @@ export default function BulkView() {
 
           {errorMsg && (
             <div style={{
-              marginTop: '20px',
+              marginTop: '16px',
               backgroundColor: 'rgba(239, 68, 68, 0.15)',
               border: '1px solid rgba(239, 68, 68, 0.4)',
               color: '#f87171',
-              padding: '12px 18px',
+              padding: '12px 16px',
               borderRadius: '10px',
-              fontSize: '0.9rem',
+              fontSize: '0.88rem',
               display: 'flex',
               alignItems: 'center',
               gap: '10px'
@@ -327,15 +327,15 @@ export default function BulkView() {
           )}
 
           {/* Action button */}
-          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '24px' }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>
             <button 
               onClick={handleProcessBatch}
               disabled={!selectedFile || loading}
-              className="btn-primary"
+              className="btn-primary w-full sm:w-auto justify-center"
               style={{
                 opacity: !selectedFile ? 0.5 : 1,
                 cursor: !selectedFile ? 'not-allowed' : 'pointer',
-                padding: '14px 32px'
+                padding: '12px 28px'
               }}
             >
               {loading ? (
@@ -357,7 +357,7 @@ export default function BulkView() {
         {batchResults && (
           <div>
             {/* Top Summary Banner */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '16px', marginBottom: '32px' }}>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 mb-8">
               <SummaryCard label="Total Processed" value={batchResults.total_records} color="var(--text-main)" icon={Layers} />
               <SummaryCard label="P1 - Safe Tiers" value={tierStats[0].count} color="#10b981" />
               <SummaryCard label="P2 - Moderate" value={tierStats[1].count} color="#3b82f6" />
@@ -366,11 +366,11 @@ export default function BulkView() {
             </div>
 
             {/* Recharts Distribution Chart & Export Controls */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '24px', marginBottom: '32px' }}>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
               
               {/* Distribution Chart */}
-              <div className="glass-panel" style={{ padding: '24px' }}>
-                <h4 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div className="glass-panel p-5 lg:col-span-1">
+                <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <PieIcon size={18} color="#06b6d4" />
                   Batch Risk Distribution
                 </h4>
@@ -382,8 +382,8 @@ export default function BulkView() {
                         data={tierStats}
                         cx="50%"
                         cy="50%"
-                        innerRadius={50}
-                        outerRadius={80}
+                        innerRadius={45}
+                        outerRadius={75}
                         paddingAngle={5}
                         dataKey="count"
                       >
@@ -401,17 +401,17 @@ export default function BulkView() {
               </div>
 
               {/* Toolbar & Filter controls */}
-              <div className="glass-panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div className="glass-panel p-5 lg:col-span-2 flex flex-col justify-between">
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-                    <h4 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-main)' }}>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                    <h4 style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-main)' }}>
                       Batch Predictions Table ({filteredResults.length} records)
                     </h4>
 
                     <button 
                       onClick={handleExportResultsCSV}
-                      className="btn-primary"
-                      style={{ padding: '10px 20px', fontSize: '0.88rem' }}
+                      className="btn-primary w-full sm:w-auto justify-center"
+                      style={{ padding: '9px 16px', fontSize: '0.85rem' }}
                     >
                       <Download size={16} />
                       Export CSV Predictions
@@ -419,7 +419,7 @@ export default function BulkView() {
                   </div>
 
                   {/* Search and Tier Filter */}
-                  <div style={{ display: 'flex', gap: '16px', marginBottom: '20px' }}>
+                  <div className="flex flex-col sm:flex-row gap-3 mb-4">
                     <div style={{ flex: 1, position: 'relative' }}>
                       <Search size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '12px', top: '12px' }} />
                       <input 
@@ -429,7 +429,7 @@ export default function BulkView() {
                         onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
                         style={{
                           width: '100%',
-                          padding: '10px 14px 10px 36px',
+                          padding: '9px 14px 9px 36px',
                           borderRadius: '8px',
                           background: 'var(--input-bg)',
                           border: '1px solid var(--input-border)',
@@ -445,7 +445,8 @@ export default function BulkView() {
                         value={filterTier}
                         onChange={(e) => { setFilterTier(e.target.value); setCurrentPage(1); }}
                         style={{
-                          padding: '10px 14px',
+                          width: '100%',
+                          padding: '9px 14px',
                           borderRadius: '8px',
                           background: 'var(--input-bg)',
                           border: '1px solid var(--input-border)',
@@ -464,7 +465,7 @@ export default function BulkView() {
                   </div>
                 </div>
 
-                <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
                   Showing page {currentPage} of {totalPages}
                 </div>
               </div>
@@ -473,17 +474,17 @@ export default function BulkView() {
 
             {/* Results Data Table */}
             <div className="glass-panel" style={{ padding: '0', overflow: 'hidden' }}>
-              <div style={{ overflowX: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
+              <div className="table-scroll-wrapper">
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.85rem', minWidth: '650px' }}>
                   <thead>
                     <tr style={{ background: 'var(--bg-card)', borderBottom: '1px solid var(--border-glass)', color: 'var(--text-main)', fontWeight: 700 }}>
-                      <th style={{ padding: '14px 20px' }}>Row #</th>
-                      <th style={{ padding: '14px 20px' }}>Predicted Risk Tier</th>
-                      <th style={{ padding: '14px 20px' }}>Confidence Score</th>
-                      <th style={{ padding: '14px 20px' }}>Monthly Income</th>
-                      <th style={{ padding: '14px 20px' }}>Missed Payments</th>
-                      <th style={{ padding: '14px 20px' }}>Active TLs</th>
-                      <th style={{ padding: '14px 20px' }}>Inquiries</th>
+                      <th style={{ padding: '12px 16px' }}>Row #</th>
+                      <th style={{ padding: '12px 16px' }}>Predicted Risk Tier</th>
+                      <th style={{ padding: '12px 16px' }}>Confidence Score</th>
+                      <th style={{ padding: '12px 16px' }}>Monthly Income</th>
+                      <th style={{ padding: '12px 16px' }}>Missed Payments</th>
+                      <th style={{ padding: '12px 16px' }}>Active TLs</th>
+                      <th style={{ padding: '12px 16px' }}>Inquiries</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -491,25 +492,25 @@ export default function BulkView() {
                       const actualIdx = (currentPage - 1) * pageSize + idx + 1;
                       return (
                         <tr key={idx} style={{ borderBottom: '1px solid var(--border-glass)' }}>
-                          <td style={{ padding: '14px 20px', color: 'var(--text-dim)', fontFamily: 'var(--font-mono)' }}>
+                          <td style={{ padding: '12px 16px', color: 'var(--text-dim)', fontFamily: 'var(--font-mono)' }}>
                             #{actualIdx}
                           </td>
-                          <td style={{ padding: '14px 20px' }}>
+                          <td style={{ padding: '12px 16px' }}>
                             {getTierBadge(row['Predicted_Risk_Tier'])}
                           </td>
-                          <td style={{ padding: '14px 20px', fontWeight: 700, color: 'var(--text-main)' }}>
+                          <td style={{ padding: '12px 16px', fontWeight: 700, color: 'var(--text-main)' }}>
                             {row['Confidence_Probability']}
                           </td>
-                          <td style={{ padding: '14px 20px', color: 'var(--text-main)' }}>
+                          <td style={{ padding: '12px 16px', color: 'var(--text-main)' }}>
                             ₹{Number(row['NETMONTHLYINCOME'] || 0).toLocaleString()}
                           </td>
-                          <td style={{ padding: '14px 20px', color: Number(row['Tot_Missed_Pmnt']) > 0 ? '#ef4444' : '#34d399', fontWeight: 600 }}>
+                          <td style={{ padding: '12px 16px', color: Number(row['Tot_Missed_Pmnt']) > 0 ? '#ef4444' : '#34d399', fontWeight: 600 }}>
                             {row['Tot_Missed_Pmnt'] || 0}
                           </td>
-                          <td style={{ padding: '14px 20px', color: 'var(--text-main)' }}>
+                          <td style={{ padding: '12px 16px', color: 'var(--text-main)' }}>
                             {row['Tot_Active_TL'] || 0}
                           </td>
-                          <td style={{ padding: '14px 20px', color: 'var(--text-main)' }}>
+                          <td style={{ padding: '12px 16px', color: 'var(--text-main)' }}>
                             {row['tot_enq'] || 0}
                           </td>
                         </tr>
@@ -520,7 +521,7 @@ export default function BulkView() {
               </div>
 
               {/* Table Pagination */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', background: 'var(--bg-card)', borderTop: '1px solid var(--border-glass)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 16px', background: 'var(--bg-card)', borderTop: '1px solid var(--border-glass)' }}>
                 <button
                   onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                   disabled={currentPage === 1}
@@ -530,7 +531,7 @@ export default function BulkView() {
                   Previous
                 </button>
 
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
                   Page {currentPage} of {totalPages}
                 </span>
 
@@ -560,12 +561,12 @@ function SummaryCard({ label, value, color, icon: Icon }) {
       background: 'var(--bg-card)',
       border: '1px solid var(--border-glass)',
       borderRadius: '12px',
-      padding: '16px'
+      padding: '14px'
     }}>
-      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>
+      <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>
         {label}
       </div>
-      <div style={{ fontSize: '1.6rem', fontWeight: 800, color: color || 'var(--text-main)', marginTop: '4px' }}>
+      <div style={{ fontSize: '1.4rem', fontWeight: 800, color: color || 'var(--text-main)', marginTop: '4px' }}>
         {value}
       </div>
     </div>
@@ -579,3 +580,4 @@ const badgeStyle = {
   fontWeight: 800,
   display: 'inline-block'
 };
+

@@ -96,10 +96,10 @@ export default function InteractiveDemoPreview() {
   const badgeInfo = predictionResult ? getBadgeStyle(predictionResult.risk_tier) : null;
 
   return (
-    <section style={{ position: 'relative', minHeight: 'calc(100vh - 40px)', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '60px 0' }}>
+    <section style={{ position: 'relative', minHeight: 'calc(100vh - 40px)', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '40px 0' }}>
       <div className="container-xl">
-        <div className="glass-panel" style={{ padding: '40px', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', gap: '40px' }}>
+        <div className="glass-panel p-5 sm:p-10" style={{ position: 'relative', overflow: 'hidden' }}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
             
             {/* Input Controls */}
             <div>
@@ -109,7 +109,7 @@ export default function InteractiveDemoPreview() {
                   Interactive Simulator
                 </span>
               </div>
-              <h2 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '16px' }}>
+              <h2 className="text-2xl sm:text-3xl font-extrabold mb-4" style={{ color: 'var(--text-main)' }}>
                 Test the Model in Real-Time
               </h2>
               <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', marginBottom: '28px', lineHeight: 1.5 }}>
@@ -150,7 +150,7 @@ export default function InteractiveDemoPreview() {
                   />
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label style={{ fontSize: '0.85rem', color: '#94a3b8', display: 'block', marginBottom: '6px' }}>
                       Active Trade Lines
@@ -223,11 +223,10 @@ export default function InteractiveDemoPreview() {
             </div>
 
             {/* Output Display Card */}
-            <div style={{
+            <div className="p-5 sm:p-7" style={{
               background: 'rgba(15, 23, 42, 0.7)',
               borderRadius: '16px',
               border: '1px solid rgba(255, 255, 255, 0.08)',
-              padding: '28px',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between'
@@ -249,7 +248,7 @@ export default function InteractiveDemoPreview() {
                 </div>
               ) : predictionResult ? (
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', flexWrap: 'wrap', gap: '8px' }}>
                     <span style={{ fontSize: '0.9rem', color: '#94a3b8', fontWeight: 600 }}>Model Output Result</span>
                     <span className={badgeInfo.badgeClass} style={{ padding: '6px 14px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 800 }}>
                       {badgeInfo.text}
@@ -261,7 +260,7 @@ export default function InteractiveDemoPreview() {
                     <div style={{ fontSize: '0.8rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>
                       Classification Certainty
                     </div>
-                    <div style={{ fontSize: '2.8rem', fontWeight: 800, color: badgeInfo.color }}>
+                    <div className="text-3xl sm:text-4xl font-extrabold" style={{ color: badgeInfo.color }}>
                       {predictionResult.probability}%
                     </div>
                     <div style={{ fontSize: '0.85rem', color: '#cbd5e1', marginTop: '4px' }}>
@@ -316,3 +315,4 @@ export default function InteractiveDemoPreview() {
     </section>
   );
 }
+

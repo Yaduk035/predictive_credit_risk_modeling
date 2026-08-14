@@ -42,9 +42,9 @@ export default function RiskTierGuide() {
   ];
 
   return (
-    <section style={{ position: 'relative', minHeight: 'calc(100vh - 40px)', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '60px 0' }}>
+    <section style={{ position: 'relative', minHeight: 'calc(100vh - 40px)', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '40px 0' }}>
       <div className="container-xl">
-        <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 48px' }}>
+        <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 36px' }}>
           <div style={{
             fontSize: '0.85rem',
             color: '#06b6d4',
@@ -55,15 +55,15 @@ export default function RiskTierGuide() {
           }}>
             ML Classification Matrix
           </div>
-          <h2 style={{ fontSize: '2.4rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '16px' }}>
+          <h2 className="text-2xl sm:text-4xl font-extrabold mb-4" style={{ color: 'var(--text-main)' }}>
             4-Tier Credit Risk Categorization
           </h2>
-          <p style={{ fontSize: '1rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
+          <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
             Our predictive machine learning classifier evaluates applicant features against historical bureau trade lines to map creditworthiness into 4 risk tiers.
           </p>
         </div>
 
-        <div className="grid-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {tiers.map((tier) => {
             const Icon = tier.icon;
             return (
@@ -71,17 +71,17 @@ export default function RiskTierGuide() {
                 key={tier.code}
                 className="glass-panel"
                 style={{
-                  padding: '24px',
+                  padding: '20px',
                   display: 'flex',
                   flexDirection: 'column',
                   background: tier.glowColor
                 }}
               >
                 {/* Top Header */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
                   <div style={{
-                    width: '40px',
-                    height: '40px',
+                    width: '38px',
+                    height: '38px',
                     borderRadius: '10px',
                     background: 'var(--bg-card)',
                     display: 'flex',
@@ -89,18 +89,18 @@ export default function RiskTierGuide() {
                     justifyContent: 'center',
                     border: `1px solid ${tier.color}40`
                   }}>
-                    <Icon size={22} color={tier.color} />
+                    <Icon size={20} color={tier.color} />
                   </div>
-                  <span className={tier.badgeClass} style={{ padding: '4px 10px', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 800 }}>
+                  <span className={tier.badgeClass} style={{ padding: '4px 10px', borderRadius: '12px', fontSize: '0.78rem', fontWeight: 800 }}>
                     TIER {tier.code}
                   </span>
                 </div>
 
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '8px' }}>
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>
                   {tier.title}
                 </h3>
 
-                <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.5, margin: 0 }}>
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.5, margin: 0 }}>
                   {tier.description}
                 </p>
               </div>
@@ -111,3 +111,4 @@ export default function RiskTierGuide() {
     </section>
   );
 }
+
