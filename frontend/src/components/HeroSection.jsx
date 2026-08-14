@@ -38,12 +38,12 @@ export default function HeroSection() {
               marginBottom: '20px'
             }}>
               <Sparkles size={14} color="#38bdf8" />
-              <span>Next-Gen Machine Learning & GenAI Underwriting</span>
+              <span>underwrite.ai — Next-Gen AI Credit Risk Engine</span>
             </div>
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-5" style={{ color: 'var(--text-main)' }}>
-              Predictive Credit Risk Engine with{' '}
-              <span className="gradient-text-primary">ML & Generative AI</span>
+              Automated Credit Risk & Underwriting with{' '}
+              <span className="gradient-text-primary">Machine Learning AI</span>
             </h1>
 
             <p style={{
@@ -53,7 +53,7 @@ export default function HeroSection() {
               marginBottom: '28px',
               maxWidth: '560px'
             }}>
-              Instantly evaluate applicant creditworthiness across key credit bureau metrics. Get precise risk tier categorization (P1–P4) paired with automated executive AI underwriting commentary.
+              underwrite.ai evaluates loan applicant creditworthiness across 26 key credit bureau variables, assigns 4-tier risk classifications (P1 Prime Safe to P4 High Risk) with Gradient Boosting machine learning, runs single & bulk portfolio predictions, and generates executive AI underwriter summaries.
             </p>
 
             {/* CTA Action Buttons */}
@@ -70,7 +70,7 @@ export default function HeroSection() {
 
             {/* Feature Check List */}
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-              {['Automated Feature Scaling', 'Real-time FastAPI Backend', 'Subprime Risk Alerts'].map((feature, i) => (
+              {['XGBoost ML Risk Scoring', '4-Tier Risk Classification', 'Bulk CSV Batch Engine', 'Executive AI Underwriting'].map((feature, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
                   <CheckCircle2 size={15} color="#34d399" />
                   <span>{feature}</span>
@@ -128,17 +128,18 @@ export default function HeroSection() {
 
               {/* AI Summary Highlight */}
               <div style={{
-                background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(6, 182, 212, 0.15) 100%)',
-                border: '1px solid rgba(99, 102, 241, 0.3)',
+                background: 'var(--bg-card-solid)',
+                border: '1px solid var(--border-glass)',
                 borderRadius: '12px',
-                padding: '14px'
+                padding: '14px',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-                  <Sparkles size={15} color="#c084fc" />
-                  <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#c084fc' }}>AI Executive Underwriter Output</span>
+                  <Sparkles size={15} color="#818cf8" />
+                  <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-main)' }}>AI Executive Underwriter Output</span>
                 </div>
-                <p style={{ fontSize: '0.82rem', color: 'var(--text-main)', lineHeight: 1.5, margin: 0 }}>
-                  "Applicant displays strong financial stability with ₹85k monthly income and zero recent delinquencies across active accounts. Recommended for immediate prime interest rate approval."
+                <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.5, margin: 0 }}>
+                  "Applicant displays strong financial stability with ₹85k Net Monthly Income (NETMONTHLYINCOME) and zero recent delinquencies across active accounts. Recommended for immediate prime interest rate approval."
                 </p>
               </div>
             </div>

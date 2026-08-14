@@ -29,11 +29,11 @@ export default function Footer() {
                 <ShieldCheck size={20} color="#ffffff" />
               </div>
               <div style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--text-main)' }}>
-                NeoBank<span style={{ color: '#06b6d4' }}>.AI</span>
+                underwrite<span style={{ color: '#38bdf8' }}>.ai</span>
               </div>
             </div>
             <p style={{ fontSize: '0.85rem', lineHeight: 1.6, color: 'var(--text-muted)', margin: 0 }}>
-              Predictive Credit Risk Engine leveraging machine learning risk classification and AI underwriter synthesis.
+              Next-Gen AI Credit Risk Engine leveraging Machine Learning risk classification and executive AI underwriter syntheses.
             </p>
           </div>
 
@@ -55,8 +55,8 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row justify-between gap-2 pt-4 border-t border-glass text-xs" style={{
           color: 'var(--text-dim)'
         }}>
-          <div>© {new Date().getFullYear()} NeoBank AI Risk Engine. All rights reserved.</div>
-          <div>Automated Underwriting & Credit Risk Scoring Platform</div>
+          <div>© {new Date().getFullYear()} underwrite.ai. All rights reserved.</div>
+          <div>Automated Underwriting & Credit Risk Engine</div>
         </div>
       </div>
     </footer>

@@ -73,7 +73,7 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
       }
     } catch (err) {
       console.error('AI summary call failed:', err);
-      setSummaryError('Unable to reach the server to generate summary. Please try again later.');
+      setSummaryError(err.message || 'Failed to generate AI summary. Please try again later.');
     } finally {
       setLoadingSummary(false);
     }
@@ -295,12 +295,31 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 0', color: '#c084fc' }}>
               <RefreshCw size={18} className="animate-spin" />
               <span style={{ fontSize: '0.88rem', fontWeight: 600 }}>
-                Analyzing 26 applicant variables for AI summary synthesis...
+                Generating executive AI underwriting synthesis with provided financial data...
               </span>
             </div>
           )}
 
-          {/* Render Condition 3: Summary fetched */}
+          {/* Render Condition 3: Error occurred */}
+          {summaryError && !loadingSummary && (
+            <div style={{
+              padding: '10px 14px',
+              background: 'rgba(239, 68, 68, 0.15)',
+              border: '1px solid rgba(239, 68, 68, 0.3)',
+              borderRadius: '8px',
+              color: '#f87171',
+              fontSize: '0.85rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              marginTop: '4px'
+            }}>
+              <AlertTriangle size={16} style={{ flexShrink: 0 }} />
+              <span>{summaryError}</span>
+            </div>
+          )}
+
+          {/* Render Condition 4: Summary fetched */}
           {aiSummary && !loadingSummary && (
             <div>
               <p style={{ fontSize: '0.92rem', color: 'var(--text-main)', lineHeight: 1.6, margin: '0 0 12px 0', fontStyle: 'italic' }}>

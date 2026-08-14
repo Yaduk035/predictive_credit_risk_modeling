@@ -51,6 +51,22 @@ except Exception as e:
 
 ai_client = genai.Client()
 
+def generate_ai_summary_with_fallback(prompt_text: str) -> str:
+    models_to_try = ['gemini-3.5-flash', 'gemini-3.5-flash-lite', 'gemini-3.6-flash', 'gemini-3.7-flash']
+    last_err = None
+    for model_name in models_to_try:
+        try:
+            interaction = ai_client.interactions.create(
+                model=model_name,
+                input=prompt_text,
+            )
+            return interaction.output_text
+        except Exception as e:
+            last_err = str(e)
+            print(f"[AI Model Fallback]: Model '{model_name}' returned error: {e}. Trying next model...")
+            continue
+    raise Exception(last_err or "All AI summary models are currently unavailable.")
+
 # Helper Function: Process a DataFrame through the Scaler and Model
 def process_dataframe_predictions(df_input: pd.DataFrame):
     # Normalize input columns to lowercase for case-insensitive matching
@@ -250,11 +266,7 @@ async def generate_ai_summary(request: SummaryRequest):
         4. POLICY CITATIONS: Include concise policy citations in brackets, e.g. [Credit Policy §2.1].
         """
         
-        # Call the Gemini model
-        interaction = ai_client.interactions.create(
-            model='gemini-3.6-flash',
-            input=prompt,
-        )
+        ai_summary = generate_ai_summary_with_fallback(prompt)
 
         citation_badges = []
         for m in rag_matches:
@@ -266,11 +278,71 @@ async def generate_ai_summary(request: SummaryRequest):
         
         return {
             "status": "success",
-            "ai_summary": interaction.output_text,
+            "ai_summary": ai_summary,
             "policy_citations": citation_badges
         }
         
     except Exception as e:
-        print(f"[ERROR in /generate-summary]: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        err_msg = str(e)
+        print(f"[ERROR in /generate-summary]: {err_msg}")
+        if "429" in err_msg or "RESOURCE_EXHAUSTED" in err_msg or "quota" in err_msg.lower():
+            raise HTTPException(
+                status_code=429, 
+                detail="AI summary rate limit reached (20 requests/minute). Please wait 15-30 seconds before re-generating."
+            )
+        raise HTTPException(status_code=500, detail=err_msg)
+
+
+class BulkSummaryRequest(BaseModel):
+    total_records: int
+    tier_counts: dict
+    portfolio_metrics: dict = {}
+
+@app.post("/api/generate-bulk-summary")
+async def generate_bulk_portfolio_summary(request: BulkSummaryRequest):
+    try:
+        total = request.total_records if request.total_records > 0 else 1
+        p1 = request.tier_counts.get("P1", 0)
+        p2 = request.tier_counts.get("P2", 0)
+        p3 = request.tier_counts.get("P3", 0)
+        p4 = request.tier_counts.get("P4", 0)
+
+        p1_pct = round((p1 / total) * 100, 1)
+        p2_pct = round((p2 / total) * 100, 1)
+        p3_pct = round((p3 / total) * 100, 1)
+        p4_pct = round((p4 / total) * 100, 1)
+
+        prompt = f"""
+        You are an expert FinTech Executive Portfolio Risk Analyst. A machine learning model (XGBoost) has just 
+        evaluated a batch of {request.total_records} loan applicants in a bulk CSV upload.
+
+        Portfolio Risk Tier Breakdown:
+        - Tier P1 (Prime Safe): {p1} applicants ({p1_pct}%)
+        - Tier P2 (Standard Moderate): {p2} applicants ({p2_pct}%)
+        - Tier P3 (Subprime Risk): {p3} applicants ({p3_pct}%)
+        - Tier P4 (Severe High Risk): {p4} applicants ({p4_pct}%)
+
+        Task:
+        Write a concise, professional executive portfolio summary (around 100 to 120 words in clear paragraph text) analyzing:
+        1. Overall portfolio credit health and the ratio of Prime (P1/P2: {p1 + p2} total, {round(p1_pct + p2_pct, 1)}%) vs Subprime (P3/P4: {p3 + p4} total, {round(p3_pct + p4_pct, 1)}%).
+        2. High-level underwriting action plan for credit officers (e.g., auto-approval rate for P1/P2 vs manual audit/decline rate for P3/P4).
+        3. Do NOT use markdown tables or memorandum headers. Write clean, direct paragraph text.
+        """
+
+        ai_summary = generate_ai_summary_with_fallback(prompt)
+
+        return {
+            "status": "success",
+            "ai_summary": ai_summary
+        }
+
+    except Exception as e:
+        err_msg = str(e)
+        print(f"[ERROR in /generate-bulk-summary]: {err_msg}")
+        if "429" in err_msg or "RESOURCE_EXHAUSTED" in err_msg or "quota" in err_msg.lower():
+            raise HTTPException(
+                status_code=429, 
+                detail="AI summary rate limit reached (20 requests/minute). Please wait 15-30 seconds before re-generating."
+            )
+        raise HTTPException(status_code=500, detail=err_msg)
 

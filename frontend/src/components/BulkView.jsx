@@ -40,7 +40,50 @@ export default function BulkView() {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
 
+  // Bulk AI Summary State
+  const [bulkAiSummary, setBulkAiSummary] = useState(null);
+  const [loadingBulkSummary, setLoadingBulkSummary] = useState(false);
+  const [bulkSummaryError, setBulkSummaryError] = useState(null);
+
   const fileInputRef = useRef(null);
+
+  const handleFetchBulkSummary = async () => {
+    if (!batchResults || !batchResults.total_records) return;
+    
+    setLoadingBulkSummary(true);
+    setBulkSummaryError(null);
+
+    const counts = {
+      P1: batchResults.results.filter(r => r.Predicted_Risk_Tier === 'P1').length,
+      P2: batchResults.results.filter(r => r.Predicted_Risk_Tier === 'P2').length,
+      P3: batchResults.results.filter(r => r.Predicted_Risk_Tier === 'P3').length,
+      P4: batchResults.results.filter(r => r.Predicted_Risk_Tier === 'P4').length,
+    };
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/generate-bulk-summary`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          total_records: batchResults.total_records,
+          tier_counts: counts
+        })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setBulkAiSummary(data.ai_summary);
+      } else {
+        const errJson = await response.json().catch(() => ({}));
+        throw new Error(errJson.detail || `Server error ${response.status}`);
+      }
+    } catch (err) {
+      console.error('Bulk AI Summary error:', err);
+      setBulkSummaryError(err.message || 'Failed to generate batch portfolio summary. Please try again.');
+    } finally {
+      setLoadingBulkSummary(false);
+    }
+  };
 
   // Handle Drag events
   const handleDrag = (e) => {
@@ -365,6 +408,120 @@ export default function BulkView() {
               <SummaryCard label="P4 - High Risk" value={tierStats[3].count} color="#ef4444" />
             </div>
 
+            {/* Batch Portfolio AI Executive Summary Panel */}
+            <div className="glass-panel p-5 sm:p-6 mb-8" style={{
+              background: 'var(--bg-card-solid)',
+              border: '1px solid var(--border-glass)',
+              boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.08)'
+            }}>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                <div className="flex items-center gap-3">
+                  <div style={{
+                    width: '38px',
+                    height: '38px',
+                    borderRadius: '12px',
+                    background: 'rgba(99, 102, 241, 0.15)',
+                    border: '1px solid rgba(99, 102, 241, 0.3)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                    <Sparkles size={20} color="#818cf8" />
+                  </div>
+                  <div>
+                    <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-main)' }}>
+                      Batch Portfolio Risk AI Synthesis
+                    </h3>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                      Executive analysis across {batchResults.total_records} evaluated applicants
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleFetchBulkSummary}
+                  disabled={loadingBulkSummary}
+                  className="btn-primary justify-center"
+                  style={{
+                    padding: '8px 18px',
+                    fontSize: '0.85rem',
+                    background: bulkAiSummary ? 'rgba(99, 102, 241, 0.15)' : undefined,
+                    border: bulkAiSummary ? '1px solid rgba(99, 102, 241, 0.3)' : undefined,
+                    color: bulkAiSummary ? '#818cf8' : undefined
+                  }}
+                >
+                  {loadingBulkSummary ? (
+                    <>
+                      <RefreshCw className="animate-spin" size={16} />
+                      Generating Portfolio AI Synthesis...
+                    </>
+                  ) : bulkAiSummary ? (
+                    <>
+                      <RefreshCw size={16} />
+                      Re-generate Portfolio AI Summary
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles size={16} />
+                      Generate Portfolio AI Synthesis
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {loadingBulkSummary && (
+                <div style={{
+                  padding: '24px',
+                  textAlign: 'center',
+                  background: 'var(--input-bg)',
+                  borderRadius: '12px',
+                  border: '1px solid var(--border-glass)'
+                }}>
+                  <RefreshCw className="animate-spin" size={24} style={{ color: '#818cf8', margin: '0 auto 10px' }} />
+                  <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)' }}>
+                    Analyzing batch portfolio credit distribution with AI policy engine...
+                  </p>
+                </div>
+              )}
+
+              {bulkSummaryError && (
+                <div style={{
+                  padding: '12px 16px',
+                  background: 'rgba(239, 68, 68, 0.15)',
+                  border: '1px solid rgba(239, 68, 68, 0.3)',
+                  borderRadius: '10px',
+                  color: '#f87171',
+                  fontSize: '0.88rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px'
+                }}>
+                  <AlertCircle size={18} style={{ flexShrink: 0 }} />
+                  <span>{bulkSummaryError}</span>
+                </div>
+              )}
+
+              {bulkAiSummary && !loadingBulkSummary && (
+                <div style={{
+                  padding: '18px 20px',
+                  background: 'var(--input-bg)',
+                  borderRadius: '12px',
+                  border: '1px solid var(--border-glass)',
+                  lineHeight: '1.7',
+                  fontSize: '0.92rem',
+                  color: 'var(--text-main)'
+                }}>
+                  {bulkAiSummary}
+                </div>
+              )}
+
+              {!bulkAiSummary && !loadingBulkSummary && !bulkSummaryError && (
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontStyle: 'italic' }}>
+                  Click "Generate Portfolio AI Synthesis" to evaluate portfolio credit risk distribution, prime vs subprime ratios, and executive underwriting directives.
+                </p>
+              )}
+            </div>
+
             {/* Recharts Distribution Chart & Export Controls */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
               
@@ -375,15 +532,15 @@ export default function BulkView() {
                   Batch Risk Distribution
                 </h4>
 
-                <div style={{ width: '100%', height: '220px' }}>
+                <div style={{ width: '100%', height: '260px' }}>
                   <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
+                    <PieChart margin={{ top: 0, right: 0, bottom: 20, left: 0 }}>
                       <Pie
                         data={tierStats}
                         cx="50%"
-                        cy="50%"
-                        innerRadius={45}
-                        outerRadius={75}
+                        cy="45%"
+                        innerRadius={40}
+                        outerRadius={70}
                         paddingAngle={5}
                         dataKey="count"
                       >
@@ -392,9 +549,16 @@ export default function BulkView() {
                         ))}
                       </Pie>
                       <Tooltip 
-                        contentStyle={{ backgroundColor: 'var(--bg-card-solid)', borderColor: 'var(--border-glass)', borderRadius: '8px', color: 'var(--text-main)' }}
+                        contentStyle={{ 
+                          backgroundColor: 'var(--bg-card-solid)', 
+                          borderColor: 'var(--border-glass)', 
+                          borderRadius: '8px', 
+                          color: 'var(--text-main)',
+                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)'
+                        }}
+                        itemStyle={{ color: 'var(--text-main)', fontWeight: 600 }}
                       />
-                      <Legend verticalAlign="bottom" height={36} iconSize={10} />
+                      <Legend verticalAlign="bottom" height={36} iconSize={10} wrapperStyle={{ color: 'var(--text-main)', paddingTop: '10px' }} />
                     </PieChart>
                   </ResponsiveContainer>
                 </div>

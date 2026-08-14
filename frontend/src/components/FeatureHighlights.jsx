@@ -4,46 +4,46 @@ import { Cpu, Bot, Sliders, FileSpreadsheet, Server, Lock } from 'lucide-react';
 export default function FeatureHighlights() {
   const features = [
     {
-      title: 'Predictive ML Architecture',
-      description: 'Trained on comprehensive bureau banking features with robust multi-class probability scoring for precision tier classification.',
+      title: 'XGBoost ML Credit Scoring Engine',
+      description: 'Multi-class Machine Learning model evaluating 26 credit bureau metrics to classify applicants into 4 distinct risk tiers (P1 Prime Safe to P4 High Risk).',
       icon: Cpu,
       color: '#06b6d4',
       badge: 'ML Engine'
     },
     {
-      title: 'Generative AI Executive Briefs',
-      description: 'Generates concise, 3-sentence professional underwriter rationales that pinpoint exact debt, inquiry, and payment triggers.',
+      title: 'Executive AI Underwriter Summaries',
+      description: 'Generates ~120-word executive underwriter syntheses explicitly pairing human-readable variable descriptions with raw bureau codes.',
       icon: Bot,
       color: '#c084fc',
-      badge: 'GenAI Intelligence'
+      badge: 'AI Underwriting'
     },
     {
-      title: 'Z-Score Feature Imputation',
-      description: 'Automated missing variable handling aligns incoming applicant data against training mean Z-scores to ensure zero failed predictions.',
-      icon: Sliders,
-      color: '#34d399',
-      badge: 'Preprocessing'
-    },
-    {
-      title: 'Bulk CSV Batch Processing',
-      description: 'Upload CSV datasets with thousands of rows for rapid multi-record inference, featuring live progress and instant tabular output.',
+      title: 'Bulk CSV Portfolio Analytics',
+      description: 'Decoupled batch upload engine with interactive Recharts pie charts, CSV prediction export, and on-demand Batch Portfolio AI Synthesis.',
       icon: FileSpreadsheet,
       color: '#fbbf24',
       badge: 'Batch Engine'
     },
     {
-      title: 'FastAPI Production Endpoint',
-      description: 'High-performance Python ASGI backend with CORS middleware support, async non-blocking prediction endpoints, and JSON schema validation.',
-      icon: Server,
-      color: '#6366f1',
-      badge: 'Backend API'
+      title: 'Data Dictionary Integration',
+      description: 'Mapped 90+ credit bureau features directly from dictionary metadata to translate complex codes like Tot_Closed_TL into clear human terms.',
+      icon: Sliders,
+      color: '#34d399',
+      badge: 'Dictionary Mapping'
     },
     {
-      title: 'Enterprise Security & Audit',
-      description: 'Strict input sanitization, data dictionary mapping, and complete risk scoring audit trails for underwriting compliance.',
+      title: 'Z-Score Neutral Imputation',
+      description: 'Automated missing variable handling aligns missing applicant fields against training mean Z-scores to guarantee zero failed evaluations.',
+      icon: Server,
+      color: '#6366f1',
+      badge: 'Robustness'
+    },
+    {
+      title: 'FastAPI Production Endpoint',
+      description: 'High-performance Python ASGI backend with CORS middleware support, API rate limit protection, and real-time JSON validation.',
       icon: Lock,
       color: '#f43f5e',
-      badge: 'Compliance'
+      badge: 'API Backend'
     }
   ];
 
@@ -59,13 +59,13 @@ export default function FeatureHighlights() {
             letterSpacing: '0.1em',
             marginBottom: '8px'
           }}>
-            Platform Core Architecture
+            underwrite.ai Capabilities
           </div>
           <h2 className="text-2xl sm:text-4xl font-extrabold mb-4" style={{ color: 'var(--text-main)' }}>
-            Built for High-Scale FinTech Underwriting
+            Institutional Credit Risk & Underwriting Platform
           </h2>
           <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
-            Combining state-of-the-art predictive Machine Learning classifiers with Generative AI for automated, interpretable credit decisions.
+            Combining machine learning risk tier scoring with AI underwriter syntheses for transparent, high-speed credit decisioning.
           </p>
         </div>
 
