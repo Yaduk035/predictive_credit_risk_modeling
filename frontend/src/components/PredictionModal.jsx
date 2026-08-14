@@ -326,8 +326,8 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
                 "{aiSummary}"
               </p>
               {policyCitations.length > 0 && (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', paddingTop: '8px', borderTop: '1px solid rgba(192, 132, 252, 0.2)' }}>
-                  <span style={{ fontSize: '0.72rem', color: '#c084fc', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', paddingTop: '8px', borderTop: '1px solid var(--border-glass)' }}>
+                  <span style={{ fontSize: '0.72rem', color: '#818cf8', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                     Grounded Policies:
                   </span>
                   {policyCitations.map((cite, idx) => (
@@ -335,9 +335,9 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
                       key={idx}
                       style={{
                         fontSize: '0.72rem',
-                        background: 'rgba(192, 132, 252, 0.15)',
-                        border: '1px solid rgba(192, 132, 252, 0.35)',
-                        color: '#e9d5ff',
+                        background: 'var(--input-bg)',
+                        border: '1px solid var(--border-glass)',
+                        color: 'var(--text-main)',
                         padding: '3px 8px',
                         borderRadius: '12px',
                         fontWeight: 600
