@@ -46,11 +46,11 @@ export default function Navbar({ apiConnected, theme, toggleTheme }) {
             <ShieldCheck size={24} color="#ffffff" />
           </div>
           <div>
-            <div style={{ fontSize: '1.2rem', fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--text-main)', lineHeight: 1.2 }}>
-              NeoBank<span style={{ color: '#06b6d4' }}>.AI</span>
+            <div style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--text-main)', lineHeight: 1.2 }}>
+              underwrite<span style={{ color: '#38bdf8' }}>.ai</span>
             </div>
             <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', fontWeight: 500, letterSpacing: '0.05em' }}>
-              CREDIT RISK ENGINE
+              CREDIT RISK & UNDERWRITING
             </div>
           </div>
         </Link>

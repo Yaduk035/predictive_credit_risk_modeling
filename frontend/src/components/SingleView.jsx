@@ -295,7 +295,7 @@ export default function SingleView() {
               Single Applicant Credit Risk Assessment
             </h1>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginTop: '6px' }}>
-              Key 26 predictive features derived from bureau credit dictionary.
+              Key financial metrics derived from bureau credit dictionary.
             </p>
           </div>
 

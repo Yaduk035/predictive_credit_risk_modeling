@@ -84,7 +84,7 @@ export default function AboutView() {
             </div>
             
             <h1 className="text-2xl sm:text-4xl font-extrabold mb-4" style={{ color: 'var(--text-main)' }}>
-              About Credit Risk Assessment Engine
+              About underwrite.ai Platform
             </h1>
 
             <p style={{ color: 'var(--text-muted)', fontSize: '1rem', lineHeight: 1.6, maxWidth: '720px', margin: '0 auto 18px' }}>

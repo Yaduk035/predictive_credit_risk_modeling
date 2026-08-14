@@ -135,7 +135,7 @@ export default function InteractiveDemoPreview() {
                 </div>
 
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem', color: '#cbd5e1' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
                     <span>Total Missed Payments (Delinquency)</span>
                     <strong style={{ color: missedPayments > 0 ? '#ef4444' : '#34d399' }}>{missedPayments} payments</strong>
                   </div>
@@ -152,7 +152,7 @@ export default function InteractiveDemoPreview() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label style={{ fontSize: '0.85rem', color: '#94a3b8', display: 'block', marginBottom: '6px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: 'block', marginBottom: '6px' }}>
                       Active Trade Lines
                     </label>
                     <input 
@@ -163,16 +163,16 @@ export default function InteractiveDemoPreview() {
                         width: '100%',
                         padding: '10px 14px',
                         borderRadius: '8px',
-                        background: 'rgba(15, 23, 42, 0.8)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
-                        color: '#ffffff',
+                        background: 'var(--input-bg)',
+                        border: '1px solid var(--border-glass)',
+                        color: 'var(--text-main)',
                         fontSize: '0.95rem'
                       }}
                     />
                   </div>
 
                   <div>
-                    <label style={{ fontSize: '0.85rem', color: '#94a3b8', display: 'block', marginBottom: '6px' }}>
+                    <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: 'block', marginBottom: '6px' }}>
                       Recent Inquiries (12M)
                     </label>
                     <input 
@@ -183,9 +183,9 @@ export default function InteractiveDemoPreview() {
                         width: '100%',
                         padding: '10px 14px',
                         borderRadius: '8px',
-                        background: 'rgba(15, 23, 42, 0.8)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
-                        color: '#ffffff',
+                        background: 'var(--input-bg)',
+                        border: '1px solid var(--border-glass)',
+                        color: 'var(--text-main)',
                         fontSize: '0.95rem'
                       }}
                     />
@@ -224,9 +224,9 @@ export default function InteractiveDemoPreview() {
 
             {/* Output Display Card */}
             <div className="p-5 sm:p-7" style={{
-              background: 'rgba(15, 23, 42, 0.7)',
+              background: 'var(--bg-card)',
               borderRadius: '16px',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              border: '1px solid var(--border-glass)',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between'
@@ -249,46 +249,46 @@ export default function InteractiveDemoPreview() {
               ) : predictionResult ? (
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', flexWrap: 'wrap', gap: '8px' }}>
-                    <span style={{ fontSize: '0.9rem', color: '#94a3b8', fontWeight: 600 }}>Model Output Result</span>
+                    <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 600 }}>Model Output Result</span>
                     <span className={badgeInfo.badgeClass} style={{ padding: '6px 14px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 800 }}>
                       {badgeInfo.text}
                     </span>
                   </div>
 
                   {/* Meter gauge representation */}
-                  <div style={{ background: 'rgba(0, 0, 0, 0.3)', padding: '20px', borderRadius: '12px', marginBottom: '24px', textAlign: 'center' }}>
-                    <div style={{ fontSize: '0.8rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>
+                  <div style={{ background: 'var(--input-bg)', padding: '20px', borderRadius: '12px', marginBottom: '24px', textAlign: 'center', border: '1px solid var(--border-glass)' }}>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>
                       Classification Certainty
                     </div>
                     <div className="text-3xl sm:text-4xl font-extrabold" style={{ color: badgeInfo.color }}>
                       {predictionResult.probability}%
                     </div>
-                    <div style={{ fontSize: '0.85rem', color: '#cbd5e1', marginTop: '4px' }}>
+                    <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '4px' }}>
                       Predicted Risk Tier: <strong style={{ color: badgeInfo.color }}>Tier {predictionResult.risk_tier}</strong>
                     </div>
                   </div>
 
                   {/* AI Summary Box */}
                   <div style={{
-                    background: 'rgba(99, 102, 241, 0.1)',
-                    border: '1px solid rgba(99, 102, 241, 0.25)',
+                    background: 'var(--bg-card-solid)',
+                    border: '1px solid var(--border-glass)',
                     borderRadius: '12px',
                     padding: '18px'
                   }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                      <Sparkles size={16} color="#c084fc" />
-                      <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#c084fc' }}>
+                      <Sparkles size={16} color="#818cf8" />
+                      <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-main)' }}>
                         Executive AI Underwriter Summary
                       </span>
                     </div>
-                    <p style={{ fontSize: '0.88rem', color: '#e2e8f0', lineHeight: 1.6, margin: 0 }}>
+                    <p style={{ fontSize: '0.88rem', color: 'var(--text-main)', lineHeight: 1.6, margin: 0 }}>
                       "{predictionResult.ai_summary}"
                     </p>
                   </div>
                 </div>
               ) : null}
 
-              <div style={{ marginTop: '24px', paddingTop: '20px', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
+              <div style={{ marginTop: '24px', paddingTop: '20px', borderTop: '1px solid var(--border-glass)' }}>
                 <button 
                   onClick={() => navigate('/single')}
                   style={{
