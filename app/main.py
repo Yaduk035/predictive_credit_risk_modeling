@@ -10,6 +10,7 @@ import os
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
+from rag_service import query_policy_rag, format_policy_context, get_pinecone_client, get_or_create_index
 
 # 1. Initialize the App
 app = FastAPI(title="NeoBank Risk Engine API")
@@ -160,6 +161,36 @@ async def evaluate_batch_csv(file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# 7. RAG Health Check Endpoint
+@app.get("/api/rag-status")
+async def check_rag_status():
+    try:
+        pc = get_pinecone_client()
+        if pc is None:
+            return {
+                "status": "disabled",
+                "message": "PINECONE_API_KEY is not configured in app/.env."
+            }
+        index = get_or_create_index(pc)
+        if index is None:
+            return {
+                "status": "error",
+                "message": "Unable to connect to Pinecone vector index."
+            }
+        stats = index.describe_index_stats()
+        return {
+            "status": "active",
+            "vector_count": stats.total_vector_count,
+            "dimension": stats.dimension,
+            "index_name": "neobank-credit-policy"
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": str(e)
+        }
+
+
 class SummaryRequest(BaseModel):
     risk_tier: str
     probability: float
@@ -168,32 +199,55 @@ class SummaryRequest(BaseModel):
 @app.post("/api/generate-summary")
 async def generate_ai_summary(request: SummaryRequest):
     try:
-        # 1. Translate the raw data into English using your dictionary
+        # 1. Translate the raw data into English using dictionary
         translated_data_lines = []
         for key, value in request.applicant_data.items():
-            # Look up the English description, fallback to the raw key if not found
             description = feature_descriptions.get(key, key)
             translated_data_lines.append(f"- {description} ({key}): {value}")
             
-        # Join it all into a readable string
         formatted_applicant_data = "\n".join(translated_data_lines)
         
-        # 2. Inject the translated data into the prompt
+        # 2. Retrieve relevant Bank Credit Policy & RBI Clauses using Pinecone RAG
+        rag_matches = query_policy_rag(
+            genai_client=ai_client,
+            risk_tier=request.risk_tier,
+            probability=request.probability,
+            applicant_data=request.applicant_data,
+            top_k=3
+        )
+        
+        policy_context_str = format_policy_context(rag_matches)
+        
+        policy_section = ""
+        if policy_context_str:
+            policy_section = f"""
+            Retrieved Bank Credit Policy & Regulatory Clauses (Grounding Context):
+            {policy_context_str}
+            """
+
+        # 3. Construct RAG-augmented prompt
         prompt = f"""
-        You are an expert FinTech Underwriting AI. A machine learning model (XGBoost) has just 
-        evaluated a loan applicant and classified them as {request.risk_tier} with a {request.probability}% probability.
+        You are an expert FinTech Executive Underwriting AI. A machine learning model (XGBoost) has just 
+        evaluated a loan applicant and classified them as {request.risk_tier} with a {request.probability}% confidence probability.
         
         Tier Definitions:
-        - P1/P2 = Safe to Moderate (Good)
-        - P3/P4 = Subprime to High Risk (Bad)
+        - P1/P2 = Safe to Moderate Risk (Approved profile)
+        - P3/P4 = Subprime to High Risk (Requires manual review / decline)
         
-        Here is the applicant's financial data (with exact feature definitions):
+        Applicant Financial Data (with exact feature definitions):
         {formatted_applicant_data}
+
+        {policy_section}
         
-        Task:
-        Write a concise, professional 3-sentence underwriter summary explaining exactly WHICH financial variables 
-        likely drove this {request.risk_tier} classification. Do not use generic advice; point 
-        directly to the numbers (e.g., missed payments, inquiries, income vs. utilization).
+        STRICT OUTPUT CONSTRAINTS & FORMATTING RULES:
+        1. LENGTH & FORMAT: Write a clear, professional executive underwriter synthesis around 120 words (3 to 4 well-structured sentences).
+        2. NO TABLES OR HEADERS: Do NOT include markdown tables, headings, titles, memorandums, bullet lists, or raw data dumps. Output ONLY clear paragraph text.
+        3. VARIABLE CITATIONS: Whenever you mention any financial metric or variable, ALWAYS format it as: "Human Description (VARIABLE_NAME)", for example:
+           - "Number of times 30+ Days Past Due (num_times_30p_dpd)"
+           - "Total Missed Payments (Tot_Missed_Pmnt)"
+           - "Percentage of Current Balance across All Trade Lines (pct_currentBal_all_TL)"
+           - "Net Monthly Income (NETMONTHLYINCOME)"
+        4. POLICY CITATIONS: Include concise policy citations in brackets, e.g. [Credit Policy §2.1].
         """
         
         # Call the Gemini model
@@ -201,12 +255,22 @@ async def generate_ai_summary(request: SummaryRequest):
             model='gemini-3.6-flash',
             input=prompt,
         )
+
+        citation_badges = []
+        for m in rag_matches:
+            citation_badges.append({
+                "doc_name": m["doc_name"],
+                "clause": m["clause"],
+                "score": m["score"]
+            })
         
         return {
             "status": "success",
-            "ai_summary": interaction.output_text
+            "ai_summary": interaction.output_text,
+            "policy_citations": citation_badges
         }
         
     except Exception as e:
         print(f"[ERROR in /generate-summary]: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+

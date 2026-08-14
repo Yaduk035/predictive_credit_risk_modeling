@@ -35,12 +35,14 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
   
   // State for manual AI Summary trigger
   const [aiSummary, setAiSummary] = useState(null);
+  const [policyCitations, setPolicyCitations] = useState([]);
   const [loadingSummary, setLoadingSummary] = useState(false);
   const [summaryError, setSummaryError] = useState(null);
 
   // Reset AI summary state whenever result changes or modal reopens
   useEffect(() => {
     setAiSummary(null);
+    setPolicyCitations([]);
     setLoadingSummary(false);
     setSummaryError(null);
   }, [result]);
@@ -64,6 +66,7 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
       if (response.ok) {
         const data = await response.json();
         setAiSummary(data.ai_summary);
+        setPolicyCitations(data.policy_citations || []);
       } else {
         const errJson = await response.json().catch(() => ({}));
         throw new Error(errJson.detail || `Server returned status ${response.status}`);
@@ -299,9 +302,34 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
 
           {/* Render Condition 3: Summary fetched */}
           {aiSummary && !loadingSummary && (
-            <p style={{ fontSize: '0.92rem', color: 'var(--text-main)', lineHeight: 1.6, margin: 0, fontStyle: 'italic' }}>
-              "{aiSummary}"
-            </p>
+            <div>
+              <p style={{ fontSize: '0.92rem', color: 'var(--text-main)', lineHeight: 1.6, margin: '0 0 12px 0', fontStyle: 'italic' }}>
+                "{aiSummary}"
+              </p>
+              {policyCitations.length > 0 && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', paddingTop: '8px', borderTop: '1px solid rgba(192, 132, 252, 0.2)' }}>
+                  <span style={{ fontSize: '0.72rem', color: '#c084fc', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    Grounded Policies:
+                  </span>
+                  {policyCitations.map((cite, idx) => (
+                    <span 
+                      key={idx}
+                      style={{
+                        fontSize: '0.72rem',
+                        background: 'rgba(192, 132, 252, 0.15)',
+                        border: '1px solid rgba(192, 132, 252, 0.35)',
+                        color: '#e9d5ff',
+                        padding: '3px 8px',
+                        borderRadius: '12px',
+                        fontWeight: 600
+                      }}
+                    >
+                      {cite.doc_name} • {cite.clause}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
           )}
         </div>
 
