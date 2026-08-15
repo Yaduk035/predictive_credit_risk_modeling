@@ -15,8 +15,8 @@ import {
 
 export default function AboutView() {
   const teamMembers = [
-    { name: 'Anisha B Nair', github: 'https://github.com/anishabnair' },
-    { name: 'Ann Maria', github: 'https://github.com/annmaria' },
+    { name: 'Anisha B Nair', github: 'https://github.com/Anisha-B-Nair' },
+    { name: 'Ann Maria', github: 'https://github.com/annm-github' },
     { name: 'Yadukrishna S', github: 'https://github.com/Yaduk035' }
   ];
 
@@ -26,18 +26,20 @@ export default function AboutView() {
       icon: Cpu,
       color: '#06b6d4',
       items: [
+        { name: 'Google Colab', desc: 'Cloud Jupyter Notebook environment used for model training and hyperparameter optimization.' },
         { name: 'XGBoost Classifier', desc: 'Fine-tuned multi-class gradient boosted decision tree classifier tuned via GridSearchCV.' },
-        { name: 'scikit-learn & joblib', desc: 'StandardScaler feature scaling pipeline and serialized model inference persistence.' },
-        { name: 'pandas & numpy', desc: 'Data ingestion, Z-score neutral mean imputation, and matrix computations.' }
+        { name: 'scikit-learn & joblib', desc: 'StandardScaler feature scaling pipeline, GridSearchCV tuning, and serialized model inference persistence.' },
+        { name: 'pandas, numpy, matplotlib & seaborn', desc: 'Data ingestion, Z-score neutral mean imputation, matrix computations, and EDA visualizations.' }
       ]
     },
     {
-      category: 'Generative AI & Explainability',
+      category: 'Generative AI & RAG Explainability',
       icon: Bot,
       color: '#c084fc',
       items: [
-        { name: 'Google Gemini 3.6 Flash', desc: 'Large language model utilizing Google GenAI Interactions API for underwriting briefs.' },
-        { name: 'Context-Grounded Explanations', desc: 'Structured Data_Dictionary.json grounding to eliminate LLM hallucinations on credit variables.' }
+        { name: 'Pinecone Vector Database & RAG', desc: 'Vector database for Retrieval-Augmented Generation (RAG) retrieving context from official RBI policy PDFs.' },
+        { name: 'Google Gemini 3.6 / Interactions API', desc: 'Large language model utilizing Google GenAI SDK for automated underwriting briefs.' },
+        { name: 'Context-Grounded Explanations', desc: 'Structured Data_Dictionary.json mapping and RBI compliance context grounding to eliminate LLM hallucinations on credit variables.' }
       ]
     },
     {
@@ -119,7 +121,7 @@ export default function AboutView() {
               System Purpose & Architecture
             </h2>
             <p style={{ color: 'var(--text-muted)', lineHeight: 1.65, fontSize: '0.95rem', marginBottom: '18px' }}>
-              The Credit Risk Assessment Engine & Compliance Hub is a machine-learning-powered credit scoring and automated underwriting platform. It evaluates loan applicant profiles across 90+ credit metrics (Internal Bank + External CIBIL bureau data), classifies applicants into discrete risk tiers (<strong>P1 to P4</strong>), supports bulk CSV evaluation, and leverages Generative AI (Google Gemini) for automated underwriter briefs and explainability.
+              The Credit Risk Assessment Engine & Compliance Hub is a machine-learning-powered credit scoring and automated underwriting platform. It evaluates loan applicant profiles across 90+ credit metrics (Internal Bank + External CIBIL bureau data), classifies applicants into discrete risk tiers (<strong>P1 to P4</strong>), supports bulk CSV evaluation, and leverages Generative AI (Google Gemini) combined with <strong>Pinecone RAG</strong> (Retrieval-Augmented Generation using official RBI policy PDFs) for automated underwriter briefs and regulatory explainability.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4" style={{ borderTop: '1px solid var(--border-glass)' }}>
