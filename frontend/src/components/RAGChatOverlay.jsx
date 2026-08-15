@@ -287,7 +287,7 @@ export default function RAGChatOverlay({
         </div>
       </div>
 
-      {/* Expanded Content Area with Smooth Opacity & Scale Transition */}
+      {/* Expanded Content Area */}
       <div
         className="flex-1 flex flex-col min-h-0"
         style={{
@@ -360,29 +360,36 @@ export default function RAGChatOverlay({
                 <FormattedMessage text={msg.content} isUser={msg.role === 'user'} />
               </div>
 
-              {/* Grounding Citations */}
+              {/* Grounding Policy Citations Grouped Under Label */}
               {msg.citations && msg.citations.length > 0 && (
-                <div className="mt-1.5 flex flex-wrap gap-1 max-w-[88%]">
-                  {msg.citations.map((cite, cIdx) => (
-                    <span
-                      key={cIdx}
-                      style={{
-                        fontSize: '0.68rem',
-                        background: 'rgba(99, 102, 241, 0.12)',
-                        border: '1px solid rgba(99, 102, 241, 0.25)',
-                        color: '#818cf8',
-                        padding: '2px 8px',
-                        borderRadius: '12px',
-                        fontWeight: 600,
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '4px'
-                      }}
-                    >
-                      <BookOpen size={10} style={{ flexShrink: 0 }} />
-                      {cite.doc_name} • {cite.clause}
-                    </span>
-                  ))}
+                <div 
+                  className="mt-2 p-2 rounded-xl flex flex-col gap-1.5 max-w-[88%]" 
+                  style={{ 
+                    background: 'var(--input-bg)', 
+                    border: '1px solid var(--border-glass)' 
+                  }}
+                >
+                  <span className="text-[10px] font-bold uppercase tracking-wider flex items-center gap-1" style={{ color: 'var(--text-muted)' }}>
+                    <BookOpen size={11} className="text-indigo-400" /> Grounding Policy References:
+                  </span>
+                  <div className="flex flex-wrap gap-1">
+                    {msg.citations.map((cite, cIdx) => (
+                      <span
+                        key={cIdx}
+                        style={{
+                          fontSize: '0.68rem',
+                          background: 'rgba(99, 102, 241, 0.15)',
+                          border: '1px solid rgba(99, 102, 241, 0.3)',
+                          color: '#818cf8',
+                          padding: '2px 7px',
+                          borderRadius: '8px',
+                          fontWeight: 600
+                        }}
+                      >
+                        {cite.doc_name} • {cite.clause}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
@@ -399,7 +406,7 @@ export default function RAGChatOverlay({
               }}
             >
               <RefreshCw size={14} className="animate-spin text-purple-500" />
-              <span>Searching Pinecone policy embeddings & synthesizing response...</span>
+              <span>Consulting bank credit policy & RBI guidelines...</span>
             </div>
           )}
 

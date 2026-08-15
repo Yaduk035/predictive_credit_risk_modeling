@@ -599,7 +599,7 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
                 {loadingSummary && (
                   <div className="py-12 flex flex-col items-center justify-center gap-3 text-xs text-purple-400 font-semibold">
                     <RefreshCw size={24} className="animate-spin" />
-                    <span>Searching Pinecone policy embeddings & synthesizing executive summary...</span>
+                    <span>Analyzing applicant metrics against credit policy & RBI guidelines...</span>
                   </div>
                 )}
 
