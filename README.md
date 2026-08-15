@@ -27,8 +27,8 @@ Developed as a capstone project for the **Executive Program in Advanced AI/ML** 
 - **Neutral Mean Scaling Engine:** Handles incomplete financial payloads by imputing missing features with training means ($z\text{-score} = 0.0$), preventing model skewing and class-collapse bugs.
 - **Case-Insensitive Feature Matching:** Automatically normalizes incoming JSON and CSV column names to ensure seamless mapping against dataset schemas.
 - **Bulk Batch Evaluation (`/predict-csv`):** Upload multi-row CSV files via multipart form-data to receive batch risk evaluations and confidence probabilities instantly.
-- **AI Underwriter Summaries (`/generate-summary`):** Integrates Google Gemini via the **Google GenAI Interactions API** to translate raw numeric risk factors into concise, human-readable underwriting briefs.
-- **Context-Grounded Explanations:** Grounded via a structured `Data_Dictionary.json` mapping to eliminate LLM hallucinations on technical credit variables (e.g., `num_times_30p_dpd`, `pct_currentBal_all_TL`).
+- **RAG-Grounded AI Underwriter Summaries (`/generate-summary`):** Integrates Google Gemini via the **Google GenAI Interactions API** paired with **Pinecone** vector search (Retrieval-Augmented Generation) to extract context from **RBI (Reserve Bank of India) policy PDFs**, translating raw numeric risk factors into regulatory-compliant, human-readable underwriting briefs.
+- **Context-Grounded Explanations:** Grounded via structured `Data_Dictionary.json` mapping and RBI policy context to eliminate LLM hallucinations on technical credit variables (e.g., `num_times_30p_dpd`, `pct_currentBal_all_TL`).
 
 ---
 
@@ -47,15 +47,17 @@ Developed as a capstone project for the **Executive Program in Advanced AI/ML** 
 
 ### Machine Learning & Data Processing
 
+- **Environment:** Google Colab
 - **Language:** Python 3.10+
-- **Core Libraries:** `scikit-learn`, `xgboost`, `pandas`, `numpy`, `joblib`
-- **Optimization:** `GridSearchCV` (GPU-accelerated training)
+- **Core Libraries & Tuning:** `scikit-learn` (`GridSearchCV`), `xgboost`, `pandas`, `numpy`, `joblib`
+- **Data Visualization:** `matplotlib`, `seaborn`
 
 ### Backend API Infrastructure
 
 - **Framework:** FastAPI (ASGI)
 - **Server:** Uvicorn
 - **Data Validation:** Pydantic
+- **Vector Database & RAG:** Pinecone (Vector database for RAG context retrieval)
 - **AI Integration:** Google GenAI SDK (`google-genai`), Gemini 3.6 / Interactions API
 
 ### Frontend Application
@@ -73,9 +75,14 @@ Developed as a capstone project for the **Executive Program in Advanced AI/ML** 
 
 ### Prerequisites
 
-- **Python 3.10+** (with `pip` and `venv`)
-- **Node.js 18+** (with `npm`)
+#### Machine Learning & Backend API
+- **Python 3.10+** (with `pip` package manager and `venv`)
+- **Google Gemini API Key** (Required for Generative AI underwriting briefs)
+- **Pinecone API Key** (Required for vector database RAG context retrieval)
 - **Git**
+
+#### Frontend Web Application
+- **Node.js 18+** (with `npm` package manager — required for React + Vite UI)
 
 ---
 
@@ -83,42 +90,43 @@ Developed as a capstone project for the **Executive Program in Advanced AI/ML** 
 
 ```bash
 git clone https://github.com/Yaduk035/predictive_credit_risk_modeling.git
-cd bank_analytics
+cd predictive_credit_risk_modeling
 ```
 
 ---
 
 ### 2. Backend API Setup (FastAPI)
 
-1. **Navigate to the app directory:**
+1. **Create & activate a Python virtual environment:**
+
+   ```bash
+   # Linux/macOS:
+   python3 -m venv env
+   source env/bin/activate
+
+   # Windows (Command Prompt):
+   python -m venv env
+   env\Scripts\activate
+   ```
+
+2. **Install Python dependencies:**
+
+   ```bash
+   pip install -r requirements-prod.txt
+   ```
+
+3. **Navigate to the app directory:**
 
    ```bash
    cd app
    ```
 
-2. **Create & activate a Python virtual environment:**
-
-   ```bash
-   # Linux/macOS:
-   python3 -m venv venv
-   source venv/bin/activate
-
-   # Windows (Command Prompt):
-   python -m venv venv
-   venv\Scripts\activate
-   ```
-
-3. **Install Python dependencies:**
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **(Optional) Configure Gemini AI Key:**
+4. **Configure Environment Variables:**
    Create a `.env` file inside `app/`:
 
    ```env
    GEMINI_API_KEY=your_google_gemini_api_key
+   PINECONE_API_KEY=your_pinecone_api_key
    ```
 
 5. **Start the FastAPI server:**
@@ -154,5 +162,5 @@ cd bank_analytics
    ```bash
    npm run dev
    ```
-   The application will run live at `http://localhost:5173` (or `http://localhost:3001`).
+   The application will run live at `http://localhost:3000`.
 
