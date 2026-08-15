@@ -28,15 +28,19 @@ load_dotenv()
 
 # 3. Load ML Assets on Startup
 print("Loading Model Assets...")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODELS_DIR = os.path.abspath(os.path.join(BASE_DIR, '..', 'models'))
+DATA_DIR = os.path.abspath(os.path.join(BASE_DIR, '..', 'data', 'datasets'))
+
 try:
-    model = joblib.load('../models/best_gradient_boosting_model.pkl')
-    scaler = joblib.load('../models/scaler_v2.pkl')
+    model = joblib.load(os.path.join(MODELS_DIR, 'gradient_boosting_model.pkl'))
+    scaler = joblib.load(os.path.join(MODELS_DIR, 'scaler.pkl'))
     
-    with open('../models/feature_columns_v2.json', 'r') as f:
+    with open(os.path.join(MODELS_DIR, 'feature_columns.json'), 'r') as f:
         feature_columns = json.load(f)
         
     # --- UPDATED: Load the flattened Data Dictionary ---
-    with open('../data/datasets/Data_Dictionary.json', 'r') as f:
+    with open(os.path.join(DATA_DIR, 'Data_Dictionary.json'), 'r') as f:
         raw_list = json.load(f)
         
     # Create the lookup table directly from the list of objects
