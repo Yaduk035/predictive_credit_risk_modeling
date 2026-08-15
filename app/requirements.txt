@@ -126,3 +126,7 @@ webencodings==0.5.1
 websocket-client==1.9.0
 websockets==16.1.1
 xgboost==3.4.0
+pinecone>=9.1.0
+pypdf>=6.16.0
+
+
