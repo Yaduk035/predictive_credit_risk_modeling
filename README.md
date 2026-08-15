@@ -1,6 +1,6 @@
 # 🏦 Credit Risk Assessment Engine & Compliance Hub
 
-A machine-learning-powered credit scoring and automated underwriting platform. This system evaluates loan applicant profiles across 90+ credit metrics (Internal Bank + External CIBIL data), classifies applicants into discrete risk tiers (**P1 to P4**), supports bulk CSV evaluation, and leverages Generative AI (Google Gemini) for automated underwriter briefs and explainability.
+A machine-learning-powered credit scoring and automated underwriting platform. This system evaluates loan applicant profiles across 90+ credit metrics (Internal Bank + External CIBIL data), classifies applicants into discrete risk tiers (**P1 to P4**), supports bulk CSV batch evaluations, generates **RAG-Grounded Executive Underwriter Summaries**, and features a dedicated **Interactive RAG AI Policy & Regulatory Chatbot** for real-time compliance co-piloting.
 
 Developed as a capstone project for the **Executive Program in Advanced AI/ML** at **ICT Academy of Kerala**.
 
@@ -23,12 +23,12 @@ Developed as a capstone project for the **Executive Program in Advanced AI/ML** 
 
 ## 🚀 Key Features
 
-- **Tuned Machine Learning Engine:** Utilizes an **XGBoost Classifier** fine-tuned via `GridSearchCV` for optimal multi-class risk classification.
+- **Tuned Machine Learning Engine:** Utilizes an **XGBoost Classifier** fine-tuned via `GridSearchCV` for optimal multi-class risk classification across 89 credit metrics.
 - **Neutral Mean Scaling Engine:** Handles incomplete financial payloads by imputing missing features with training means ($z\text{-score} = 0.0$), preventing model skewing and class-collapse bugs.
 - **Case-Insensitive Feature Matching:** Automatically normalizes incoming JSON and CSV column names to ensure seamless mapping against dataset schemas.
-- **Bulk Batch Evaluation (`/predict-csv`):** Upload multi-row CSV files via multipart form-data to receive batch risk evaluations and confidence probabilities instantly.
-- **RAG-Grounded AI Underwriter Summaries (`/generate-summary`):** Integrates Google Gemini via the **Google GenAI Interactions API** paired with **Pinecone** vector search (Retrieval-Augmented Generation) to extract context from **RBI (Reserve Bank of India) policy PDFs**, translating raw numeric risk factors into regulatory-compliant, human-readable underwriting briefs.
-- **Context-Grounded Explanations:** Grounded via structured `Data_Dictionary.json` mapping and RBI policy context to eliminate LLM hallucinations on technical credit variables (e.g., `num_times_30p_dpd`, `pct_currentBal_all_TL`).
+- **Bulk Batch Evaluation:** Upload multi-row CSV files via multipart form-data to receive batch risk evaluations and confidence probabilities instantly.
+- **RAG-Grounded AI Underwriter Summaries:** Generates automated underwriter syntheses by querying **Pinecone** vector database (retrieving relevant clauses from **Credit Policy 2026** and **RBI Digital Lending Guidelines**) paired with Google Gemini LLM for structured policy explainability.
+- **Interactive RAG AI Policy Chatbot:** Dedicated real-time conversational chatbot interface (available as a floating assistant overlay and embedded report tab) grounded in 109 Pinecone vector chunk embeddings of official credit policy manuals. Supports interactive Q&A on RBI norms, credit metrics, and risk tier criteria with automated clause citation badges (`📚 Grounding Policy References`), conversation history memory, and domain guardrails.
 
 ---
 

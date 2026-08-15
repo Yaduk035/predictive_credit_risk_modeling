@@ -53,7 +53,7 @@ export default function HeroSection() {
               marginBottom: '28px',
               maxWidth: '560px'
             }}>
-              underwrite.ai evaluates loan applicant creditworthiness across 26 key credit bureau variables, assigns 4-tier risk classifications (P1 Prime Safe to P4 High Risk) with Gradient Boosting machine learning, runs single & bulk portfolio predictions, and generates executive AI underwriter summaries.
+              underwrite.ai evaluates loan applicant creditworthiness across 89 credit bureau metrics, assigns 4-tier risk classifications (P1 Prime to P4 High Risk) with XGBoost machine learning, runs single & bulk portfolio predictions, generates RAG-grounded underwriter summaries, and features an interactive RAG AI Policy Chatbot for real-time compliance co-piloting.
             </p>
 
             {/* CTA Action Buttons */}
@@ -70,7 +70,7 @@ export default function HeroSection() {
 
             {/* Feature Check List */}
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-              {['XGBoost ML Risk Scoring', '4-Tier Risk Classification', 'Bulk CSV Batch Engine', 'Executive AI Underwriting'].map((feature, i) => (
+              {['XGBoost ML Risk Scoring', '4-Tier Risk Classification', 'Pinecone RAG Policy Assistant', 'Executive AI Underwriting'].map((feature, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
                   <CheckCircle2 size={15} color="#34d399" />
                   <span>{feature}</span>
