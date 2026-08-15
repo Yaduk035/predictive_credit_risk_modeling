@@ -125,6 +125,11 @@ def run_ingestion():
         print("Index created successfully!")
 
     index = pc.Index(INDEX_NAME)
+    try:
+        print(f"Clearing old vectors in index '{INDEX_NAME}'...")
+        index.delete(delete_all=True)
+    except Exception as e:
+        print(f"[Pinecone Clear Notice]: {e}")
 
     print("Initializing Google GenAI client...")
     genai_client = genai.Client()

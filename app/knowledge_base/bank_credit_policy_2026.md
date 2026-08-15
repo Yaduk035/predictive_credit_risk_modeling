@@ -1,69 +1,48 @@
 # NeoBank AI Internal Credit Risk & Policy Manual (2026 Edition)
 
-## Section 1: Overview & Risk Tier Classification Architecture
+## Section 1: Risk Classification & Scoring Architecture
 
-This manual sets forth the credit underwriting parameters, risk tier assignments, and policy override thresholds for retail credit and personal loan applications.
+This manual establishes the underwriting principles, risk tier classifications, and compliance guidelines governing retail lending evaluations at NeoBank.
 
-All applicants are categorized into one of four Risk Tiers based on their bureau history and quantitative scoring models:
-- **Tier P1 (Prime Safe)**: Minimal credit risk (< 5% default probability). High net income, clean repayment history (0 DPD), and low credit utilization (< 35%).
-- **Tier P2 (Standard Moderate)**: Low to moderate risk (5% – 15% default probability). Stable credit history, standard utilization (< 65%), and zero recent 60+ DPD occurrences.
-- **Tier P3 (Subprime Risk)**: Elevated default probability (15% – 35%). Flagged for elevated inquiries, high balance ratio (> 75%), or recent delinquencies (30+ DPD).
-- **Tier P4 (Severe High Risk)**: High default risk (> 35%). History of 60+ DPD delinquencies, substandard (SUB) or doubtful (DBT) accounts, or total missed payments > 5.
+The quantitative XGBoost credit risk scoring model evaluates loan applicants based on bureau history depth, inquiry velocity, repayment stability, and trade line tenure, categorizing applicants into four risk tiers:
 
----
-
-## Section 2: Delinquency Thresholds & DPD Rules
-
-### Policy Clause §2.1: 30+ Days Past Due (DPD) Limits
-- **Tier P1 Eligibility**: Maximum 0 occurrences of 30+ DPD across all trade lines.
-- **Tier P2 Eligibility**: Maximum 1 occurrence of 30+ DPD within the last 24 months, provided total missed payments equal zero in the last 6 months.
-- **Tier P3 Categorization**: Triggered if the applicant has 2 to 4 occurrences of 30+ DPD or total missed payments between 1 and 3.
-- **Tier P4 Categorization**: Triggered if the applicant has 5 or more occurrences of 30+ DPD or any single 90+ DPD event within the last 12 months.
-
-### Policy Clause §2.2: 60+ Days Past Due (DPD) Mandates
-- Any single occurrence of 60+ DPD automatically disqualifies the applicant from Tier P1 and Tier P2.
-- Applications with 2 or more occurrences of 60+ DPD require mandatory decline or high-security collateral backing (minimum 120% loan-to-value ratio).
+- **Tier P1 (Prime Safe)**: Established credit history depth (average oldest trade line > 80 months), long employer stability, strong standard trade line performance (`num_std`), and low inquiry velocity (`enq_L6m` ≤ 2).
+- **Tier P2 (Standard Moderate Risk)**: Moderate credit history depth (`Age_Oldest_TL` 30–80 months), stable income stream, standard utilization, and controlled inquiry velocity (`enq_L6m` 1–4).
+- **Tier P3 (Subprime / Elevated Risk)**: Shorter credit history (`Age_Oldest_TL` < 30 months), recent bureau inquiry activity (`enq_L6m` 2–5), or moderate debt ratio.
+- **Tier P4 (Severe High Risk)**: High recent hard inquiry velocity (`enq_L6m` ≥ 5), recent credit-seeking behavior (`time_since_recent_enq` < 30 days), short tenure with current employer, or elevated recent delinquency levels (`max_deliq_12mts` > 6).
 
 ---
 
-## Section 3: Income, Leverage, and Balance Ratio Limits
+## Section 2: Underwriting Parameters & Metric Thresholds
 
-### Policy Clause §3.1: Net Monthly Income Thresholds
-- **Minimum Income Baseline**: ₹15,000 net monthly income is required for personal loan consideration.
-- **Prime Tier Income Baseline**: Applicants with net monthly income ≥ ₹75,000 with clean repayment history are granted automatic prime interest rate discounts (-1.25% APR).
+### Policy Clause §2.1: Credit Bureau Hard Inquiry Velocity (`enq_L6m`, `tot_enq`, `time_since_recent_enq`)
+- **Prime Inquiry Benchmark**: `enq_L6m` ≤ 2 inquiries in the last 6 months aligns with Tier P1 and Tier P2 scoring profiles.
+- **High Inquiry Velocity Flag**: `enq_L6m` ≥ 5 hard inquiries within 6 months signals elevated credit seeking, placing the applicant in Tier P3 or Tier P4.
+- **Recent Inquiry Recency**: Recent inquiry within 30 days (`time_since_recent_enq` < 30 days) increases risk tier weight towards Tier P4.
 
-### Policy Clause §3.2: Balance Ratio across Trade Lines (`pct_currentBal_all_TL`)
-- **Healthy Ratio (< 0.50)**: Indicates low credit utilization.
-- **Elevated Ratio (0.50 - 0.80)**: Standard credit leverage; monitored for revolving debt strain.
-- **High Debt Ratio (> 0.80)**: Triggers subprime risk flag. Combined with 3+ bureau inquiries, the applicant is restricted to Tier P3 or Tier P4.
-
----
-
-## Section 4: Bureau Inquiries & Hard Inquiry Velocity
-
-### Policy Clause §4.1: Bureau Inquiry Limits (`tot_enq` & `enq_L6m`)
-- **Inquiry Velocity Limit**: More than 4 credit bureau inquiries in the last 6 months (`enq_L6m > 4`) indicates credit hunger and increases default probability by 2.4x.
-- **Personal Loan Specific Inquiries (`PL_enq_L6m`)**: More than 3 personal loan inquiries in 6 months requires underwriter review of existing active unsecured trade lines.
+### Policy Clause §2.2: Bureau History Depth & Stability (`Age_Oldest_TL`, `num_std`, `Time_With_Curr_Empr`)
+- **Established Credit Vintage**: `Age_Oldest_TL` ≥ 72 months (6+ years) combined with high standard account counts (`num_std` > 15) strongly correlates with Tier P1 eligibility.
+- **Limited Vintage**: `Age_Oldest_TL` < 30 months limits auto-approval thresholds and generally places applicants in Tier P2 or Tier P3.
 
 ---
 
-## Section 5: Policy Underwriting Guidance & Override Criteria
+## Section 3: Policy Underwriting Protocols & Decision Guidelines
 
-### Policy Clause §5.1: Tier P1 Underwriting Protocol
-- **Guidance**: Immediate Auto-Approval at prime competitive interest rates.
-- **Documentation**: Standard automated income verification.
+### Policy Clause §3.1: Tier P1 Underwriting Protocol (Prime Safe)
+- **Guidance**: Automatic Approval at prime competitive interest rates.
+- **Documentation**: Automated digital income verification.
 
-### Policy Clause §5.2: Tier P2 Underwriting Protocol
-- **Guidance**: Auto-Approval at standard lending rates.
-- **Documentation**: Payslip verification for past 3 months.
+### Policy Clause §3.2: Tier P2 Underwriting Protocol (Standard Moderate)
+- **Guidance**: Auto-Approval at standard retail lending rates.
+- **Documentation**: Standard payslip or bank statement verification.
 
-### Policy Clause §5.3: Tier P3 Underwriting Protocol
+### Policy Clause §3.3: Tier P3 Underwriting Protocol (Subprime Risk)
 - **Guidance**: Manual Underwriter Review required.
 - **Requirements**:
-  1. Mandatory income tax return (ITR) or bank statement audit for 6 months.
+  1. Income tax return (ITR) or 6-month bank statement audit.
   2. Interest rate surcharge of +1.50% to +2.50% APR.
-  3. Maximum loan-to-income ratio capped at 6x net monthly income.
+  3. Maximum loan amount capped at 6x net monthly income.
 
-### Policy Clause §5.4: Tier P4 Underwriting Protocol
-- **Guidance**: Decline recommended or require 120% collateral security deposit.
-- **Override Exception**: May only be overridden by the Senior Credit Risk Officer if a prime co-signer (Tier P1) guarantees the liability.
+### Policy Clause §3.4: Tier P4 Underwriting Protocol (Severe High Risk)
+- **Guidance**: Decline recommended or require 120% collateral security backing.
+- **Override Protocol**: Requires Senior Credit Officer sign-off or a Tier P1 co-signer.
