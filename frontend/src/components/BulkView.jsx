@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { API_BASE_URL } from '../config';
 import { 
   UploadCloud, 
@@ -10,6 +10,7 @@ import {
   Search, 
   Filter, 
   RefreshCw,
+  RotateCcw,
   Sparkles,
   FileDown,
   Layers
@@ -46,6 +47,29 @@ export default function BulkView() {
   const [bulkSummaryError, setBulkSummaryError] = useState(null);
 
   const fileInputRef = useRef(null);
+  const resultsRef = useRef(null);
+
+  // Reset all upload and results state
+  const handleReset = () => {
+    setSelectedFile(null);
+    setBatchResults(null);
+    setBulkAiSummary(null);
+    setBulkSummaryError(null);
+    setErrorMsg(null);
+    setFilterTier('ALL');
+    setSearchQuery('');
+    setCurrentPage(1);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  // Scroll to summary card above AI summary section when results are loaded
+  useEffect(() => {
+    if (batchResults && resultsRef.current) {
+      resultsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [batchResults]);
 
   const handleFetchBulkSummary = async () => {
     if (!batchResults || !batchResults.total_records) return;
@@ -117,10 +141,20 @@ export default function BulkView() {
     if (!file.name.endsWith('.csv')) {
       setErrorMsg('Please select a valid .csv file.');
       setSelectedFile(null);
+      setBatchResults(null);
+      setBulkAiSummary(null);
+      setBulkSummaryError(null);
       return;
     }
     setErrorMsg(null);
     setSelectedFile(file);
+    // Reset previous batch results and AI summary on new file upload
+    setBatchResults(null);
+    setBulkAiSummary(null);
+    setBulkSummaryError(null);
+    setFilterTier('ALL');
+    setSearchQuery('');
+    setCurrentPage(1);
   };
 
   // Submit batch CSV to FastAPI backend /api/predict-csv
@@ -369,8 +403,28 @@ export default function BulkView() {
             </div>
           )}
 
-          {/* Action button */}
-          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>
+          {/* Action buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mt-5">
+            {(selectedFile || batchResults) ? (
+              <button 
+                type="button"
+                onClick={handleReset}
+                disabled={loading}
+                className="btn-secondary w-full sm:w-auto justify-center"
+                style={{
+                  padding: '12px 20px',
+                  color: '#f87171',
+                  borderColor: 'rgba(239, 68, 68, 0.3)',
+                  background: 'rgba(239, 68, 68, 0.08)'
+                }}
+              >
+                <RotateCcw size={16} />
+                Reset Upload & Results
+              </button>
+            ) : (
+              <div />
+            )}
+
             <button 
               onClick={handleProcessBatch}
               disabled={!selectedFile || loading}
@@ -400,7 +454,11 @@ export default function BulkView() {
         {batchResults && (
           <div>
             {/* Top Summary Banner */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 mb-8">
+            <div 
+              ref={resultsRef} 
+              className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 mb-8"
+              style={{ scrollMarginTop: '90px' }}
+            >
               <SummaryCard label="Total Processed" value={batchResults.total_records} color="var(--text-main)" icon={Layers} />
               <SummaryCard label="P1 - Safe Tiers" value={tierStats[0].count} color="#10b981" />
               <SummaryCard label="P2 - Moderate" value={tierStats[1].count} color="#3b82f6" />
