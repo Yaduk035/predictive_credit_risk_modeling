@@ -350,3 +350,103 @@ async def generate_bulk_portfolio_summary(request: BulkSummaryRequest):
             )
         raise HTTPException(status_code=500, detail=err_msg)
 
+
+class ChatMessage(BaseModel):
+    role: str  # "user" or "assistant"
+    content: str
+
+class ChatRequest(BaseModel):
+    question: str
+    history: list[ChatMessage] = []
+    risk_tier: str | None = None
+    probability: float | None = None
+    applicant_data: dict | None = None
+
+@app.post("/api/chat-rag")
+async def chat_with_policy_rag(request: ChatRequest):
+    try:
+        # 1. Format applicant data context if provided
+        applicant_context_str = ""
+        applicant_dict = request.applicant_data or {}
+        if applicant_dict:
+            translated_lines = []
+            for key, val in applicant_dict.items():
+                desc = feature_descriptions.get(key, key)
+                translated_lines.append(f"- {desc} ({key}): {val}")
+            applicant_context_str = "\n".join(translated_lines)
+
+        # 2. Query Pinecone vector DB using user's question + applicant attributes
+        rag_matches = query_policy_rag(
+            genai_client=ai_client,
+            risk_tier=request.risk_tier or "General",
+            probability=request.probability or 0.0,
+            applicant_data=applicant_dict,
+            user_question=request.question,
+            top_k=4
+        )
+        
+        policy_context_str = format_policy_context(rag_matches)
+        
+        # 3. Build chat history representation
+        formatted_history = ""
+        if request.history:
+            history_lines = []
+            for msg in request.history[-6:]:  # Keep last 6 exchanges for context window efficiency
+                role_label = "User" if msg.role == "user" else "Assistant"
+                history_lines.append(f"{role_label}: {msg.content}")
+            formatted_history = "\n".join(history_lines)
+
+        # 4. Construct RAG System Prompt
+        prompt = f"""
+You are the **NeoBank AI Underwriter & Compliance Co-Pilot**, an expert assistant trained on RBI (Reserve Bank of India) lending regulations, bank credit policy guidelines, and CIBIL bureau metrics.
+
+### Contextual Knowledge & Grounding Guidelines:
+1. Ground your answers in official bank policies, RBI guidelines, and credit dictionary definitions whenever applicable.
+2. If the user is asking about a specific loan applicant, refer to their evaluation details provided below.
+3. Be professional, clear, concise, and direct (use bullet points or markdown bold formatting where helpful).
+4. When citing metrics, use the format: "Description (VARIABLE_NAME)", e.g. "Total Missed Payments (Tot_Missed_Pmnt)".
+5. Cite policy clauses when applicable, e.g. [Credit Policy §3.2] or [RBI Digital Lending Guidelines].
+6. Treat the machine learning model's prediction (Risk Tier P1-P4 and confidence probability) as the primary assessment. Explain how the applicant's metrics align with the policy guidelines rather than asserting a compliance error or misclassification.
+
+--- Active Applicant Details ---
+Risk Tier: {request.risk_tier if request.risk_tier else "N/A (General Query)"}
+Model Confidence Probability: {request.probability if request.probability else "N/A"}%
+Applicant Financial Profile:
+{applicant_context_str if applicant_context_str else "No active applicant profile selected."}
+
+--- Grounding Retrieved Policy & Regulatory Clauses ---
+{policy_context_str if policy_context_str else "No specific policy clause match found."}
+
+--- Conversation History ---
+{formatted_history if formatted_history else "Starting new conversation."}
+
+User Question: {request.question}
+Assistant Answer:
+"""
+
+        answer_text = generate_ai_summary_with_fallback(prompt)
+
+        citation_badges = []
+        for m in rag_matches:
+            citation_badges.append({
+                "doc_name": m["doc_name"],
+                "clause": m["clause"],
+                "score": m["score"]
+            })
+
+        return {
+            "status": "success",
+            "answer": answer_text,
+            "policy_citations": citation_badges
+        }
+    except Exception as e:
+        err_msg = str(e)
+        print(f"[ERROR in /chat-rag]: {err_msg}")
+        if "429" in err_msg or "RESOURCE_EXHAUSTED" in err_msg or "quota" in err_msg.lower():
+            raise HTTPException(
+                status_code=429,
+                detail="AI rate limit reached. Please wait a few seconds before sending another message."
+            )
+        raise HTTPException(status_code=500, detail=err_msg)
+
+

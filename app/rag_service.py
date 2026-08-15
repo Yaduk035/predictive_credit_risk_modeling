@@ -50,7 +50,7 @@ def generate_embedding(genai_client, text: str):
         print(f"[Embedding Error]: {e}")
         return None
 
-def query_policy_rag(genai_client, risk_tier: str, probability: float, applicant_data: dict, top_k: int = 3):
+def query_policy_rag(genai_client, risk_tier: str, probability: float, applicant_data: dict, user_question: str = "", top_k: int = 3):
     pc = get_pinecone_client()
     if pc is None:
         return []
@@ -59,19 +59,25 @@ def query_policy_rag(genai_client, risk_tier: str, probability: float, applicant
     if index is None:
         return []
 
-    # Build targeted semantic query from applicant attributes
+    # Build targeted semantic query combining user question and applicant attributes
     income = applicant_data.get('NETMONTHLYINCOME', 'N/A')
     missed = applicant_data.get('Tot_Missed_Pmnt', 0)
     dpd30 = applicant_data.get('num_times_30p_dpd', 0)
     inquiries = applicant_data.get('tot_enq', 0)
     balance_ratio = applicant_data.get('pct_currentBal_all_TL', 0.0)
 
-    query_str = (
+    query_components = []
+    if user_question:
+        query_components.append(f"User Query: {user_question}")
+    
+    query_components.append(
         f"Underwriting credit policy rules and regulatory compliance guidelines for "
         f"Risk Tier {risk_tier} ({probability}% confidence). "
         f"Net Monthly Income: ₹{income}, Missed Payments: {missed}, "
         f"30+ DPD Occurrences: {dpd30}, Bureau Inquiries: {inquiries}, Balance Ratio: {balance_ratio}."
     )
+
+    query_str = "\n".join(query_components)
 
     query_vec = generate_embedding(genai_client, query_str)
     if not query_vec:
