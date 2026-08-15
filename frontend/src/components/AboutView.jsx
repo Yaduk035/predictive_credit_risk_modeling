@@ -37,8 +37,9 @@ export default function AboutView() {
       icon: Bot,
       color: '#c084fc',
       items: [
-        { name: 'Pinecone Vector Database & RAG', desc: 'Vector database for Retrieval-Augmented Generation (RAG) retrieving context from official RBI policy PDFs.' },
-        { name: 'Google Gemini 3.6 / Interactions API', desc: 'Large language model utilizing Google GenAI SDK for automated underwriting briefs.' },
+        { name: 'Pinecone Vector Database Indexing', desc: 'Indexed 109 vector chunks of Credit Policy 2026 and RBI Digital Lending Guidelines into Pinecone cloud vector database for real-time semantic retrieval.' },
+        { name: 'RAG AI Policy Co-Pilot (/api/chat-rag)', desc: 'Interactive conversational assistant embedded in the UI and floating overlay, featuring automated clause citation badges (Grounding Policy References), conversation memory, and strict domain guardrails.' },
+        { name: 'Google Gemini & Interactions API', desc: 'Large language model utilizing Google GenAI SDK with multi-model fallback (gemini-3.5-flash to 3.7-flash) for automated underwriting syntheses.' },
         { name: 'Context-Grounded Explanations', desc: 'Structured Data_Dictionary.json mapping and RBI compliance context grounding to eliminate LLM hallucinations on credit variables.' }
       ]
     },
@@ -121,7 +122,7 @@ export default function AboutView() {
               System Purpose & Architecture
             </h2>
             <p style={{ color: 'var(--text-muted)', lineHeight: 1.65, fontSize: '0.95rem', marginBottom: '18px' }}>
-              The Credit Risk Assessment Engine & Compliance Hub is a machine-learning-powered credit scoring and automated underwriting platform. It evaluates loan applicant profiles across 90+ credit metrics (Internal Bank + External CIBIL bureau data), classifies applicants into discrete risk tiers (<strong>P1 to P4</strong>), supports bulk CSV evaluation, and leverages Generative AI (Google Gemini) combined with <strong>Pinecone RAG</strong> (Retrieval-Augmented Generation using official RBI policy PDFs) for automated underwriter briefs and regulatory explainability.
+              The Credit Risk Assessment Engine & Compliance Hub is a machine-learning-powered credit scoring and automated underwriting platform. It evaluates loan applicant profiles across 90+ credit metrics (Internal Bank + External CIBIL bureau data), classifies applicants into discrete risk tiers (<strong>P1 to P4</strong>), supports bulk CSV portfolio evaluation, generates <strong>RAG-Grounded Executive Underwriter Summaries</strong>, and features a dedicated <strong>Interactive RAG AI Policy & Regulatory Chatbot</strong> for real-time compliance co-piloting using 109 vector embeddings of official RBI policy manuals indexed in Pinecone.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4" style={{ borderTop: '1px solid var(--border-glass)' }}>

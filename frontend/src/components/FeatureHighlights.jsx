@@ -11,11 +11,18 @@ export default function FeatureHighlights() {
       badge: 'ML Engine'
     },
     {
-      title: 'Executive AI Underwriter Summaries',
-      description: 'Generates ~120-word executive underwriter syntheses explicitly pairing human-readable variable descriptions with raw bureau codes.',
+      title: 'RAG-Grounded AI Underwriter Summaries',
+      description: 'Generates automated executive underwriter syntheses explicitly pairing human-readable variable descriptions with raw bureau codes grounded in Pinecone vector policy context.',
       icon: Bot,
       color: '#c084fc',
-      badge: 'AI Underwriting'
+      badge: 'RAG Summary'
+    },
+    {
+      title: 'Interactive RAG AI Policy Chatbot',
+      description: 'Real-time conversational chatbot interface (floating overlay & report tab) powered by Pinecone vector search over Credit Policy 2026 & RBI guidelines with automated clause citation badges.',
+      icon: Bot,
+      color: '#38bdf8',
+      badge: 'RAG Chatbot'
     },
     {
       title: 'Bulk CSV Portfolio Analytics',
