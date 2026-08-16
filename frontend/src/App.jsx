@@ -24,7 +24,7 @@ function LandingPage() {
 
 export default function App() {
   const [apiConnected, setApiConnected] = useState(false);
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
 
   // Sync theme with HTML root class & localStorage
   useEffect(() => {
