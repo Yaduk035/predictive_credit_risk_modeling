@@ -591,23 +591,28 @@ export const FEATURE_CONFIGS = [
   },
   {
     "key": "MARITALSTATUS",
-    "label": "Marital Status (1=Single, 2=Married, etc.) (MARITALSTATUS)",
+    "label": "Marital Status (MARITALSTATUS)",
     "category": "Demographics & Income",
-    "type": "number",
+    "type": "select",
     "defaultVal": 1,
-    "min": 0,
-    "max": 1,
-    "step": 1
+    "options": [
+      { "value": 1, "label": "Married (1)" },
+      { "value": 0, "label": "Single (0)" }
+    ]
   },
   {
     "key": "EDUCATION",
-    "label": "Education Level (1=Undergrad, 2=Graduate, etc.) (EDUCATION)",
+    "label": "Education Level (EDUCATION)",
     "category": "Demographics & Income",
-    "type": "number",
+    "type": "select",
     "defaultVal": 3,
-    "min": 0,
-    "max": 1,
-    "step": 1
+    "options": [
+      { "value": 1, "label": "Others (1)" },
+      { "value": 2, "label": "Secondary - SSC (2)" },
+      { "value": 3, "label": "Higher Secondary - 12th (3)" },
+      { "value": 4, "label": "Undergraduate / Graduate (4)" },
+      { "value": 5, "label": "Post-Graduate / Professional (5)" }
+    ]
   },
   {
     "key": "AGE",
@@ -621,13 +626,14 @@ export const FEATURE_CONFIGS = [
   },
   {
     "key": "GENDER",
-    "label": "Gender (1=Male, 2=Female) (GENDER)",
+    "label": "Gender (GENDER)",
     "category": "Demographics & Income",
-    "type": "number",
+    "type": "select",
     "defaultVal": 1,
-    "min": 0,
-    "max": 1,
-    "step": 1
+    "options": [
+      { "value": 1, "label": "Male (1)" },
+      { "value": 0, "label": "Female (0)" }
+    ]
   },
   {
     "key": "NETMONTHLYINCOME",
@@ -681,23 +687,25 @@ export const FEATURE_CONFIGS = [
   },
   {
     "key": "CC_Flag",
-    "label": "Credit Card Account Flag (1=Active/Ever, 0=None) (CC_Flag)",
+    "label": "Credit Card Account Flag (CC_Flag)",
     "category": "Account & Product Flags",
-    "type": "number",
+    "type": "select",
     "defaultVal": 0,
-    "min": 0,
-    "max": 1,
-    "step": 1
+    "options": [
+      { "value": 0, "label": "No (0)" },
+      { "value": 1, "label": "Yes (1)" }
+    ]
   },
   {
     "key": "PL_Flag",
-    "label": "Personal Loan Account Flag (1=Active/Ever, 0=None) (PL_Flag)",
+    "label": "Personal Loan Account Flag (PL_Flag)",
     "category": "Account & Product Flags",
-    "type": "number",
+    "type": "select",
     "defaultVal": 0,
-    "min": 0,
-    "max": 1,
-    "step": 1
+    "options": [
+      { "value": 0, "label": "No (0)" },
+      { "value": 1, "label": "Yes (1)" }
+    ]
   },
   {
     "key": "pct_PL_enq_L6m_of_L12m",
@@ -741,142 +749,156 @@ export const FEATURE_CONFIGS = [
   },
   {
     "key": "HL_Flag",
-    "label": "Housing Loan Account Flag (1=Active/Ever, 0=None) (HL_Flag)",
+    "label": "Housing Loan Account Flag (HL_Flag)",
     "category": "Account & Product Flags",
-    "type": "number",
+    "type": "select",
     "defaultVal": 0,
-    "min": 0,
-    "max": 1,
-    "step": 1
+    "options": [
+      { "value": 0, "label": "No (0)" },
+      { "value": 1, "label": "Yes (1)" }
+    ]
   },
   {
     "key": "GL_Flag",
-    "label": "Gold Loan Account Flag (1=Active/Ever, 0=None) (GL_Flag)",
+    "label": "Gold Loan Account Flag (GL_Flag)",
     "category": "Account & Product Flags",
-    "type": "number",
+    "type": "select",
     "defaultVal": 0,
-    "min": 0,
-    "max": 1,
-    "step": 1
+    "options": [
+      { "value": 0, "label": "No (0)" },
+      { "value": 1, "label": "Yes (1)" }
+    ]
   },
   {
     "key": "last_prod_enq2_AL",
     "label": "Last Enquiry Product: Auto Loan Flag (last_prod_enq2_AL)",
     "category": "Credit Bureau Inquiries",
-    "type": "number",
+    "type": "select",
     "defaultVal": 0,
-    "min": 0,
-    "max": 1,
-    "step": 1
+    "options": [
+      { "value": 0, "label": "No (0)" },
+      { "value": 1, "label": "Yes (1)" }
+    ]
   },
   {
     "key": "last_prod_enq2_CC",
     "label": "Last Enquiry Product: Credit Card Flag (last_prod_enq2_CC)",
     "category": "Credit Bureau Inquiries",
-    "type": "number",
+    "type": "select",
     "defaultVal": 0,
-    "min": 0,
-    "max": 1,
-    "step": 1
+    "options": [
+      { "value": 0, "label": "No (0)" },
+      { "value": 1, "label": "Yes (1)" }
+    ]
   },
   {
     "key": "last_prod_enq2_ConsumerLoan",
     "label": "Last Enquiry Product: Consumer Loan Flag (last_prod_enq2_ConsumerLoan)",
     "category": "Credit Bureau Inquiries",
-    "type": "number",
+    "type": "select",
     "defaultVal": 0,
-    "min": 0,
-    "max": 1,
-    "step": 1
+    "options": [
+      { "value": 0, "label": "No (0)" },
+      { "value": 1, "label": "Yes (1)" }
+    ]
   },
   {
     "key": "last_prod_enq2_HL",
     "label": "Last Enquiry Product: Housing Loan Flag (last_prod_enq2_HL)",
     "category": "Credit Bureau Inquiries",
-    "type": "number",
+    "type": "select",
     "defaultVal": 0,
-    "min": 0,
-    "max": 1,
-    "step": 1
+    "options": [
+      { "value": 0, "label": "No (0)" },
+      { "value": 1, "label": "Yes (1)" }
+    ]
   },
   {
     "key": "last_prod_enq2_PL",
     "label": "Last Enquiry Product: Personal Loan Flag (last_prod_enq2_PL)",
     "category": "Credit Bureau Inquiries",
-    "type": "number",
+    "type": "select",
     "defaultVal": 0,
-    "min": 0,
-    "max": 1,
-    "step": 1
+    "options": [
+      { "value": 0, "label": "No (0)" },
+      { "value": 1, "label": "Yes (1)" }
+    ]
   },
   {
     "key": "last_prod_enq2_others",
     "label": "Last Enquiry Product: Others Flag (last_prod_enq2_others)",
     "category": "Credit Bureau Inquiries",
-    "type": "number",
+    "type": "select",
     "defaultVal": 1,
-    "min": 0,
-    "max": 1,
-    "step": 1
+    "options": [
+      { "value": 0, "label": "No (0)" },
+      { "value": 1, "label": "Yes (1)" }
+    ]
   },
   {
     "key": "first_prod_enq2_AL",
     "label": "First Enquiry Product: Auto Loan Flag (first_prod_enq2_AL)",
     "category": "Credit Bureau Inquiries",
-    "type": "number",
+    "type": "select",
     "defaultVal": 0,
-    "min": 0,
-    "max": 1,
-    "step": 1
+    "options": [
+      { "value": 0, "label": "No (0)" },
+      { "value": 1, "label": "Yes (1)" }
+    ]
   },
   {
     "key": "first_prod_enq2_CC",
     "label": "First Enquiry Product: Credit Card Flag (first_prod_enq2_CC)",
     "category": "Credit Bureau Inquiries",
-    "type": "number",
+    "type": "select",
     "defaultVal": 0,
-    "min": 0,
-    "max": 1,
-    "step": 1
+    "options": [
+      { "value": 0, "label": "No (0)" },
+      { "value": 1, "label": "Yes (1)" }
+    ]
   },
   {
     "key": "first_prod_enq2_ConsumerLoan",
     "label": "First Enquiry Product: Consumer Loan Flag (first_prod_enq2_ConsumerLoan)",
     "category": "Credit Bureau Inquiries",
-    "type": "number",
+    "type": "select",
     "defaultVal": 0,
-    "min": 0,
-    "max": 1,
-    "step": 1
+    "options": [
+      { "value": 0, "label": "No (0)" },
+      { "value": 1, "label": "Yes (1)" }
+    ]
   },
   {
     "key": "first_prod_enq2_HL",
     "label": "First Enquiry Product: Housing Loan Flag (first_prod_enq2_HL)",
     "category": "Credit Bureau Inquiries",
-    "type": "number",
+    "type": "select",
     "defaultVal": 0,
-    "min": 0,
-    "max": 1,
-    "step": 1
+    "options": [
+      { "value": 0, "label": "No (0)" },
+      { "value": 1, "label": "Yes (1)" }
+    ]
   },
   {
     "key": "first_prod_enq2_PL",
     "label": "First Enquiry Product: Personal Loan Flag (first_prod_enq2_PL)",
     "category": "Credit Bureau Inquiries",
-    "type": "number",
+    "type": "select",
     "defaultVal": 0,
-    "min": 0,
-    "max": 1,
-    "step": 1
+    "options": [
+      { "value": 0, "label": "No (0)" },
+      { "value": 1, "label": "Yes (1)" }
+    ]
   },
   {
     "key": "first_prod_enq2_others",
     "label": "First Enquiry Product: Others Flag (first_prod_enq2_others)",
     "category": "Credit Bureau Inquiries",
-    "type": "number",
+    "type": "select",
     "defaultVal": 1,
-    "min": 0,
-    "max": 1,
-    "step": 1
+    "options": [
+      { "value": 0, "label": "No (0)" },
+      { "value": 1, "label": "Yes (1)" }
+    ]
   }
 ];

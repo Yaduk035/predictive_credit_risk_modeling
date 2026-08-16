@@ -685,7 +685,14 @@ export default function PredictionModal({ isOpen, onClose, result, applicantData
                         <td className="px-4 py-2 text-gray-300">{f.label}</td>
                         <td className="px-4 py-2 text-gray-400">{f.category}</td>
                         <td className="px-4 py-2 text-right font-bold text-white font-mono">
-                          {applicantData[f.key] !== undefined ? applicantData[f.key] : f.defaultVal}
+                          {(() => {
+                            const rawVal = applicantData[f.key] !== undefined ? applicantData[f.key] : f.defaultVal;
+                            if (f.options && Array.isArray(f.options)) {
+                              const matchedOpt = f.options.find(o => Number(o.value) === Number(rawVal));
+                              return matchedOpt ? matchedOpt.label : rawVal;
+                            }
+                            return rawVal;
+                          })()}
                         </td>
                       </tr>
                     ))}

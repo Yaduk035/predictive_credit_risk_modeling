@@ -18,7 +18,8 @@ import {
   ChevronDown,
   Sliders,
   Filter,
-  X
+  X,
+  RefreshCw
 } from 'lucide-react';
 import PredictionModal from './PredictionModal';
 
@@ -302,7 +303,7 @@ export default function SingleView() {
         </div>
 
         {/* Input Form Grid */}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} noValidate>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
             {filteredCategories.map((cat, catIdx) => {
               const CategoryIcon = cat.icon;
@@ -348,22 +349,47 @@ export default function SingleView() {
                         <label style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 500, display: 'flex', justifyBetween: 'space-between', flexWrap: 'wrap', gap: '4px' }}>
                           <span className="truncate max-w-[80%]" title={field.label}>{field.label}</span>
                         </label>
-                        <input
-                          type={field.type}
-                          step={field.step}
-                          value={formData[field.key] !== undefined ? formData[field.key] : ''}
-                          onChange={(e) => handleInputChange(field.key, e.target.value)}
-                          style={{
-                            padding: '9px 12px',
-                            borderRadius: '10px',
-                            background: 'var(--input-bg)',
-                            border: '1px solid var(--input-border)',
-                            color: 'var(--text-main)',
-                            fontSize: '0.88rem',
-                            outline: 'none',
-                            transition: 'border-color 0.2s ease'
-                          }}
-                        />
+                        {field.type === 'select' ? (
+                          <select
+                            value={formData[field.key] !== undefined ? formData[field.key] : field.defaultVal}
+                            onChange={(e) => handleInputChange(field.key, e.target.value)}
+                            style={{
+                              padding: '9px 12px',
+                              borderRadius: '10px',
+                              background: 'var(--input-bg)',
+                              border: '1px solid var(--input-border)',
+                              color: 'var(--text-main)',
+                              fontSize: '0.88rem',
+                              outline: 'none',
+                              cursor: 'pointer',
+                              transition: 'border-color 0.2s ease',
+                              appearance: 'auto'
+                            }}
+                          >
+                            {field.options && field.options.map((opt) => (
+                              <option key={opt.value} value={opt.value} style={{ background: '#0f172a', color: '#f8fafc' }}>
+                                {opt.label}
+                              </option>
+                            ))}
+                          </select>
+                        ) : (
+                          <input
+                            type="number"
+                            step="any"
+                            value={formData[field.key] !== undefined ? formData[field.key] : ''}
+                            onChange={(e) => handleInputChange(field.key, e.target.value)}
+                            style={{
+                              padding: '9px 12px',
+                              borderRadius: '10px',
+                              background: 'var(--input-bg)',
+                              border: '1px solid var(--input-border)',
+                              color: 'var(--text-main)',
+                              fontSize: '0.88rem',
+                              outline: 'none',
+                              transition: 'border-color 0.2s ease'
+                            }}
+                          />
+                        )}
                       </div>
                     ))}
                   </div>
@@ -378,41 +404,66 @@ export default function SingleView() {
             border: '1px solid var(--border-glass)',
             borderRadius: '16px'
           }}>
+            <div className="flex items-center gap-3">
+              <div style={{
+                width: '38px',
+                height: '38px',
+                borderRadius: '10px',
+                background: 'rgba(6, 182, 212, 0.15)',
+                border: '1px solid rgba(6, 182, 212, 0.3)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0
+              }}>
+                <Zap size={18} color="#06b6d4" />
+              </div>
+              <div>
+                <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-main)' }}>
+                  Assessment Payload Ready
+                </div>
+                <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+                  All metrics formatted for AI risk prediction & underwriter evaluation
+                </div>
+              </div>
+            </div>
+
             {error && (
               <div style={{
                 backgroundColor: 'rgba(239, 68, 68, 0.15)',
                 border: '1px solid rgba(239, 68, 68, 0.4)',
                 color: '#f87171',
-                padding: '12px 18px',
+                padding: '10px 16px',
                 borderRadius: '10px',
-                width: '100%',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '10px',
-                fontSize: '0.9rem'
+                gap: '8px',
+                fontSize: '0.85rem'
               }}>
-                <ShieldAlert size={18} color="#f87171" style={{ flexShrink: 0 }} />
+                <ShieldAlert size={16} color="#f87171" style={{ flexShrink: 0 }} />
                 <span>{error}</span>
               </div>
             )}
 
-
-
-            <button 
-              type="submit" 
-              disabled={loading}
-              className="btn-primary w-full sm:w-auto justify-center" 
-              style={{ padding: '14px 28px', fontSize: '0.95rem' }}
-            >
-              {loading ? (
-                <>Evaluating Risk Prediction...</>
-              ) : (
-                <>
-                  <Send size={18} />
-                  Execute Underwriting Assessment
-                </>
-              )}
-            </button>
+            <div className="flex justify-end sm:ml-auto w-full sm:w-auto">
+              <button 
+                type="submit" 
+                disabled={loading}
+                className="btn-execute-redesigned w-full sm:w-auto"
+              >
+                {loading ? (
+                  <>
+                    <RefreshCw size={18} className="animate-spin" />
+                    <span>Evaluating Risk Prediction...</span>
+                  </>
+                ) : (
+                  <>
+                    <Sparkles size={18} />
+                    <span>Execute Underwriting Assessment</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </form>
 
